@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<order xmlns="http://www.middleware.fing.edu.uy/orders">
+	<head>
+		<number>1</number>
+		<date>23-05-2016</date>
+		<client-id>123456</client-id>
+		<payment-mode>E</payment-mode>
+	</head>
+	<detail>
+		<amount>40000</amount>
+		<payments>1</payments>
+	</detail>
+	<item>
+		<number>1</number>
+		<category>1</category>
+		<sku>3214584</sku>
+		<description>Telefonía Móvil</description>
+		<quantity>2</quantity>
+		<price>15000</price>
+	</item>
+	<item>
+		<number>2</number>
+		<category>3</category>
+		<sku>456897</sku>
+		<description>Red Strawberry</description>
+		<quantity>1</quantity>
+		<price>10000</price>
+	</item>
+</order>

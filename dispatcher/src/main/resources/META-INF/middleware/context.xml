@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:si-xml="http://www.springframework.org/schema/integration/xml"
+	xmlns:si="http://www.springframework.org/schema/integration" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration.xsd
+			http://www.springframework.org/schema/integration/xml
+			http://www.springframework.org/schema/integration/xml/spring-integration-xml.xsd
+			http://www.springframework.org/schema/util
+			http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<si:channel id="inboxChannel" />
+	<si:channel id="orderRoutingChannel" />
+	<si:channel id="invalidTotalChannel" />
+	<si:channel id="outboxChannel" />
+	<si:channel id="deadLetterChannel" />
+
+	<!-- map of namespace prefix to URI -->
+	<util:map id="orderNamespaceMap">
+		<entry key="orderNs" value="http://www.middleware.fing.edu.uy/orders" />
+		<entry key="productNs" value="http://www.middleware.fing.edu.uy/items" />
+	</util:map>
+
+	<!-- split the inbound order into a number of orderItem documents that can be processed separately 
+	<si-xml:xpath-splitter id="orderItemSplitter" input-channel="ordersChannel" output-channel="stockCheckerChannel" create-documents="true">
+		<si-xml:xpath-expression expression="/orderNs:order/orderNs:orderItem" namespace-map="orderNamespaceMap" />
+	</si-xml:xpath-splitter>-->
+
+	<!-- if each order -->
+	<si:service-activator input-channel="inboxChannel" output-channel="orderRoutingChannel">
+		<bean class="middleware.OrderTotalChecker">
+			<constructor-arg ref="selectTotalXpath" />
+			<constructor-arg ref="selectItemXpath" />
+			<constructor-arg ref="selectItemTotalXpath" />
+			<constructor-arg ref="selectItemQuantityXpath" />
+		</bean>
+	</si:service-activator>
+
+	<si-xml:xpath-expression id="selectTotalXpath" namespace-map="orderNamespaceMap" expression="/orderNs:order/orderNs:detail/orderNs:amount/text()" />
+	<si-xml:xpath-expression id="selectItemXpath" namespace-map="orderNamespaceMap" expression="/orderNs:order/orderNs:item" />
+	<si-xml:xpath-expression id="selectItemTotalXpath" namespace-map="orderNamespaceMap" expression="/orderNs:item/orderNs:price/text()" />
+	<si-xml:xpath-expression id="selectItemQuantityXpath" namespace-map="orderNamespaceMap" expression="/orderNs:item/orderNs:quantity/text()" />
+
+	<!-- if in stock route to the warehouse else route to the out of stock channel -->
+	<si-xml:xpath-router id="validOrderRouter" input-channel="orderRoutingChannel" resolution-required="true">
+		<si-xml:xpath-expression expression="/orderNs:items/@valid-total" namespace-map="orderNamespaceMap"  />
+		<si-xml:mapping value="true" channel="outboxChannel"/>
+		<si-xml:mapping value="false" channel="invalidTotalChannel"/>
+	</si-xml:xpath-router>
+	
+	<!--  dispatch order if in stock -->
+	<si:outbound-channel-adapter method="dispatch" channel="outboxChannel">
+		<bean class="middleware.OutboxDispatcher" />
+	</si:outbound-channel-adapter>
+	
+	<si:outbound-channel-adapter method="dispatch" channel="invalidTotalChannel">
+		<bean class="middleware.InvalidOrderDispatcher" />
+	</si:outbound-channel-adapter>
+
+	<!--  convert the order item to a format that can be understood by BigBooks the wholesaler 
+	<si-xml:xslt-transformer input-channel="invalidTotalChannel" output-channel="resupplyOrderChannel" 
+			xsl-resource="classpath:/META-INF/spring/integration/bigBooksSupplierTransformer.xsl"/>
+
+	 send the resupply order
+	<si:outbound-channel-adapter method="orderResupply" channel="resupplyOrderChannel">
+		<bean class="org.springframework.integration.samples.xml.ExternalResupply" />
+	</si:outbound-channel-adapter> -->
+
+</beans>
