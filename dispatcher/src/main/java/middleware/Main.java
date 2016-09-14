@@ -32,7 +32,10 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
 		AbstractApplicationContext applicationContext = 
-			new ClassPathXmlApplicationContext("/META-INF/middleware/context.xml",
+			new ClassPathXmlApplicationContext(new String[]{
+					"/META-INF/middleware/context.xml",
+					"/META-INF/middleware/jms.xml"
+					},
 					Main.class);
 		MessageChannel messageChannel = (MessageChannel) applicationContext.getBean("inboxChannel");
 		GenericMessage<Document> orderMessage = 

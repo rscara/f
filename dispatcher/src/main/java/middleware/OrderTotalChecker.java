@@ -16,14 +16,13 @@
 
 package middleware;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-
 import java.math.BigDecimal;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.xml.xpath.XPathExpression;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 
 /**
  * @author Jonas Partner
@@ -31,31 +30,29 @@ import org.springframework.xml.xpath.XPathExpression;
 public class OrderTotalChecker {
 
 	private final XPathExpression totalSelectingXPath;
-	private final XPathExpression itemsSelectingXPath;
-	private final XPathExpression itemTotalSelectingXPath;
-	private final XPathExpression itemQuantitySelectingXPath;
+	private final XPathExpression selectItemTotalsTotalXpath;;
 	private static final Logger logger = Logger.getLogger(OrderTotalChecker.class);
 
-	public OrderTotalChecker(XPathExpression isbnSelectingXPath,XPathExpression itemsSelectingXPath,XPathExpression itemTotalSelectingXPath,XPathExpression itemQuantitySelectingXPath) {
+	public OrderTotalChecker(XPathExpression isbnSelectingXPath,XPathExpression selectItemTotalsTotalXpath) {
 		this.totalSelectingXPath = isbnSelectingXPath;
-		this.itemsSelectingXPath = itemsSelectingXPath;
-		this.itemTotalSelectingXPath = itemTotalSelectingXPath;
-		this.itemQuantitySelectingXPath = itemQuantitySelectingXPath;
+		this.selectItemTotalsTotalXpath = selectItemTotalsTotalXpath;
+	}
+	
+	private String getXmlProp(Node node,String propName){
+		return ((org.w3c.dom.Element)node).getElementsByTagName(propName).item(0).getTextContent();
 	}
 
 	public Document checkStockLevel(Document doc) {
 		boolean valid = false;
 		try{
-			String tot = totalSelectingXPath.evaluateAsString(doc);
-			List<Node> items = itemsSelectingXPath.evaluateAsNodeList(doc);
-			BigDecimal total = new BigDecimal(tot);
-			for (Node node : items) {
-				System.out.println(node.getTextContent());
-				BigDecimal quantity=new BigDecimal(itemQuantitySelectingXPath.evaluateAsString(node));
-				BigDecimal price=new BigDecimal(itemTotalSelectingXPath.evaluateAsString(node));
-				total=total.subtract(quantity.multiply(price));
+			BigDecimal total = new BigDecimal(totalSelectingXPath.evaluateAsString(doc));
+			List<Node> nodes = selectItemTotalsTotalXpath.evaluateAsNodeList(doc);
+			BigDecimal itemTotal = BigDecimal.ZERO;
+			for (Node node : nodes) {
+				System.out.println(node);
+				itemTotal=itemTotal.add(new BigDecimal(getXmlProp(node,"price")).multiply(new BigDecimal(getXmlProp(node,"quantity"))));
 			}
-			if(total.compareTo(BigDecimal.ZERO)==0)
+			if(total.compareTo(itemTotal)==0)
 				valid=true;
 		}catch(Exception e){
 			logger.error("Total valdiation error,",e);

@@ -3,6 +3,7 @@
 	xmlns:si-xml="http://www.springframework.org/schema/integration/xml"
 	xmlns:si="http://www.springframework.org/schema/integration" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:jms="http://www.springframework.org/schema/integration/jms"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 			http://www.springframework.org/schema/beans/spring-beans.xsd
 			http://www.springframework.org/schema/integration
@@ -10,13 +11,31 @@
 			http://www.springframework.org/schema/integration/xml
 			http://www.springframework.org/schema/integration/xml/spring-integration-xml.xsd
 			http://www.springframework.org/schema/util
-			http://www.springframework.org/schema/util/spring-util.xsd">
+			http://www.springframework.org/schema/util/spring-util.xsd
+			http://www.springframework.org/schema/integration/jms
+			http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd
+			">
 
 	<si:channel id="inboxChannel" />
 	<si:channel id="orderRoutingChannel" />
 	<si:channel id="invalidTotalChannel" />
 	<si:channel id="outboxChannel" />
 	<si:channel id="deadLetterChannel" />
+	
+	
+	<jms:message-driven-channel-adapter id="jmsIn"
+			destination="inboxQueue"
+			channel="inboxChannel" />
+			
+	<jms:message-driven-channel-adapter id="jmsout"
+			destination="outboxQueue"
+			channel="outboxChannel" />
+			
+	<jms:message-driven-channel-adapter id="jmsInvalid"
+			destination="invalidQueue"
+			channel="invalidTotalChannel" />
+
+			
 
 	<!-- map of namespace prefix to URI -->
 	<util:map id="orderNamespaceMap">
@@ -33,20 +52,16 @@
 	<si:service-activator input-channel="inboxChannel" output-channel="orderRoutingChannel">
 		<bean class="middleware.OrderTotalChecker">
 			<constructor-arg ref="selectTotalXpath" />
-			<constructor-arg ref="selectItemXpath" />
-			<constructor-arg ref="selectItemTotalXpath" />
-			<constructor-arg ref="selectItemQuantityXpath" />
+			<constructor-arg ref="selectItemTotalsTotalXpath" />
 		</bean>
 	</si:service-activator>
 
 	<si-xml:xpath-expression id="selectTotalXpath" namespace-map="orderNamespaceMap" expression="/orderNs:order/orderNs:detail/orderNs:amount/text()" />
-	<si-xml:xpath-expression id="selectItemXpath" namespace-map="orderNamespaceMap" expression="/orderNs:order/orderNs:item" />
-	<si-xml:xpath-expression id="selectItemTotalXpath" namespace-map="orderNamespaceMap" expression="/orderNs:item/orderNs:price/text()" />
-	<si-xml:xpath-expression id="selectItemQuantityXpath" namespace-map="orderNamespaceMap" expression="/orderNs:item/orderNs:quantity/text()" />
+	<si-xml:xpath-expression id="selectItemTotalsTotalXpath" namespace-map="orderNamespaceMap" expression="//orderNs:item" />
 
 	<!-- if in stock route to the warehouse else route to the out of stock channel -->
 	<si-xml:xpath-router id="validOrderRouter" input-channel="orderRoutingChannel" resolution-required="true">
-		<si-xml:xpath-expression expression="/orderNs:items/@valid-total" namespace-map="orderNamespaceMap"  />
+		<si-xml:xpath-expression expression="/orderNs:order/@valid-total" namespace-map="orderNamespaceMap"  />
 		<si-xml:mapping value="true" channel="outboxChannel"/>
 		<si-xml:mapping value="false" channel="invalidTotalChannel"/>
 	</si-xml:xpath-router>
