@@ -4,6 +4,10 @@
 	xmlns:si="http://www.springframework.org/schema/integration" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:util="http://www.springframework.org/schema/util"
 	xmlns:jms="http://www.springframework.org/schema/integration/jms"
+<<<<<<< HEAD
+	xmlns:si-stream="http://www.springframework.org/schema/integration/stream"
+=======
+>>>>>>> 8aac09c548f115c28640a8114c7b010660aecf00
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 			http://www.springframework.org/schema/beans/spring-beans.xsd
 			http://www.springframework.org/schema/integration
