@@ -18,6 +18,7 @@
 			
 			
 	<import resource="classpath:/META-INF/middleware/jms.xml"/>		
+	<import resource="classpath:/META-INF/middleware/jdbc.xml"/>		
 
 	<si:channel id="inboxChannel" />
 	<si:channel id="orderRoutingChannel" />

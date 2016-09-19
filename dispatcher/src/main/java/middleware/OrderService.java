@@ -20,9 +20,12 @@ import org.w3c.dom.Document;
 public class OrderService {
 	
 	private MessageChannel inboxChannel;
+	private MessageChannel jdbcChannel;
 	
-	public OrderService(MessageChannel inboxChannel) {
+	
+	public OrderService(MessageChannel inboxChannel,MessageChannel jdbcChannel) {
 		this.inboxChannel=inboxChannel;
+		this.jdbcChannel=jdbcChannel;
 	}
 	
 	
@@ -32,7 +35,7 @@ public class OrderService {
 		GenericMessage<Document> orderMessage;
 		try {
 			orderMessage = createXmlMessageFromResource("META-INF/middleware/order.xml");
-			inboxChannel.send(orderMessage);
+			jdbcChannel.send(orderMessage);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -54,6 +57,11 @@ private static GenericMessage<Document> createXmlMessageFromResource(String path
 
 public void setInboxChannel(MessageChannel inboxChannel) {
 	this.inboxChannel = inboxChannel;
+}
+
+
+public void setJdbcChannel(MessageChannel jdbcChannel) {
+	this.jdbcChannel = jdbcChannel;
 }
 	
 

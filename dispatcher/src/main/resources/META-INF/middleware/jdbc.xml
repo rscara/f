@@ -17,7 +17,8 @@
         http://static.springsource.org/spring-integration/reference/htmlsingle/#gateway-proxy
         http://www.eaipatterns.com/MessagingGateway.html -->
         
-    <int:channel id="inserOrderChannel"/>
+    <int:channel id="jdbcChannel"/>
+    <int:channel id="createPersonReplyChannel"/>
         
 <!--     <int:gateway id="personService" service-interface="org.springframework.integration.samples.jdbc.service.PersonService"> 
     	<int:method name="createPerson" 
@@ -30,21 +31,20 @@
     				request-timeout="5000"
     				reply-channel="findPersonReplyChannel"
     				reply-timeout="5000"/>			
-    </int:gateway>-->
+    </int:gateway>
 
     <int-jdbc:outbound-gateway data-source="datasource"
         update="UPDATE DUMMY SET DUMMY_VALUE='test'"
                                request-channel="findPersonRequestChannel" 
                                query="select * from Person where lower(name)=lower(:payload)"
-                               reply-channel="findPersonReplyChannel" row-mapper="personResultMapper"
+                               reply-channel="findPersonReplyChannel" 
                                max-rows-per-poll="100">
-    </int-jdbc:outbound-gateway>
+    </int-jdbc:outbound-gateway>-->
         
        
 	
-	<bean id="personResultMapper" class="org.springframework.integration.samples.jdbc.domain.PersonMapper"/>
 	<int-jdbc:outbound-gateway data-source="datasource" 
-								request-channel="createPersonRequestChannel"
+								request-channel="jdbcChannel"
 								reply-channel="createPersonReplyChannel"
 								update="insert into Person (name,gender,dateOfBirth) 
 										values
@@ -52,7 +52,6 @@
 								query="select * from Person where id = :id"		
 								request-sql-parameter-source-factory="requestSource"
 								reply-sql-parameter-source-factory="replySource"
-								row-mapper="personResultMapper"
 								keys-generated="true"/>
 	
 	<bean id="replySource" class="org.springframework.integration.jdbc.ExpressionEvaluatingSqlParameterSourceFactory">
