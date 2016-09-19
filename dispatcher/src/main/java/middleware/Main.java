@@ -19,6 +19,7 @@ package middleware;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.springframework.boot.SpringApplication;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
@@ -29,10 +30,19 @@ import org.w3c.dom.Document;
 
 
 public class Main {
+	
+	
+	public static void main(String[] args) {
+	    SpringApplication.run(Application.class, args);
+	}
+	/*
 
 	public static void main(String[] args) throws Exception {
 		AbstractApplicationContext applicationContext = 
-			new ClassPathXmlApplicationContext("/META-INF/middleware/context.xml",
+			new ClassPathXmlApplicationContext(new String[]{
+					"/META-INF/middleware/context.xml",
+					"/META-INF/middleware/jms.xml"
+					},
 					Main.class);
 		MessageChannel messageChannel = (MessageChannel) applicationContext.getBean("inboxChannel");
 		GenericMessage<Document> orderMessage = 
@@ -50,6 +60,6 @@ public class Main {
 
 		Document orderDoc = builder.parse(orderRes.getInputStream());
 		return new GenericMessage<Document>(orderDoc);
-	}
+	}*/
 
 }
