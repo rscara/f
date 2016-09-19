@@ -6,9 +6,13 @@ import java.util.Collection;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.GenericMessage;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,8 +38,8 @@ public class OrderService {
 //		MessageChannel messageChannel = (MessageChannel) applicationContext.getBean("inboxChannel");
 		GenericMessage<Document> orderMessage;
 		try {
-			orderMessage = createXmlMessageFromResource("META-INF/middleware/order.xml");
-			jdbcChannel.send(orderMessage);
+			Message<String> message = MessageBuilder.withPayload(createXmlMessageFromResource("META-INF/middleware/order.xml")).build();
+			inboxChannel.send(message);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -44,15 +48,11 @@ public class OrderService {
         return null;
 	}
 
-private static GenericMessage<Document> createXmlMessageFromResource(String path) throws Exception {
-	ClassPathResource orderRes = new ClassPathResource(path);
 
-	DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
-	builderFactory.setNamespaceAware(true);
-	DocumentBuilder builder = builderFactory.newDocumentBuilder();
 
-	Document orderDoc = builder.parse(orderRes.getInputStream());
-	return new GenericMessage<Document>(orderDoc);
+private static String createXmlMessageFromResource(String path) throws Exception {
+	Resource orderRes = new ClassPathResource(path);
+	return IOUtils.toString(orderRes.getInputStream());
 }
 
 public void setInboxChannel(MessageChannel inboxChannel) {

@@ -15,16 +15,12 @@
 			http://www.springframework.org/schema/util/spring-util.xsd
 			http://www.springframework.org/schema/integration/jms
 			http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd
-<<<<<<< HEAD
 			http://www.springframework.org/schema/integration/stream
       		http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd">
-=======
-			">
 			
 			
 	<import resource="classpath:/META-INF/middleware/jms.xml"/>		
 	<import resource="classpath:/META-INF/middleware/jdbc.xml"/>		
->>>>>>> 236d24162cef0b5453a1dc57acb0c5910f88c960
 
 	<si:channel id="inboxChannel" />
 	<si:filter input-channel="inboxChannel" ref="messageValidator" output-channel="inboxSplitChannel" discard-channel="invalidMessageChannel"/>

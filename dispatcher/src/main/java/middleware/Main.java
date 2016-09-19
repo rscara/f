@@ -18,21 +18,14 @@ package middleware;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.ImportResource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.MessageChannel;
-import org.springframework.messaging.support.MessageBuilder;
 
-@SpringBootApplication
-@ImportResource("classpath:context.xml")
 public class Main {
 
 	public static void main(String[] args) throws Exception {
-        ApplicationContext applicationContext = SpringApplication.run(Main.class, args);
+        ApplicationContext applicationContext = SpringApplication.run(Application.class, args);
 
 //		AbstractApplicationContext applicationContext = 
 //			new ClassPathXmlApplicationContext(new String[]{
@@ -40,9 +33,9 @@ public class Main {
 //					"/META-INF/middleware/jms.xml"
 //					},
 //					Main.class);
-		MessageChannel messageChannel = (MessageChannel) applicationContext.getBean("inboxChannel");
+		/*MessageChannel messageChannel = (MessageChannel) applicationContext.getBean("inboxChannel");
 		Message<String> message = MessageBuilder.withPayload(createXmlMessageFromResource("META-INF/middleware/order.xml")).build();
-		messageChannel.send(message);
+		messageChannel.send(message);*/
 	}
 
 	private static String createXmlMessageFromResource(String path) throws Exception {
