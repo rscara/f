@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:integration="http://www.springframework.org/schema/integration"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration.xsd">
+
+	<!-- envio a MobileSys,
+	
+	<bean id="redeliveryPolicy" class="org.apache.activemq.RedeliveryPolicy">
+        <property name="maximumRedeliveries" value="2" />
+    </bean>
+
+    
+     <bean id="MobileSys.connectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory" >
+       <property name="targetConnectionFactory">
+			<bean class="org.apache.activemq.ActiveMQConnectionFactory">
+				  <property name="brokerURL" value="tcp://localhost:6000" />
+				<property name="redeliveryPolicy" ref="redeliveryPolicy" />
+			</bean>
+		</property>
+        <property name="sessionCacheSize" value="10" />
+        <property name="cacheProducers" value="false" />
+    </bean>
+    
+    -->
+
+
+	<bean id="connectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
+		<property name="targetConnectionFactory">
+			<bean class="org.apache.activemq.ActiveMQConnectionFactory">
+				<property name="brokerURL" value="vm://localhost"/>
+			</bean>
+		</property>
+		<property name="sessionCacheSize" value="10"/>
+	</bean>
+
+	<bean id="inboxQueue" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="queue.inbox"/>
+	</bean>
+
+	<bean id="outboxQueue" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="queue.outbox"/>
+	</bean>
+	
+	<bean id="invalidQueue" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="queue.invalid"/>
+	</bean>
+
+	<bean id="deadLetterQueue" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="queue.deadLetter"/>
+	</bean>
+
+	<integration:poller id="poller" default="true" fixed-delay="1000"/>
+
+</beans>

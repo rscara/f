@@ -16,14 +16,13 @@
 
 package middleware;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-
 import java.math.BigDecimal;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.xml.xpath.XPathExpression;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 
 /**
  * @author Jonas Partner
