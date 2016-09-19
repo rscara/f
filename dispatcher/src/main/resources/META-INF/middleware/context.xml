@@ -15,10 +15,14 @@
 			http://www.springframework.org/schema/integration/jms
 			http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd
 			">
+			
+			
+	<import resource="classpath:/META-INF/middleware/jms.xml"/>		
 
 	<si:channel id="inboxChannel" />
 	<si:channel id="orderRoutingChannel" />
 	<si:channel id="invalidTotalChannel" />
+	<si:channel id="splitterChannel" />
 	<si:channel id="outboxChannel" />
 	<si:channel id="deadLetterChannel" />
 	
@@ -43,10 +47,10 @@
 		<entry key="productNs" value="http://www.middleware.fing.edu.uy/items" />
 	</util:map>
 
-	<!-- split the inbound order into a number of orderItem documents that can be processed separately 
-	<si-xml:xpath-splitter id="orderItemSplitter" input-channel="ordersChannel" output-channel="stockCheckerChannel" create-documents="true">
-		<si-xml:xpath-expression expression="/orderNs:order/orderNs:orderItem" namespace-map="orderNamespaceMap" />
-	</si-xml:xpath-splitter>-->
+	<!-- split the inbound order into a number of orderItem documents that can be processed separately -->
+	<si-xml:xpath-splitter id="orderItemSplitter" input-channel="splitterChannel" output-channel="outboxChannel" create-documents="true">
+		<si-xml:xpath-expression expression="/orderNs:order/orderNs:item" namespace-map="orderNamespaceMap" />
+	</si-xml:xpath-splitter>
 
 	<!-- if each order -->
 	<si:service-activator input-channel="inboxChannel" output-channel="orderRoutingChannel">
@@ -62,7 +66,7 @@
 	<!-- if in stock route to the warehouse else route to the out of stock channel -->
 	<si-xml:xpath-router id="validOrderRouter" input-channel="orderRoutingChannel" resolution-required="true">
 		<si-xml:xpath-expression expression="/orderNs:order/@valid-total" namespace-map="orderNamespaceMap"  />
-		<si-xml:mapping value="true" channel="outboxChannel"/>
+		<si-xml:mapping value="true" channel="splitterChannel"/>
 		<si-xml:mapping value="false" channel="invalidTotalChannel"/>
 	</si-xml:xpath-router>
 	

@@ -51,6 +51,8 @@ public class OrderTotalChecker {
 			for (Node node : nodes) {
 				System.out.println(node);
 				itemTotal=itemTotal.add(new BigDecimal(getXmlProp(node,"price")).multiply(new BigDecimal(getXmlProp(node,"quantity"))));
+				node.appendChild(doc.getElementsByTagName("detail").item(0));
+				node.appendChild(doc.getElementsByTagName("head").item(0));
 			}
 			if(total.compareTo(itemTotal)==0)
 				valid=true;
