@@ -4,10 +4,7 @@
 	xmlns:si="http://www.springframework.org/schema/integration" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:util="http://www.springframework.org/schema/util"
 	xmlns:jms="http://www.springframework.org/schema/integration/jms"
-<<<<<<< HEAD
 	xmlns:si-stream="http://www.springframework.org/schema/integration/stream"
-=======
->>>>>>> 8aac09c548f115c28640a8114c7b010660aecf00
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 			http://www.springframework.org/schema/beans/spring-beans.xsd
 			http://www.springframework.org/schema/integration
@@ -18,70 +15,65 @@
 			http://www.springframework.org/schema/util/spring-util.xsd
 			http://www.springframework.org/schema/integration/jms
 			http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd
-			">
-			
-			
-	<import resource="classpath:/META-INF/middleware/jms.xml"/>		
+			http://www.springframework.org/schema/integration/stream
+      		http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd">
 
 	<si:channel id="inboxChannel" />
-	<si:channel id="orderRoutingChannel" />
-	<si:channel id="invalidTotalChannel" />
-	<si:channel id="splitterChannel" />
-	<si:channel id="outboxChannel" />
-	<si:channel id="deadLetterChannel" />
+	<si:filter input-channel="inboxChannel" ref="messageValidator" output-channel="inboxSplitChannel" discard-channel="invalidMessageChannel"/>
 	
+	<bean id="messageValidator" class="middleware.filter.MessageValidator">
+		<constructor-arg ref="selectTotalXpath" />
+		<constructor-arg ref="selectItemsXpath" />
+		<constructor-arg ref="selectCurrencyModeXpath" />
+	</bean>
 	
-	<jms:message-driven-channel-adapter id="jmsIn"
-			destination="inboxQueue"
-			channel="inboxChannel" />
-			
-	<jms:message-driven-channel-adapter id="jmsout"
-			destination="outboxQueue"
-			channel="outboxChannel" />
-			
-	<jms:message-driven-channel-adapter id="jmsInvalid"
-			destination="invalidQueue"
-			channel="invalidTotalChannel" />
-
-			
-
-	<!-- map of namespace prefix to URI -->
-	<util:map id="orderNamespaceMap">
-		<entry key="orderNs" value="http://www.middleware.fing.edu.uy/orders" />
-		<entry key="productNs" value="http://www.middleware.fing.edu.uy/items" />
-	</util:map>
-
-	<!-- split the inbound order into a number of orderItem documents that can be processed separately -->
-	<si-xml:xpath-splitter id="orderItemSplitter" input-channel="splitterChannel" output-channel="outboxChannel" create-documents="true">
-		<si-xml:xpath-expression expression="/orderNs:order/orderNs:item" namespace-map="orderNamespaceMap" />
-	</si-xml:xpath-splitter>
-
-	<!-- if each order -->
-	<si:service-activator input-channel="inboxChannel" output-channel="orderRoutingChannel">
-		<bean class="middleware.OrderTotalChecker">
-			<constructor-arg ref="selectTotalXpath" />
-			<constructor-arg ref="selectItemTotalsTotalXpath" />
-		</bean>
-	</si:service-activator>
-
-	<si-xml:xpath-expression id="selectTotalXpath" namespace-map="orderNamespaceMap" expression="/orderNs:order/orderNs:detail/orderNs:amount/text()" />
-	<si-xml:xpath-expression id="selectItemTotalsTotalXpath" namespace-map="orderNamespaceMap" expression="//orderNs:item" />
-
-	<!-- if in stock route to the warehouse else route to the out of stock channel -->
-	<si-xml:xpath-router id="validOrderRouter" input-channel="orderRoutingChannel" resolution-required="true">
-		<si-xml:xpath-expression expression="/orderNs:order/@valid-total" namespace-map="orderNamespaceMap"  />
-		<si-xml:mapping value="true" channel="splitterChannel"/>
-		<si-xml:mapping value="false" channel="invalidTotalChannel"/>
+	<si-xml:xpath-expression id="selectTotalXpath" expression="/order/detail/amount/text()" />
+	<si-xml:xpath-expression id="selectItemsXpath" expression="//item" />
+	<si-xml:xpath-expression id="selectCurrencyModeXpath" expression="/order/detail/currency/text()" />	
+	
+	<si:channel id="inboxSplitChannel" />
+	<si:splitter input-channel="inboxSplitChannel" output-channel="routingChannel" ref="orderSplitter"/>
+                  
+	<si-xml:xpath-expression id="selectHeadXpath" expression="//head" />
+	<si-xml:xpath-expression id="selectDetailXpath" expression="//detail" />
+	
+	<bean id="orderSplitter" class="middleware.splitter.OrderSplitter">
+		<constructor-arg ref="selectHeadXpath" />
+		<constructor-arg ref="selectDetailXpath" />
+		<constructor-arg ref="selectItemsXpath" />	
+	</bean>
+	
+	<si:channel id="invalidMessageChannel" />
+	<si-stream:stdout-channel-adapter id="stdoutAdapter" channel="invalidMessageChannel" append-newline="true"/>
+	
+	<si:channel id="routingChannel" />
+	
+	<si-xml:xpath-router id="router" input-channel="routingChannel" default-output-channel="invalidMessageChannel">
+	    <si-xml:xpath-expression expression="/order/item/category/text()"/>
+	    <si-xml:mapping value="3" channel="redStrawberryChannel"/>
+	    <si-xml:mapping value="2" channel="mobileSysChannel"/>
+	    <si-xml:mapping value="1" channel="dataSysChannel"/>
 	</si-xml:xpath-router>
 	
-	<!--  dispatch order if in stock -->
-	<si:outbound-channel-adapter method="dispatch" channel="outboxChannel">
-		<bean class="middleware.OutboxDispatcher" />
-	</si:outbound-channel-adapter>
+	<si:channel id="redStrawberryChannel" />
+	<si-stream:stdout-channel-adapter id="redStrawberryStdoutAdapter" channel="redStrawberryChannel" append-newline="true"/>
 	
-	<si:outbound-channel-adapter method="dispatch" channel="invalidTotalChannel">
-		<bean class="middleware.InvalidOrderDispatcher" />
-	</si:outbound-channel-adapter>
+	<si:channel id="mobileSysChannel" />
+	<si-stream:stdout-channel-adapter id="mobileSysStdoutAdapter" channel="mobileSysChannel" append-newline="true"/>
+	
+	<si:channel id="dataSysChannel" />
+	<si-stream:stdout-channel-adapter id="dataSysStdoutAdapter" channel="dataSysChannel" append-newline="true"/>
+	
+	
+
+<!-- 	<jms:message-driven-channel-adapter id="jmsIn" -->
+<!-- 			destination="inboxQueue" -->
+<!-- 			channel="inboxChannel" /> -->
+			
+<!-- 	<jms:message-driven-channel-adapter id="jmsout" -->
+<!-- 			destination="outboxQueue" -->
+<!-- 			channel="outboxChannel" /> -->
+
 
 	<!--  convert the order item to a format that can be understood by BigBooks the wholesaler 
 	<si-xml:xslt-transformer input-channel="invalidTotalChannel" output-channel="resupplyOrderChannel" 

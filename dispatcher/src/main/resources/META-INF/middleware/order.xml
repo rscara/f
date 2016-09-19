@@ -6,7 +6,8 @@
 		<payment-mode>E</payment-mode>
 	</head>
 	<detail>
-		<amount>40000</amount>
+		<currency>858</currency>
+		<amount>50000</amount>
 		<payments>1</payments>
 	</detail>
 	<item>

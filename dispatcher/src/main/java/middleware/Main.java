@@ -16,50 +16,38 @@
 
 package middleware;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
+import org.apache.commons.io.IOUtils;
 import org.springframework.boot.SpringApplication;
-import org.springframework.context.support.AbstractApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
-import org.springframework.messaging.support.GenericMessage;
-import org.w3c.dom.Document;
+import org.springframework.messaging.support.MessageBuilder;
 
-
+@SpringBootApplication
+@ImportResource("classpath:context.xml")
 public class Main {
-	
-	
-	public static void main(String[] args) {
-	    SpringApplication.run(Application.class, args);
-	}
-	/*
 
 	public static void main(String[] args) throws Exception {
-		AbstractApplicationContext applicationContext = 
-			new ClassPathXmlApplicationContext(new String[]{
-					"/META-INF/middleware/context.xml",
-					"/META-INF/middleware/jms.xml"
-					},
-					Main.class);
+        ApplicationContext applicationContext = SpringApplication.run(Main.class, args);
+
+//		AbstractApplicationContext applicationContext = 
+//			new ClassPathXmlApplicationContext(new String[]{
+//					"/META-INF/middleware/context.xml",
+//					"/META-INF/middleware/jms.xml"
+//					},
+//					Main.class);
 		MessageChannel messageChannel = (MessageChannel) applicationContext.getBean("inboxChannel");
-		GenericMessage<Document> orderMessage = 
-			createXmlMessageFromResource("META-INF/middleware/order.xml");
-		messageChannel.send(orderMessage);
-		applicationContext.close();
+		Message<String> message = MessageBuilder.withPayload(createXmlMessageFromResource("META-INF/middleware/order.xml")).build();
+		messageChannel.send(message);
 	}
 
-	private static GenericMessage<Document> createXmlMessageFromResource(String path) throws Exception {
+	private static String createXmlMessageFromResource(String path) throws Exception {
 		Resource orderRes = new ClassPathResource(path);
-
-		DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
-		builderFactory.setNamespaceAware(true);
-		DocumentBuilder builder = builderFactory.newDocumentBuilder();
-
-		Document orderDoc = builder.parse(orderRes.getInputStream());
-		return new GenericMessage<Document>(orderDoc);
-	}*/
+		return IOUtils.toString(orderRes.getInputStream());
+	}
 
 }
