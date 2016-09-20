@@ -66,7 +66,7 @@
 	<si-stream:stdout-channel-adapter id="mobileSysStdoutAdapter" channel="mobileSysChannel" append-newline="true"/>
 	
 	<si:channel id="dataSysChannel" />
-	<si-stream:stdout-channel-adapter id="dataSysStdoutAdapter" channel="dataSysChannel" append-newline="true"/>
+<!-- 	<si-stream:stdout-channel-adapter id="dataSysStdoutAdapter" channel="dataSysChannel" append-newline="true"/> -->
 	
 	
 
@@ -87,5 +87,8 @@
 	<si:outbound-channel-adapter method="orderResupply" channel="resupplyOrderChannel">
 		<bean class="org.springframework.integration.samples.xml.ExternalResupply" />
 	</si:outbound-channel-adapter> -->
+	
+	
+	 <si-stream:stdout-channel-adapter id="jdbc.stdoutAdapter" channel="jdbcChannelReply" append-newline="true"/>    
 
 </beans>

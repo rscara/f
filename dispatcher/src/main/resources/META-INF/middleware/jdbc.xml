@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:si-xml="http://www.springframework.org/schema/integration/xml"
+	xmlns:si="http://www.springframework.org/schema/integration"
 	xmlns:int="http://www.springframework.org/schema/integration"
 	xmlns:int-jdbc="http://www.springframework.org/schema/integration/jdbc"
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:si-stream="http://www.springframework.org/schema/integration/stream"
 	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
 		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
 		http://www.springframework.org/schema/integration/jdbc http://www.springframework.org/schema/integration/jdbc/spring-integration-jdbc.xsd
+					http://www.springframework.org/schema/integration/xml
+			http://www.springframework.org/schema/integration/xml/spring-integration-xml.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
     
     <jdbc:embedded-database id="datasource" type="H2">
@@ -17,8 +22,8 @@
         http://static.springsource.org/spring-integration/reference/htmlsingle/#gateway-proxy
         http://www.eaipatterns.com/MessagingGateway.html -->
         
-    <int:channel id="jdbcChannel"/>
-    <int:channel id="createPersonReplyChannel"/>
+    <int:channel id="dataSysChannel"/>
+    <int:channel id="jdbcChannelReply"/>
         
 <!--     <int:gateway id="personService" service-interface="org.springframework.integration.samples.jdbc.service.PersonService"> 
     	<int:method name="createPerson" 
@@ -41,18 +46,17 @@
                                max-rows-per-poll="100">
     </int-jdbc:outbound-gateway>-->
         
-       
+  
 	
 	<int-jdbc:outbound-gateway data-source="datasource" 
-								request-channel="jdbcChannel"
-								reply-channel="createPersonReplyChannel"
-								update="insert into Person (name,gender,dateOfBirth) 
+								request-channel="dataSysChannel"
+								reply-channel="jdbcChannelReply"
+								update="insert into Orders (CLIENT,PRODUCT,QUANTITY,ORDER_ID,ITEM_ID) 
 										values
-										(:name,:gender,:dateOfBirth)"
-								query="select * from Person where id = :id"		
+										(:client,:product,:quantity,:orderId,:itemId)"
 								request-sql-parameter-source-factory="requestSource"
 								reply-sql-parameter-source-factory="replySource"
-								keys-generated="true"/>
+								keys-generated="false"/>
 	
 	<bean id="replySource" class="org.springframework.integration.jdbc.ExpressionEvaluatingSqlParameterSourceFactory">
 		<property name="parameterExpressions">
@@ -62,7 +66,40 @@
 		</property>
 	</bean>	
 
-	<bean id="requestSource" class="org.springframework.integration.jdbc.ExpressionEvaluatingSqlParameterSourceFactory">
+
+	
+
+	<bean id="requestSource" class="middleware.jdbc.DispatcherSqlParameterSourceFactory"> 
+		<property name="expressions">
+			<map>
+				<entry key="itemId">
+					<si-xml:xpath-expression  expression="//item/number/text()" />
+				</entry>
+				<entry key="client">
+					<si-xml:xpath-expression  expression="//head/client-id/text()" />
+				</entry>
+				<entry key="product">
+					<si-xml:xpath-expression  expression="//item/sku/text()" />
+				</entry>
+				<entry key="orderId">
+					<si-xml:xpath-expression  expression="//head/number/text()" />
+				</entry>
+				<entry key="quantity">
+					<si-xml:xpath-expression  expression="//item/quantity/text()" />
+				</entry>
+			</map>
+		</property>
+<!-- 		<property name="parameterExpressions"> -->
+<!-- 			<map> -->
+<!-- 				<entry key="name" value="payload.name.toUpperCase()"/> -->
+<!-- 				<entry key="gender" value="payload.gender.identifier"/> -->
+<!-- 				<entry key="dateOfBirth" value="payload.dateOfBirth"/> -->
+<!-- 			</map> -->
+<!-- 		</property> -->
+	</bean>
+
+
+<!-- 	<bean id="requestSource" class="org.springframework.integration.jdbc.ExpressionEvaluatingSqlParameterSourceFactory"> 
 		<property name="parameterExpressions">
 			<map>
 				<entry key="name" value="payload.name.toUpperCase()"/>
@@ -70,6 +107,6 @@
 				<entry key="dateOfBirth" value="payload.dateOfBirth"/>
 			</map>
 		</property>
-	</bean>	
+	</bean>	-->
 
 </beans>

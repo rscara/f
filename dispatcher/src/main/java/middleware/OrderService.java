@@ -24,12 +24,10 @@ import org.w3c.dom.Document;
 public class OrderService {
 	
 	private MessageChannel inboxChannel;
-	private MessageChannel jdbcChannel;
 	
 	
-	public OrderService(MessageChannel inboxChannel,MessageChannel jdbcChannel) {
+	public OrderService(MessageChannel inboxChannel) {
 		this.inboxChannel=inboxChannel;
-		this.jdbcChannel=jdbcChannel;
 	}
 	
 	
@@ -59,10 +57,6 @@ public void setInboxChannel(MessageChannel inboxChannel) {
 	this.inboxChannel = inboxChannel;
 }
 
-
-public void setJdbcChannel(MessageChannel jdbcChannel) {
-	this.jdbcChannel = jdbcChannel;
-}
 	
 
 }
