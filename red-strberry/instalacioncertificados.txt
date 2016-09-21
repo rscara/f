@@ -1,0 +1,8 @@
+dev/java/jdk1.8.0_66/bin/keytool -genkeypair -validity 730 -alias myservicekey -keystore serviceKeystore.jks -dname "cn=localhost" -keypass password -storepass password
+dev/java/jdk1.8.0_66/bin/keytool -genkeypair -validity 730 -alias myclientkey -keystore clientKeystore.jks -keypass password -storepass password
+dev/java/jdk1.8.0_66/bin/keytool -export -rfc -keystore serviceKeystore.jks -alias myservicekey -file MyService.cer -storepass password
+dev/java/jdk1.8.0_66/bin/keytool -import -noprompt -trustcacerts -file MyService.cer -alias myservicekey -keystore clientKeystore.jks -storepass password
+dev/java/jdk1.8.0_66/bin/keytool -import -noprompt -trustcacerts -file MyService.cer -alias myservicekey -keystore dev/java/jdk1.8.0_66/jre/lib/security/cacerts -storepass changeit
+dev/java/jdk1.8.0_66/bin/keytool -export -rfc -keystore clientKeystore.jks -alias myclientkey -file MyClient.cer -storepass password
+dev/java/jdk1.8.0_66/bin/keytool -import -noprompt -trustcacerts -file MyClient.cer -alias myclientkey -keystore serviceKeystore.jks -storepass password
+dev/java/jdk1.8.0_66/bin/keytool -import -noprompt -trustcacerts -file MyClient.cer -alias myclientkey -keystore dev/java/jdk1.8.0_66/jre/lib/security/cacerts -storepass changeit

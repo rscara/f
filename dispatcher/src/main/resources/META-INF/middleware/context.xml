@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:si-xml="http://www.springframework.org/schema/integration/xml"
-	xmlns:si="http://www.springframework.org/schema/integration" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:si="http://www.springframework.org/schema/integration" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:util="http://www.springframework.org/schema/util"
 	xmlns:jms="http://www.springframework.org/schema/integration/jms"
 	xmlns:si-stream="http://www.springframework.org/schema/integration/stream"
+	xmlns:ws="http://www.springframework.org/schema/integration/ws"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 			http://www.springframework.org/schema/beans/spring-beans.xsd
 			http://www.springframework.org/schema/integration
@@ -16,7 +18,9 @@
 			http://www.springframework.org/schema/integration/jms
 			http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd
 			http://www.springframework.org/schema/integration/stream
-      		http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd">
+      		http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd
+      		http://www.springframework.org/schema/integration/ws
+			http://www.springframework.org/schema/integration/ws/spring-integration-ws.xsd">
 			
 			
 	<import resource="classpath:/META-INF/middleware/jms.xml"/>		
@@ -54,39 +58,42 @@
 	
 	<si-xml:xpath-router id="router" input-channel="routingChannel" default-output-channel="invalidMessageChannel">
 	    <si-xml:xpath-expression expression="/order/item/category/text()"/>
-	    <si-xml:mapping value="3" channel="redStrawberryChannel"/>
+	    <si-xml:mapping value="3" channel="redStrawberryAggregatorChannel"/>
 	    <si-xml:mapping value="2" channel="mobileSysChannel"/>
 	    <si-xml:mapping value="1" channel="dataSysChannel"/>
 	</si-xml:xpath-router>
 	
+	<si:channel id="redStrawberryAggregatorChannel" />
+	
+	<si:aggregator correlation-strategy-expression="'foo'" input-channel="redStrawberryAggregatorChannel" 
+		output-channel="redStrawberryChannel" ref="orderAggregator" release-strategy-expression="size() == 2"
+		expire-groups-upon-completion="true"/>
+
+	<bean id="batchSizeReleaseStrategy" class="middleware.aggregator.BatchSizeReleaseStrategy"/>
+	
+	<bean id="orderAggregator" class="middleware.aggregator.OrderAggregator">
+		<constructor-arg ref="selectOrderNumberXpath" />
+		<constructor-arg ref="selectItemQuantityXpath" />
+		<constructor-arg ref="selectItemIdXpath" />
+	</bean>
+	
+	<si-xml:xpath-expression id="selectOrderNumberXpath" expression="/order/head/number/text()" />
+	<si-xml:xpath-expression id="selectItemQuantityXpath" expression="/order/item/quantity/text()" />
+	<si-xml:xpath-expression id="selectItemIdXpath" expression="/order/item/number/text()" />	
+	
 	<si:channel id="redStrawberryChannel" />
-	<si-stream:stdout-channel-adapter id="redStrawberryStdoutAdapter" channel="redStrawberryChannel" append-newline="true"/>
+	<si:service-activator input-channel="redStrawberryChannel" ref="serviceInvoker" method="invoke" output-channel="invalidMessageChannel"/>
+	
+	<bean id="serviceInvoker" class="middleware.ws.ServiceInvoker" init-method="init">
+		<property name="wsdlLocation" value="${ws.user}"/>
+		<property name="user" value="${ws.user}"/>
+		<property name="password" value="${ws.password}"/>
+	</bean>
 	
 	<si:channel id="mobileSysChannel" />
 	<si-stream:stdout-channel-adapter id="mobileSysStdoutAdapter" channel="mobileSysChannel" append-newline="true"/>
 	
 	<si:channel id="dataSysChannel" />
-<!-- 	<si-stream:stdout-channel-adapter id="dataSysStdoutAdapter" channel="dataSysChannel" append-newline="true"/> -->
-	
-	
-
-<!-- 	<jms:message-driven-channel-adapter id="jmsIn" -->
-<!-- 			destination="inboxQueue" -->
-<!-- 			channel="inboxChannel" /> -->
-			
-<!-- 	<jms:message-driven-channel-adapter id="jmsout" -->
-<!-- 			destination="outboxQueue" -->
-<!-- 			channel="outboxChannel" /> -->
-
-
-	<!--  convert the order item to a format that can be understood by BigBooks the wholesaler 
-	<si-xml:xslt-transformer input-channel="invalidTotalChannel" output-channel="resupplyOrderChannel" 
-			xsl-resource="classpath:/META-INF/spring/integration/bigBooksSupplierTransformer.xsl"/>
-
-	 send the resupply order
-	<si:outbound-channel-adapter method="orderResupply" channel="resupplyOrderChannel">
-		<bean class="org.springframework.integration.samples.xml.ExternalResupply" />
-	</si:outbound-channel-adapter> -->
 	
 	
 	 <si-stream:stdout-channel-adapter id="jdbc.stdoutAdapter" channel="jdbcChannelReply" append-newline="true"/>    
