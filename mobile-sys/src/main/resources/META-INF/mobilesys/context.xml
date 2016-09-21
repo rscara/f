@@ -9,42 +9,27 @@
 			http://www.springframework.org/schema/integration
 			http://www.springframework.org/schema/integration/spring-integration.xsd">
 
+
 	
-	<bean id="redeliveryPolicy" class="org.apache.activemq.RedeliveryPolicy">
-        <property name="maximumRedeliveries" value="2" />
-    </bean>
+<!-- 	<int:publish-subscribe-channel id="mobulesysInbox"/> -->
+
+
+	
+	<int:service-activator id="consumer1" input-channel="mobulesysInbox" ref="MobileSysConsumer" method="receiveMessage"/>
 
 	<bean id="connectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
 		<property name="targetConnectionFactory">
 			<bean class="org.apache.activemq.ActiveMQConnectionFactory">
-				<property name="brokerURL" value="vm://localhost"/>
-				<property name="redeliveryPolicy" ref="redeliveryPolicy" />
+				<property name="brokerURL" value="tcp://localhost:61618"/>
 			</bean>
 		</property>
 		<property name="sessionCacheSize" value="10"/>
 	</bean>
 
-	<bean id="inboxQueue" class="org.apache.activemq.command.ActiveMQQueue">
-		<constructor-arg value="queue.inbox"/>
-	</bean>
+	
+<!-- 	<bean id="MobileSysConsumer" class="mobilesys.jms.MobileSysConsumer"> -->
+<!-- 	</bean> -->
 
-	<bean id="outboxQueue" class="org.apache.activemq.command.ActiveMQQueue">
-		<constructor-arg value="queue.outbox"/>
-	</bean>
-	
-	<bean id="invalidQueue" class="org.apache.activemq.command.ActiveMQQueue">
-		<constructor-arg value="queue.invalid"/>
-	</bean>
-
-	<bean id="deadLetterQueue" class="org.apache.activemq.command.ActiveMQQueue">
-		<constructor-arg value="queue.deadLetter"/>
-	</bean>
-	
-	
-	
-	<bean id="mobulesysInbox" class="org.apache.activemq.command.ActiveMQQueue">
-		<constructor-arg value="queue.mobulesysInbox"/>
-	</bean>
 
 	<integration:poller id="poller" default="true" fixed-delay="1000"/>
 

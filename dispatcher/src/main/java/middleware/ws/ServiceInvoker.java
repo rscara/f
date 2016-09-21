@@ -27,16 +27,24 @@ public class ServiceInvoker {
 	private Client client;
 	
 	public void init() {
-		Bus bus = CXFBusFactory.getThreadDefaultBus();
-		MyHTTPConduitConfigurer conf = new MyHTTPConduitConfigurer(user, password); 
-		bus.setExtension(conf, HTTPConduitConfigurer.class); 
-
-		JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance(bus);
-		client = dcf.createClient(wsdlLocation);
+		try {
+			if (client==null){
+				Bus bus = CXFBusFactory.getThreadDefaultBus();
+				MyHTTPConduitConfigurer conf = new MyHTTPConduitConfigurer(user, password); 
+				bus.setExtension(conf, HTTPConduitConfigurer.class); 
+				
+				JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance(bus);
+				client = dcf.createClient(wsdlLocation);
+				logger.info("WS client created");
+			}
+		} catch (Exception e) {
+			logger.error("Error creando cliente de ws", e);
+		}
 	}
 
 	public Message<List<RedStrawberryOrder>> invoke(Message<List<RedStrawberryOrder>> message){
 		try {
+			init();
 			for (RedStrawberryOrder order : message.getPayload()) {
 				client.invoke("order", order);				
 			}
