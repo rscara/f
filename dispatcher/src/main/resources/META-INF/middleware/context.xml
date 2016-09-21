@@ -62,10 +62,8 @@
 	<si:channel id="redStrawberryAggregatorChannel" />
 	
 	<si:aggregator correlation-strategy-expression="'foo'" input-channel="redStrawberryAggregatorChannel" 
-		output-channel="redStrawberryChannel" ref="orderAggregator" release-strategy-expression="size() == 2"
+		output-channel="redStrawberryChannel" ref="orderAggregator" release-strategy-expression="size() == ${aggregator.batchSize}"
 		expire-groups-upon-completion="true"/>
-
-	<bean id="batchSizeReleaseStrategy" class="middleware.aggregator.BatchSizeReleaseStrategy"/>
 	
 	<bean id="orderAggregator" class="middleware.aggregator.OrderAggregator">
 		<constructor-arg ref="selectOrderNumberXpath" />

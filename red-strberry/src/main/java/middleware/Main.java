@@ -26,7 +26,7 @@ public class Main {
     @Bean(name=Bus.DEFAULT_BUS_ID)
     public SpringBus springBus() {
     	SpringBus bus = new SpringBus();
-    	bus.getInInterceptors().add(new LoggingInInterceptor());
+//    	bus.getInInterceptors().add(new LoggingInInterceptor());
         return bus;
     }
 }
