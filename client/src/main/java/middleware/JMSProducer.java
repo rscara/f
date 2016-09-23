@@ -33,10 +33,10 @@ public final class JMSProducer {
 	    BigDecimal total=BigDecimal.ZERO;
 	    for (int i = 0; i < itemQuantity; i++) {
 	    	OrderItem item = new OrderItem();
-	    	item.setAmount(BigDecimal.valueOf(new Random().nextInt()%1500));
-	    	item.setSku(i+"sku");
+	    	item.setAmount(BigDecimal.valueOf(new Random().nextInt()%1500).abs());
+	    	item.setSku(i+"");
 	    	item.setType(((i%3)+1)+"");
-	    	item.setQuantity(BigDecimal.valueOf(i));
+	    	item.setQuantity(BigDecimal.valueOf(i).abs());
 	    	item.setNumber(i+"");
 	    	total=item.getQuantity().multiply(item.getAmount()).add(total);
 	    	items.add(item);
