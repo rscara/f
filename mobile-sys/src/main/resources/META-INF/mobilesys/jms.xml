@@ -30,36 +30,14 @@
 		</property>
 		<property name="sessionCacheSize" value="10"/>
 	</bean>
-
-	<bean id="inboxQueue" class="org.apache.activemq.command.ActiveMQQueue">
-		<constructor-arg value="queue.inbox"/>
-	</bean>
-
-	<bean id="outboxQueue" class="org.apache.activemq.command.ActiveMQQueue">
-		<constructor-arg value="queue.outbox"/>
-	</bean>
-	
-	<bean id="invalidQueue" class="org.apache.activemq.command.ActiveMQQueue">
-		<constructor-arg value="queue.invalid"/>
-	</bean>
-
-	<bean id="deadLetterQueue" class="org.apache.activemq.command.ActiveMQQueue">
-		<constructor-arg value="queue.deadLetter"/>
-	</bean>
 	
 	<bean id="mobulesysInbox" class="org.apache.activemq.command.ActiveMQQueue">
 		<constructor-arg value="queue.mobulesysInbox"/>
 	</bean>
 
-	<integration:poller id="poller" default="true" fixed-delay="1000"/>
+	<int-jms:message-driven-channel-adapter id="jmsIn.success" destination="mobulesysInbox" channel="successChannel"/>
 	
-	<int-jms:message-driven-channel-adapter id="jmsIn" destination="inboxQueue" channel="inboxChannel"/>
-	
-	<int-jms:outbound-channel-adapter id="jmsOut" destination="mobulesysInbox" channel="mobileSysOutChannel"/>
-	
-<!-- 	<int-jms:inbound-channel-adapter id="jmsIn" destination="inboxQueue" channel="inboxChannel"> 
-	    <int:poller fixed-rate="500"/>
-	</int-jms:inbound-channel-adapter>-->
+	<int-jms:message-driven-channel-adapter id="jmsIn.error" destination="mobulesysInbox" channel="errorChannel"/>
 	
 
 </beans>

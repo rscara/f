@@ -91,7 +91,7 @@
 	<si-xml:xslt-transformer input-channel="mobileSysChannel" output-channel="mobileSysOutChannel" xsl-resource="classpath:/META-INF/middleware/MobileSys.xsl"/>
 	
 	<si:channel id="mobileSysOutChannel" />
-	<si-stream:stdout-channel-adapter id="mobileSysStdoutAdapter" channel="mobileSysOutChannel" append-newline="true"/>
+<!-- 	<si-stream:stdout-channel-adapter id="mobileSysStdoutAdapter" channel="mobileSysOutChannel" append-newline="true"/> -->
 	
 	
 	
