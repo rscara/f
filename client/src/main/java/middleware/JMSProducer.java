@@ -3,6 +3,7 @@ package middleware;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.Random;
 
 import javax.jms.Connection;
@@ -11,14 +12,23 @@ import javax.jms.Destination;
 import javax.jms.Message;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
+import javax.naming.Context;
+import javax.naming.InitialContext;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 public final class JMSProducer {
 
   public static void main(final String[] args) throws Exception {
-    final ConnectionFactory connFactory = new ActiveMQConnectionFactory();
+    
 
+    Properties props = new Properties();
+    props.setProperty(Context.INITIAL_CONTEXT_FACTORY,"org.apache.activemq.jndi.ActiveMQInitialContextFactory");
+    props.setProperty(Context.PROVIDER_URL,"tcp://localhost:61616");
+    javax.naming.Context ctx = new InitialContext(props);
+    
+    final ConnectionFactory connFactory = (ConnectionFactory) ctx.lookup("ConnectionFactory");
+    
     final Connection conn = connFactory.createConnection();
 
     final Session sess = conn.createSession(false, Session.AUTO_ACKNOWLEDGE);
