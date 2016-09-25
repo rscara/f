@@ -107,11 +107,11 @@
 		    <artifactId>cxf-spring-boot-starter-jaxws</artifactId>
 		    <version>3.1.7</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/postgresql/postgresql -->
+		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
 		<dependency>
-		    <groupId>postgresql</groupId>
+		    <groupId>org.postgresql</groupId>
 		    <artifactId>postgresql</artifactId>
-		    <version>9.3-1102.jdbc41</version>
+		    <version>9.4.1211.jre7</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/commons-dbcp/commons-dbcp -->
 		<dependency>

@@ -18,13 +18,13 @@
 
 	
 	<bean id="redeliveryPolicy" class="org.apache.activemq.RedeliveryPolicy">
-        <property name="maximumRedeliveries" value="2" />
+        <property name="maximumRedeliveries" value="${message.retry.quantity}" />
     </bean>
 
 	<bean id="connectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
 		<property name="targetConnectionFactory">
 			<bean class="org.apache.activemq.ActiveMQConnectionFactory">
-				<property name="brokerURL" value="tcp://localhost:61616"/>
+				<property name="brokerURL" value="${broker.url}"/>
 				<property name="redeliveryPolicy" ref="redeliveryPolicy" />
 			</bean>
 		</property>
