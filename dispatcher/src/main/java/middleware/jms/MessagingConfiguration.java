@@ -12,16 +12,16 @@ public class MessagingConfiguration {
  
     @Bean
     public BrokerService broker() throws Exception{
-    	BrokerService broker = new BrokerService();
-    	// configure the broker
-    	broker.setBrokerName("dispatcher");
-    	broker.addConnector("tcp://localhost:61616");
-    	broker.addConnector("vm://localhost");
-    	KahaDBStore persistenceAdapter=new KahaDBStore();
-    	persistenceAdapter.setDirectory(new File("activemq-data-dispatcher"));
-    	broker.setPersistenceAdapter(persistenceAdapter);
-    	broker.start();
-    	return broker;
+//    	BrokerService broker = new BrokerService();
+//    	broker.setBrokerName("dispatcher");
+//    	broker.addConnector("tcp://localhost:61616");
+//    	broker.addConnector("vm://localhost");
+//    	KahaDBStore persistenceAdapter=new KahaDBStore();
+//    	persistenceAdapter.setDirectory(new File("activemq-data-dispatcher"));
+//    	broker.setPersistenceAdapter(persistenceAdapter);
+//    	broker.start();
+//    	return broker;
+    	return null;
     }
      
 }

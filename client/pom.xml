@@ -18,6 +18,11 @@
 		    <artifactId>imq</artifactId>
 		    <version>4.6-b01</version>
 		</dependency>
+		 <dependency>
+	      <groupId>org.apache.activemq</groupId>
+	      <artifactId>activemq-client</artifactId>
+	      <version>5.13.4</version>
+	    </dependency>
 
     </dependencies>
 

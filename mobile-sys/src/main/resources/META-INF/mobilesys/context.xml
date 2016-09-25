@@ -1,36 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:integration="http://www.springframework.org/schema/integration"
-	xmlns:int="http://www.springframework.org/schema/integration"
-    xmlns:int-stream="http://www.springframework.org/schema/integration/stream"
+	xmlns:si-xml="http://www.springframework.org/schema/integration/xml"
+	xmlns:si="http://www.springframework.org/schema/integration" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:jms="http://www.springframework.org/schema/integration/jms"
+	xmlns:si-stream="http://www.springframework.org/schema/integration/stream"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 			http://www.springframework.org/schema/beans/spring-beans.xsd
 			http://www.springframework.org/schema/integration
-			http://www.springframework.org/schema/integration/spring-integration.xsd">
-
-
-	
-<!-- 	<int:publish-subscribe-channel id="mobulesysInbox"/> -->
-
-
-	
-	<int:service-activator id="consumer1" input-channel="mobulesysInbox" ref="MobileSysConsumer" method="receiveMessage"/>
-
-	<bean id="connectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
-		<property name="targetConnectionFactory">
-			<bean class="org.apache.activemq.ActiveMQConnectionFactory">
-				<property name="brokerURL" value="tcp://localhost:61618"/>
-			</bean>
-		</property>
-		<property name="sessionCacheSize" value="10"/>
-	</bean>
+			http://www.springframework.org/schema/integration/spring-integration.xsd
+			http://www.springframework.org/schema/integration/xml
+			http://www.springframework.org/schema/integration/xml/spring-integration-xml.xsd
+			http://www.springframework.org/schema/util
+			http://www.springframework.org/schema/util/spring-util.xsd
+			http://www.springframework.org/schema/integration/jms
+			http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd
+			http://www.springframework.org/schema/integration/stream
+      		http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd">
 
 	
-<!-- 	<bean id="MobileSysConsumer" class="mobilesys.jms.MobileSysConsumer"> -->
-<!-- 	</bean> -->
-
-
-	<integration:poller id="poller" default="true" fixed-delay="1000"/>
+	<import resource="classpath:/META-INF/mobilesys/jms.xml"/>	
+	
+	<si:channel id="successChannel" />
+	
+	<si:channel id="errorChannel" />
+	
+	<bean id="errorInvoker" class="mobilesys.MobileSysService"></bean>
+	
+	<si:service-activator input-channel="errorChannel" ref="errorInvoker" method="invokeError" />
+	
+	<si-stream:stdout-channel-adapter id="stdoutAdapter" channel="successChannel" append-newline="true"/>
 
 </beans>
