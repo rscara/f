@@ -36,7 +36,7 @@ public final class JMSProducer {
     final Destination dest = sess.createQueue("queue.inbox");
 
     final MessageProducer prod = sess.createProducer(dest);
-    int ordersQuantity=1000;
+    int ordersQuantity=10000;
     for (int j = 0; j < ordersQuantity; j++) {
 		List<OrderItem> items = new ArrayList<OrderItem>();
 	    int itemQuantity = new Random().nextInt()%10;
