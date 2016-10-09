@@ -8,7 +8,18 @@
 			http://www.springframework.org/schema/util
 			http://www.springframework.org/schema/util/spring-util.xsd
 			http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
-			
+	
+	<import resource="dal.xml"/>
 
+  	<jaxws:endpoint id="ticketQueryServiceEndpoint" implementor="#ticketQueryService" address="/TicketQueryService" />
+
+	<bean id="ticketQueryService" class="middleware.ws.TicketQueryServiceImpl">
+		<property name="eventManager" ref="eventManager"/>	
+	</bean>
+	
+	<bean id="eventManager" class="middleware.business.EventManagerImpl">
+		<property name="eventDatasource" ref="eventDatasource"/>
+		<property name="eventTicketsDatasource" ref="eventTicketsDatasource"/>
+	</bean>
 
 </beans>

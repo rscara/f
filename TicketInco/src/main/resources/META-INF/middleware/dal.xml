@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/util
+			http://www.springframework.org/schema/util/spring-util.xsd">
+
+  	<bean id="eventDatasource" class="middleware.dal.MemoryEventDatasource">
+		<property name="events">
+			<list>
+				<bean class="middleware.dal.Event">
+					<property name="id" value="0"/>
+					<property name="date" value="2016-10-12 00:00:00"/>
+				</bean>
+				<bean class="middleware.dal.Event">
+					<property name="id" value="1"/>
+					<property name="date" value="2016-10-12 00:00:00"/>
+				</bean>
+				<bean class="middleware.dal.Event">
+					<property name="id" value="2"/>
+					<property name="date" value="2016-10-13 00:00:00"/>
+				</bean>
+				<bean class="middleware.dal.Event">
+					<property name="id" value="3"/>
+					<property name="date" value="2016-10-13 00:00:00"/>
+				</bean>				
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="eventTicketsDatasource" class="middleware.dal.MemoryEventTicketDatasource">
+		<property name="ticketsByEvent">
+			<map>
+				<entry key="0">
+					<list>
+						<bean class="middleware.dal.EventTicket">
+							<property name="hour" value="2016-10-12 20:00:00"/>
+							<property name="eventId" value="0"/>
+							<property name="sector" value="vip"/>
+							<property name="price" value="1000"/>
+							<property name="quantity" value="10"/>
+						</bean>
+						<bean class="middleware.dal.EventTicket">
+							<property name="eventId" value="0"/>
+							<property name="hour" value="2016-10-12 20:00:00"/>
+							<property name="sector" value="platea"/>
+							<property name="price" value="500"/>
+							<property name="quantity" value="100"/>
+						</bean>
+						<bean class="middleware.dal.EventTicket">
+							<property name="eventId" value="0"/>
+							<property name="hour" value="2016-10-12 20:00:00"/>
+							<property name="sector" value="generales"/>
+							<property name="price" value="150"/>
+							<property name="quantity" value="2000"/>
+						</bean>	
+					</list>
+				</entry>
+				<entry key="1">
+					<list>
+						<bean class="middleware.dal.EventTicket">
+							<property name="eventId" value="1"/>
+							<property name="hour" value="2016-10-12 20:00:00"/>
+							<property name="sector" value="vip"/>
+							<property name="price" value="1000"/>
+							<property name="quantity" value="10"/>
+						</bean>
+						<bean class="middleware.dal.EventTicket">
+							<property name="eventId" value="1"/>
+							<property name="hour" value="2016-10-12 20:00:00"/>
+							<property name="sector" value="platea"/>
+							<property name="price" value="500"/>
+							<property name="quantity" value="100"/>
+						</bean>
+						<bean class="middleware.dal.EventTicket">
+							<property name="eventId" value="1"/>
+							<property name="hour" value="2016-10-12 20:00:00"/>
+							<property name="sector" value="generales"/>
+							<property name="price" value="150"/>
+							<property name="quantity" value="2000"/>
+						</bean>	
+					</list>
+				</entry>
+				<entry key="2">
+					<list>
+						<bean class="middleware.dal.EventTicket">
+							<property name="eventId" value="2"/>
+							<property name="hour" value="2016-10-13 20:00:00"/>
+							<property name="sector" value="generales"/>
+							<property name="price" value="300"/>
+							<property name="quantity" value="2000"/>
+						</bean>	
+					</list>
+				</entry>
+				<entry key="3">
+					<list>
+						<bean class="middleware.dal.EventTicket">
+							<property name="eventId" value="3"/>
+							<property name="hour" value="2016-10-13 20:00:00"/>
+							<property name="sector" value="gold"/>
+							<property name="price" value="10000"/>
+							<property name="quantity" value="10"/>
+						</bean>
+						<bean class="middleware.dal.EventTicket">
+							<property name="eventId" value="3"/>
+							<property name="hour" value="2016-10-13 20:00:00"/>
+							<property name="sector" value="silver"/>
+							<property name="price" value="8000"/>
+							<property name="quantity" value="20"/>
+						</bean>
+						<bean class="middleware.dal.EventTicket">
+							<property name="eventId" value="3"/>
+							<property name="hour" value="2016-10-13 20:00:00"/>
+							<property name="sector" value="platea"/>
+							<property name="price" value="2000"/>
+							<property name="quantity" value="200"/>
+						</bean>
+						<bean class="middleware.dal.EventTicket">
+							<property name="eventId" value="3"/>
+							<property name="hour" value="2016-10-13 20:00:00"/>
+							<property name="sector" value="campo"/>
+							<property name="price" value="1000"/>
+							<property name="quantity" value="30000"/>
+						</bean>	
+					</list>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+	    <property name="propertyEditorRegistrars">
+	        <list>
+	            <bean class="middleware.SpringCustomDate"/>
+	        </list>
+	    </property>
+	</bean>
+
+</beans>

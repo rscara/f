@@ -3,6 +3,8 @@ package middleware.ws;
 import java.util.Date;
 import java.util.List;
 
+import middleware.business.EventAvailability;
+
 public class TicketBookRequest {
 
 	public int eventId;

@@ -1,17 +1,23 @@
 package middleware.ws;
 
-import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
+import middleware.business.Event;
+
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class TicketQueryResponse {
 	
-	public List<EventSchedule> events;
+	public Event event;
 
-	public List<EventSchedule> getEvents() {
-		return events;
+	public Event getEvent() {
+		return event;
 	}
 
-	public void setEvents(List<EventSchedule> events) {
-		this.events = events;
+	public void setEvent(Event event) {
+		this.event = event;
 	}
 
 }
