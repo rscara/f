@@ -3,19 +3,19 @@ package middleware.ws;
 import java.util.Date;
 import java.util.List;
 
-import middleware.business.EventAvailability;
+import middleware.business.EventSchedule;
 
 public class TicketBookRequest {
 
-	public int eventId;
+	public long eventId;
 	public Date eventDate;
-	public List<EventAvailability> availability;
+	public List<EventSchedule> eventSchedules;
 
-	public int getEventId() {
+	public long getEventId() {
 		return eventId;
 	}
 
-	public void setEventId(int eventId) {
+	public void setEventId(long eventId) {
 		this.eventId = eventId;
 	}
 
@@ -27,12 +27,12 @@ public class TicketBookRequest {
 		this.eventDate = eventDate;
 	}
 
-	public List<EventAvailability> getAvailability() {
-		return availability;
+	public List<EventSchedule> getEventSchedules() {
+		return eventSchedules;
 	}
 
-	public void setAvailability(List<EventAvailability> availability) {
-		this.availability = availability;
+	public void setEventSchedules(List<EventSchedule> eventSchedules) {
+		this.eventSchedules = eventSchedules;
 	}
 
 }

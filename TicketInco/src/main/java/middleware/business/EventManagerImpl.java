@@ -16,8 +16,10 @@ public class EventManagerImpl implements EventManager {
 	private EventTicketsDatasource eventTicketsDatasource;	
 
 	@Override
-	public Event getScheduleForEvent(long eventId) {
+	public Event getScheduleForEvent(long eventId) throws Exception{
 		middleware.dal.Event event = eventDatasource.getEvent(eventId);
+		if (event==null)
+			throw new Exception("No se encuentra el evento con id:" + eventId);
 		
 		List<EventTicket> tickets = eventTicketsDatasource.getTicketsForEvent(event.getId());
 		
@@ -57,6 +59,11 @@ public class EventManagerImpl implements EventManager {
 		
 		return eventForDate;
 	}
+	
+	@Override
+	public long bookTickets(long eventId, Date eventDate, List<EventSchedule> eventSchedules) throws Exception {
+		return 0;
+	}
 
 	public void setEventDatasource(EventDatasource eventDatasource) {
 		this.eventDatasource = eventDatasource;
@@ -65,5 +72,4 @@ public class EventManagerImpl implements EventManager {
 	public void setEventTicketsDatasource(EventTicketsDatasource eventTicketsDatasource) {
 		this.eventTicketsDatasource = eventTicketsDatasource;
 	}
-
 }
