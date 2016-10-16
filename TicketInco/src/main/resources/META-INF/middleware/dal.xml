@@ -33,7 +33,13 @@
 	<bean id="eventTicketsDatasource" class="middleware.dal.MemoryEventTicketDatasource">
 		<property name="ticketsByEvent">
 			<map>
-				<entry key="0">
+				<entry>
+					<key>
+						<bean class="middleware.dal.Event">
+							<property name="id" value="0"/>
+							<property name="date" value="2016-10-12 00:00:00"/>
+						</bean>
+					</key>
 					<list>
 						<bean class="middleware.dal.EventTicket">
 							<property name="hour" value="2016-10-12 20:00:00"/>
@@ -58,7 +64,13 @@
 						</bean>	
 					</list>
 				</entry>
-				<entry key="1">
+				<entry>
+					<key>
+						<bean class="middleware.dal.Event">
+							<property name="id" value="1"/>
+							<property name="date" value="2016-10-12 00:00:00"/>
+						</bean>
+					</key>
 					<list>
 						<bean class="middleware.dal.EventTicket">
 							<property name="eventId" value="1"/>
@@ -83,7 +95,13 @@
 						</bean>	
 					</list>
 				</entry>
-				<entry key="2">
+				<entry>
+					<key>
+						<bean class="middleware.dal.Event">
+							<property name="id" value="2"/>
+							<property name="date" value="2016-10-13 00:00:00"/>
+						</bean>
+					</key>
 					<list>
 						<bean class="middleware.dal.EventTicket">
 							<property name="eventId" value="2"/>
@@ -94,7 +112,13 @@
 						</bean>	
 					</list>
 				</entry>
-				<entry key="3">
+				<entry>
+					<key>
+						<bean class="middleware.dal.Event">
+							<property name="id" value="3"/>
+							<property name="date" value="2016-10-13 00:00:00"/>
+						</bean>
+					</key>
 					<list>
 						<bean class="middleware.dal.EventTicket">
 							<property name="eventId" value="3"/>
@@ -126,6 +150,7 @@
 						</bean>	
 					</list>
 				</entry>
+
 			</map>
 		</property>
 	</bean>

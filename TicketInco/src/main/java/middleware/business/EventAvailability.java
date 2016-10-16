@@ -36,4 +36,9 @@ public class EventAvailability {
 		this.quantity = quantity;
 	}
 
+	@Override
+	public String toString() {
+		return "EventAvailability [sector=" + sector + ", price=" + price + ", quantity=" + quantity + "]";
+	}
+
 }

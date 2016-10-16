@@ -3,8 +3,11 @@ package middleware.ws;
 import java.util.Date;
 import java.util.List;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import middleware.DateAdapter;
 import middleware.business.EventSchedule;
 
+@XmlJavaTypeAdapter(DateAdapter.class)
 public class TicketBookRequest {
 
 	public long eventId;
