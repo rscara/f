@@ -3,50 +3,19 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:util="http://www.springframework.org/schema/util"
 	xmlns:jaxws="http://cxf.apache.org/jaxws"
-	xmlns:cxf="http://cxf.apache.org/core"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
-			http://cxf.apache.org/schemas/core.xsd
 			http://www.springframework.org/schema/beans/spring-beans.xsd
 			http://www.springframework.org/schema/util
 			http://www.springframework.org/schema/util/spring-util.xsd
-			http://cxf.apache.org/jaxws 
-			http://cxf.apache.org/schemas/jaxws.xsd">
+			http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 	
-	<import resource="classpath:META-INF/cxf/cxf-extension-policy.xml"/> 
-	<import resource="classpath:META-INF/cxf/cxf-extension-ws-security.xml"/> 
 	<import resource="dal.xml"/>
-	
-	<cxf:bus>        
-		<cxf:properties>            
-			<entry key="ws-security.validate.token" value="false" />            
-			<entry key="ws-security.ut.no-callbacks" value="true" />            
-			<entry key="ws-security.ut.validator" value="middleware.ws.security.CredentialValidator" />        
-		</cxf:properties> 
-	</cxf:bus>
-	
 
-
-  	<jaxws:endpoint id="ticketQueryServiceEndpoint" implementor="#ticketQueryService" address="/TicketQueryService">
-  		<jaxws:inInterceptors>             
-			<ref bean="wss4jIn"/>       
-		</jaxws:inInterceptors> 
-  	</jaxws:endpoint>
-  	
+  	<jaxws:endpoint id="ticketQueryServiceEndpoint" implementor="#ticketQueryService" address="/TicketQueryService" />
 <!--   	<jaxws:endpoint id="bookConfirmationServiceEndpoint" implementor="#bookConfirmationService" address="/BookConfirmationService" /> -->
   	<jaxws:endpoint id="bookQueryServiceEndpoint" implementor="#bookQueryService" address="/BookQueryService" />
   	<jaxws:endpoint id="ticketBookServiceEndpoint" implementor="#ticketBookService" address="/TicketBookService" />
 <!--   	<jaxws:endpoint id="bookVoidServiceEndpoint" implementor="#bookVoidService" address="/BookVoidService" /> -->
-  	
-	<!-- Security interceptor requiring plain text password and timestamp --> 
-	<bean id="wss4jIn" class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor"> 
-		<constructor-arg> 
-			<map> 
-				<entry key="action" value="UsernameToken Timestamp" /> 
-				<entry key="passwordType" value="PasswordText" /> 
-			</map> 
-		</constructor-arg> 
-	</bean>
-
   	
 
 	<bean id="bookConfirmationService" class="middleware.ws.service.BookConfirmationServiceImpl">
@@ -65,11 +34,6 @@
 	<bean id="ticketQueryService" class="middleware.ws.service.TicketQueryServiceImpl">
 		<property name="eventManager" ref="eventManager"/>
 	</bean>
-	
-	<bean id="ticketBookService" class="middleware.ws.service.TicketBookServiceImpl">
-		<property name="eventManager" ref="eventManager"/>
-	</bean>
-	
 	
 	<bean id="eventManager" class="middleware.business.EventManagerImpl">
 		<property name="eventDatasource" ref="eventDatasource"/>
