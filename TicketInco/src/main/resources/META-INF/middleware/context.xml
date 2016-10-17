@@ -12,9 +12,20 @@
 	<import resource="dal.xml"/>
 
   	<jaxws:endpoint id="ticketQueryServiceEndpoint" implementor="#ticketQueryService" address="/TicketQueryService" />
+  	<jaxws:endpoint id="ticketBookServiceEndpoint" implementor="#ticketBookService" address="/TicketBookService" />
+  	<jaxws:endpoint id="bookQueryServiceEndpoint" implementor="#bookQueryService" address="/BookQueryService" />
+  	
 
 	<bean id="ticketQueryService" class="middleware.ws.TicketQueryServiceImpl">
 		<property name="eventManager" ref="eventManager"/>	
+	</bean>
+	
+	<bean id="ticketBookService" class="middleware.ws.TicketBookServiceImpl">
+		<property name="eventManager" ref="eventManager"/>
+	</bean>
+	
+	<bean id="bookQueryService" class="middleware.ws.BookQueryServiceImpl">
+		<property name="eventManager" ref="eventManager"/>
 	</bean>
 	
 	<bean id="eventManager" class="middleware.business.EventManagerImpl">

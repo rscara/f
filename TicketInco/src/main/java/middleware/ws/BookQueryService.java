@@ -1,7 +1,13 @@
 package middleware.ws;
 
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
+import javax.jws.WebService;
+
+@WebService(name = "BookQueryService", targetNamespace = "http://ticketinco.com/")
 public interface BookQueryService {
 	
-	public BookQueryRequest queryBook(BookQueryResponse bookQueryResponse) throws Exception;
+	@WebMethod(action = "queryBook", operationName = "queryBook")
+	public BookQueryResponse queryBook(@WebParam(name = "request") BookQueryRequest request) throws Exception;
 
 }
