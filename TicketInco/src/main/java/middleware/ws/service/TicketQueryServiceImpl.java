@@ -1,10 +1,12 @@
-package middleware.ws;
+package middleware.ws.service;
 
 import javax.jws.WebService;
 
 import middleware.business.EventManager;
+import middleware.ws.TicketQueryRequest;
+import middleware.ws.TicketQueryResponse;
 
-@WebService(endpointInterface = "middleware.ws.TicketQueryService", name = "TicketQueryService", targetNamespace = "http://ticketinco.com/")
+@WebService(endpointInterface = "middleware.ws.service.TicketQueryService", name = "TicketQueryService", targetNamespace = "http://ticketinco.com/")
 public class TicketQueryServiceImpl implements TicketQueryService {
 	
 	private EventManager eventManager;
