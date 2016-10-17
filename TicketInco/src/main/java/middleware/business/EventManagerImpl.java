@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import middleware.dal.Book;
 import middleware.dal.EventBook;
@@ -121,6 +122,13 @@ public class EventManagerImpl implements EventManager {
 		
 		int remainingTickets = eventTicket.getQuantity() - bookQuantity - confirmationQuantity;
 		return eventAvailability.getQuantity() <= remainingTickets;
+	}
+	
+	@Override
+	@Scheduled(initialDelayString="${cron.timer}", fixedDelayString = "${cron.timer}")
+	public void cleanBooks() {
+		logger.debug("Limpiar reservas");	
+		eventTicketsDatasource.removeAllBooks();
 	}
 
 	public void setEventDatasource(EventDatasource eventDatasource) {

@@ -1,7 +1,10 @@
 package middleware.ws;
 
+import javax.jws.WebService;
+
 import middleware.business.EventManager;
 
+@WebService(endpointInterface = "middleware.ws.TicketBookService", name = "TicketBookService", targetNamespace = "http://ticketinco.com/")
 public class TicketBookServiceImpl implements TicketBookService {
 	
 	private EventManager eventManager;

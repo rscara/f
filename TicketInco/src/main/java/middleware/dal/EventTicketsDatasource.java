@@ -19,4 +19,6 @@ public interface EventTicketsDatasource {
 	
 	public Book getBookById(long bookId);
 	
+	public void removeAllBooks();
+	
 }

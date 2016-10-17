@@ -12,7 +12,6 @@ public class TicketQueryServiceImpl implements TicketQueryService {
 	private EventManager eventManager;
 
 	@Override
-	@XmlJavaTypeAdapter(DateAdapter.class)
 	public TicketQueryResponse queryTickets(TicketQueryRequest request) {
 		TicketQueryResponse response = new TicketQueryResponse();
 		response.setEvent(eventManager.getScheduleForEvent(request.getEventID(), request.getEventDate()));

@@ -100,6 +100,21 @@ public class MemoryEventTicketDatasource implements EventTicketsDatasource {
 		return null;
 	}
 	
+	@Override
+	public void removeAllBooks() {
+		for (List<EventBook> eventsBooks : booksByEvent.values()) {
+			for (EventBook eventBook : eventsBooks) {
+				for (Book book : books) {
+					if (book.getId()==eventBook.getBookId()) {
+						 book.setState(0);
+					}
+				}
+				
+			}
+		}
+		new HashMap<Event, List<EventBook>>();
+	}
+	
 	public void setTicketsByEvent(Map<Event, List<EventTicket>> ticketsByEvent) {
 		this.ticketsByEvent = ticketsByEvent;
 	}
@@ -107,6 +122,8 @@ public class MemoryEventTicketDatasource implements EventTicketsDatasource {
 	public void setBooksByEvent(Map<Event, List<EventBook>> booksByEvent) {
 		this.booksByEvent = booksByEvent;
 	}
+
+
 
 
 }

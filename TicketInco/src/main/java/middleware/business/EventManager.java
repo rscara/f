@@ -10,5 +10,7 @@ public interface EventManager {
 	public long bookTickets(long eventId, Date eventDate, List<EventSchedule> eventSchedules) throws Exception;
 	
 	public int getBookState(long bookId) throws Exception;
+	
+	public void cleanBooks();
 
 }
