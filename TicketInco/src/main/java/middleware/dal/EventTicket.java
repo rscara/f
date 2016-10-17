@@ -5,6 +5,7 @@ import java.util.Date;
 public class EventTicket {
 	
 	public long eventId;
+	public Date eventDate;
 	public Date hour;
 	public String sector;
 	public double price;
@@ -48,6 +49,14 @@ public class EventTicket {
 
 	public void setHour(Date hour) {
 		this.hour = hour;
+	}
+
+	public Date getEventDate() {
+		return eventDate;
+	}
+
+	public void setEventDate(Date eventDate) {
+		this.eventDate = eventDate;
 	}
 
 }

@@ -9,7 +9,7 @@ import middleware.ws.TicketQueryResponse;
 
 @WebService(name = "TicketQueryService", targetNamespace = "http://ticketinco.com/")
 public interface TicketQueryService {
-		
+	
 	@WebMethod(action = "queryTickets", operationName = "queryTickets")
 	public TicketQueryResponse queryTickets(@WebParam(name = "request") TicketQueryRequest request);
 }

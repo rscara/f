@@ -1,7 +1,9 @@
 package middleware.ws.service;
 
 import javax.jws.WebService;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import middleware.DateAdapter;
 import middleware.business.EventManager;
 import middleware.ws.TicketQueryRequest;
 import middleware.ws.TicketQueryResponse;
@@ -14,7 +16,7 @@ public class TicketQueryServiceImpl implements TicketQueryService {
 	@Override
 	public TicketQueryResponse queryTickets(TicketQueryRequest request) {
 		TicketQueryResponse response = new TicketQueryResponse();
-		response.setEvent(eventManager.getScheduleForEvent(request.getEventID()));
+		response.setEvent(eventManager.getScheduleForEvent(request.getEventID(), request.getEventDate()));
 		return response;
 	}
 

@@ -9,7 +9,8 @@
 			http://www.springframework.org/schema/beans/spring-beans.xsd
 			http://www.springframework.org/schema/util
 			http://www.springframework.org/schema/util/spring-util.xsd
-			http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+			http://cxf.apache.org/jaxws 
+			http://cxf.apache.org/schemas/jaxws.xsd">
 	
 	<import resource="classpath:META-INF/cxf/cxf-extension-policy.xml"/> 
 	<import resource="classpath:META-INF/cxf/cxf-extension-ws-security.xml"/> 
@@ -23,6 +24,7 @@
 		</cxf:properties> 
 	</cxf:bus>
 	
+
 
   	<jaxws:endpoint id="ticketQueryServiceEndpoint" implementor="#ticketQueryService" address="/TicketQueryService">
   		<jaxws:inInterceptors>             
@@ -44,15 +46,14 @@
 			</map> 
 		</constructor-arg> 
 	</bean>
-	
-	
-  	
+
   	
 
 	<bean id="bookConfirmationService" class="middleware.ws.service.BookConfirmationServiceImpl">
 	</bean>
 	
 	<bean id="bookQueryService" class="middleware.ws.service.BookQueryServiceImpl">
+		<property name="eventManager" ref="eventManager"/>
 	</bean>
 	
 	<bean id="bookVoidService" class="middleware.ws.service.BookVoidServiceImpl">
@@ -64,6 +65,11 @@
 	<bean id="ticketQueryService" class="middleware.ws.service.TicketQueryServiceImpl">
 		<property name="eventManager" ref="eventManager"/>
 	</bean>
+	
+	<bean id="ticketBookService" class="middleware.ws.service.TicketBookServiceImpl">
+		<property name="eventManager" ref="eventManager"/>
+	</bean>
+	
 	
 	<bean id="eventManager" class="middleware.business.EventManagerImpl">
 		<property name="eventDatasource" ref="eventDatasource"/>

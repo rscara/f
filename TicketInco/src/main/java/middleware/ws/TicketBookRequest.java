@@ -6,22 +6,25 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import middleware.DateAdapter;
+import middleware.business.EventSchedule;
 
-import middleware.business.EventAvailability;
-
+@XmlJavaTypeAdapter(DateAdapter.class)
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TicketBookRequest {
 
-	public int eventId;
+	public long eventId;
+	@XmlJavaTypeAdapter(DateAdapter.class)
 	public Date eventDate;
-	public List<EventAvailability> availability;
+	public List<EventSchedule> eventSchedules;
 
-	public int getEventId() {
+	public long getEventId() {
 		return eventId;
 	}
 
-	public void setEventId(int eventId) {
+	public void setEventId(long eventId) {
 		this.eventId = eventId;
 	}
 
@@ -33,12 +36,12 @@ public class TicketBookRequest {
 		this.eventDate = eventDate;
 	}
 
-	public List<EventAvailability> getAvailability() {
-		return availability;
+	public List<EventSchedule> getEventSchedules() {
+		return eventSchedules;
 	}
 
-	public void setAvailability(List<EventAvailability> availability) {
-		this.availability = availability;
+	public void setEventSchedules(List<EventSchedule> eventSchedules) {
+		this.eventSchedules = eventSchedules;
 	}
 
 }
