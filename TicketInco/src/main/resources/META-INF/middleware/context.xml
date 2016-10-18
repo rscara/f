@@ -11,7 +11,27 @@
 	
 	<import resource="dal.xml"/>
 
-  	<jaxws:endpoint id="ticketQueryServiceEndpoint" implementor="#ticketQueryService" address="/TicketQueryService" />
+	<bean id="myPasswordCallback" class="middleware.ws.security.ServerPasswordCallback"/>
+
+  	<jaxws:endpoint id="ticketQueryServiceEndpoint" implementor="#ticketQueryService" address="/TicketQueryService" >
+  		  
+ 		   <jaxws:inInterceptors>
+		      <bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+		         <constructor-arg>
+		            <map>
+		               <entry key="action" value="UsernameToken"/>
+		               <entry key="passwordType" value="PasswordText"/>
+<!-- 		               <entry key="signaturePropFile" value="conf/application.properties"/> -->
+		               <entry key="passwordCallbackRef">
+		                  <ref bean="myPasswordCallback"/>
+		               </entry>
+		            </map>
+		         </constructor-arg>
+		      </bean>
+		   </jaxws:inInterceptors>
+  	
+  	
+  	</jaxws:endpoint>
 <!--   	<jaxws:endpoint id="bookConfirmationServiceEndpoint" implementor="#bookConfirmationService" address="/BookConfirmationService" /> -->
   	<jaxws:endpoint id="bookQueryServiceEndpoint" implementor="#bookQueryService" address="/BookQueryService" />
   	<jaxws:endpoint id="ticketBookServiceEndpoint" implementor="#ticketBookService" address="/TicketBookService" />
