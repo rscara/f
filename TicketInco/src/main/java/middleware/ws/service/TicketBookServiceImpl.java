@@ -29,5 +29,3 @@ public class TicketBookServiceImpl implements TicketBookService {
         this.eventManager = eventManager;
     }
 }
-
-}
