@@ -27,4 +27,5 @@ public class BookQueryServiceImpl implements BookQueryService {
     public void setEventManager(EventManager eventManager) {
         this.eventManager = eventManager;
     }
+}
 
