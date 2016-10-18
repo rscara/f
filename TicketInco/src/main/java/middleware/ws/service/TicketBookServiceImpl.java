@@ -2,16 +2,17 @@ package middleware.ws.service;
 
 import javax.jws.WebService;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import middleware.business.EventManager;
 import middleware.ws.TicketBookRequest;
 import middleware.ws.TicketBookResponse;
 
-@WebService(endpointInterface = "middleware.ws.TicketBookService", name = "TicketBookService", targetNamespace = "http://ticketinco.com/")
+@WebService(endpointInterface = "middleware.ws.service.TicketBookService", name = "TicketBookService", targetNamespace = "http://ticketinco.com/")
 public class TicketBookServiceImpl implements TicketBookService {
     
-    private static final Logger logger = Logger.getLogger(TicketBookServiceImpl.class);
+    private static final Logger logger = LogManager.getLogger(TicketBookServiceImpl.class);
     private EventManager eventManager;
 
     @Override
@@ -27,5 +28,6 @@ public class TicketBookServiceImpl implements TicketBookService {
     public void setEventManager(EventManager eventManager) {
         this.eventManager = eventManager;
     }
+}
 
 }

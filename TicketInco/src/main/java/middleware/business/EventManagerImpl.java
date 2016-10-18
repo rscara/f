@@ -6,7 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import middleware.dal.Book;
@@ -18,7 +19,7 @@ import middleware.dal.EventTicketsDatasource;
 
 public class EventManagerImpl implements EventManager {
 	
-	private final static Logger logger = Logger.getLogger(EventManagerImpl.class);
+	private final static Logger logger = LogManager.getLogger(EventManagerImpl.class);
 	
 	private EventDatasource eventDatasource;
 	private EventTicketsDatasource eventTicketsDatasource;	
