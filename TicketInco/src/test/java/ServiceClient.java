@@ -46,9 +46,9 @@ public class ServiceClient {
 //		cxfEndpoint.getInInterceptors().add(wssIn);
 		 
 		Map<String,Object> outProps = new HashMap<String,Object>();
-		outProps.put(WSHandlerConstants.ACTION, WSHandlerConstants.USERNAME_TOKEN);
+		outProps.put(WSHandlerConstants.ACTION, WSHandlerConstants.USERNAME_TOKEN+" "+WSHandlerConstants.SIGNATURE);
 		// Specify our username
-		outProps.put(WSHandlerConstants.USER, "joe");
+		outProps.put(WSHandlerConstants.USER, "myservicekey");
 		// Password type : plain text
 		outProps.put(WSHandlerConstants.PASSWORD_TYPE, WSConstants.PW_TEXT);
 		// for hashed password use:
@@ -56,7 +56,8 @@ public class ServiceClient {
 		// Callback used to retrieve password for given user.
 		outProps.put(WSHandlerConstants.PW_CALLBACK_CLASS, 
 				ClientCallbackHandler.class.getName());
-		 
+		outProps.put(WSHandlerConstants.SIG_PROP_FILE, "config/application.properties");
+		
 		WSS4JOutInterceptor wssOut = new WSS4JOutInterceptor(outProps);
 		cxfEndpoint.getOutInterceptors().add(wssOut);
 		

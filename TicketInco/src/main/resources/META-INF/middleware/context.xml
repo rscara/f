@@ -12,19 +12,38 @@
 	<import resource="dal.xml"/>
 
 	<bean id="myPasswordCallback" class="middleware.ws.security.ServerPasswordCallback"/>
+	
+	
+	 <util:properties id="wsCryptoProperties">
+       <prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
+       <prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>
+       <prop key="org.apache.ws.security.crypto.merlin.keystore.password">password</prop>
+       <prop key="org.apache.ws.security.crypto.merlin.keystore.file">config/serviceKeystore.jks</prop>
+    </util:properties>
 
   	<jaxws:endpoint id="ticketQueryServiceEndpoint" implementor="#ticketQueryService" address="/TicketQueryService" >
-  		  
+  		  <jaxws:properties>
+     		<entry key="ws-security.cache.config.file"  value="/cxf-ehcache2.xml"/>
+   		  </jaxws:properties>
  		   <jaxws:inInterceptors>
 		      <bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
 		         <constructor-arg>
 		            <map>
-		               <entry key="action" value="UsernameToken"/>
-		               <entry key="passwordType" value="PasswordText"/>
-<!-- 		               <entry key="signaturePropFile" value="conf/application.properties"/> -->
-		               <entry key="passwordCallbackRef">
-		                  <ref bean="myPasswordCallback"/>
-		               </entry>
+<!-- 		            <entry key="ws-security.cache.config.file"  value="/cxf-ehcache1.xml"/> -->
+<!-- 		               <entry key="action" value="UsernameToken"/> -->
+<!-- 		               <entry key="passwordType" value="PasswordText"/> -->
+<!-- 		               <entry key="signaturePropFile" value="config/application.properties"/> -->
+<!-- 		               <entry key="passwordCallbackRef"> -->
+<!-- 		                  <ref bean="myPasswordCallback"/> -->
+<!-- 		               </entry> -->
+
+ 						<entry key="action" value="UsernameToken Signature"/>
+                    	<entry key="passwordType" value="PasswordText"/>
+                        <entry key="passwordCallbackRef">
+                            <ref bean="myPasswordCallback"/>
+                        </entry>
+                        <entry key="signaturePropRefId" value="wsCryptoProperties"/>
+                        <entry key="wsCryptoProperties" value-ref="wsCryptoProperties"/>
 		            </map>
 		         </constructor-arg>
 		      </bean>

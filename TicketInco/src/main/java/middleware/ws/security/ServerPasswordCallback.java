@@ -13,7 +13,7 @@ public class ServerPasswordCallback implements CallbackHandler {
  
         WSPasswordCallback pc = (WSPasswordCallback) callbacks[0];
  
-        if (pc.getIdentifier().equals("joe")) {
+        if (pc.getIdentifier().equals("myservicekey")) {
             // set the password on the callback. This will be compared to the
             // password which was sent from the client.
             pc.setPassword("password");
