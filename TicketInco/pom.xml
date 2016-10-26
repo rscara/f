@@ -46,6 +46,16 @@
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-log4j2</artifactId>
+		    <exclusions>
+		    	<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>jcl-over-slf4j</artifactId>
+		        </exclusion>
+		    	<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>jul-to-slf4j</artifactId>
+		        </exclusion>
+		    </exclusions>
 		</dependency>
 		<dependency>
 		   <groupId>org.apache.logging.log4j</groupId>
@@ -67,25 +77,7 @@
 		    <artifactId>commons-dbcp</artifactId>
 		    <version>1.4</version>
 		</dependency>	
-		
-		
-		<!-- CXF Dependencies
-		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-ws-security</artifactId>
-			<version>3.1.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-ws-policy</artifactId>
-			<version>3.1.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-wsdl</artifactId>
-			<version>3.1.2</version>
-		</dependency> -->
-		 
+	 
 		<!-- WSSE Dependencies -->
 		<dependency>
 			<groupId>org.apache.ws.security</groupId>
