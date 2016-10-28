@@ -66,6 +66,7 @@
 	</bean>
 	
 	<bean id="ticketBookService" class="middleware.ws.service.TicketBookServiceImpl">
+		<property name="eventManager" ref="eventManager"/>
 	</bean>
 	
 	<bean id="ticketQueryService" class="middleware.ws.service.TicketQueryServiceImpl">

@@ -2,17 +2,19 @@ package middleware.ws.service;
 
 import javax.jws.WebService;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import middleware.business.EventManager;
+import middleware.business.EventManagerImpl;
 import middleware.ws.BookQueryRequest;
 import middleware.ws.BookQueryResponse;
 
 @WebService(endpointInterface = "middleware.ws.service.BookQueryService", name = "BookQueryService", targetNamespace = "http://ticketinco.com/")
 public class BookQueryServiceImpl implements BookQueryService {
-    
-    private static final Logger logger = LogManager.getLogger(BookQueryServiceImpl.class);
+        
+	private static final Logger logger = LoggerFactory.getLogger(BookQueryServiceImpl.class);
+
     private EventManager eventManager;
 
     @Override
