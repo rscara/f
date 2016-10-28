@@ -20,4 +20,9 @@ public class TicketQueryResponse {
 		this.event = event;
 	}
 
+	@Override
+	public String toString() {
+		return "TicketQueryResponse [event=" + event + "]";
+	}
+
 }

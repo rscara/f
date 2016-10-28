@@ -33,4 +33,9 @@ public class TicketQueryRequest {
 		this.eventDate = eventDate;
 	}
 
+	@Override
+	public String toString() {
+		return "TicketQueryRequest [eventID=" + eventID + ", eventDate=" + eventDate + "]";
+	}
+
 }
