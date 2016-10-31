@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="9b8d78ee-5204-4e7b-abc5-b49ffc6d9734" activeEnvironment="Default" name="middleware" resourceRoot="" soapui-version="5.2.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="e1b22d09-897d-4e03-86ee-7bd182ed10b0" wsaVersion="NONE" name="TicketQueryServiceImplServiceSoapBinding" type="wsdl" bindingName="{http://ticketinco.com/}TicketQueryServiceImplServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/services/TicketQueryService?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/services/TicketQueryService?wsdl"><con:part><con:url>http://localhost:8080/services/TicketQueryService?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="TicketQueryServiceImplService" targetNamespace="http://ticketinco.com/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://ticketinco.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http">
+  <wsdl:types>
+    <xs:schema elementFormDefault="unqualified" targetNamespace="http://ticketinco.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="event" type="tns:event"/>
+      <xs:element name="eventAvailability" type="tns:eventAvailability"/>
+      <xs:element name="eventSchedule" type="tns:eventSchedule"/>
+      <xs:element name="queryTickets" type="tns:queryTickets"/>
+      <xs:element name="queryTicketsResponse" type="tns:queryTicketsResponse"/>
+      <xs:element name="ticketQueryRequest" type="tns:ticketQueryRequest"/>
+      <xs:element name="ticketQueryResponse" type="tns:ticketQueryResponse"/>
+      <xs:complexType name="queryTickets">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="request" type="tns:ticketQueryRequest"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ticketQueryRequest">
+        <xs:sequence>
+          <xs:element name="eventID" type="xs:long"/>
+          <xs:element minOccurs="0" name="eventDate" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="queryTicketsResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:ticketQueryResponse"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ticketQueryResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="event" type="tns:event"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="event">
+        <xs:sequence>
+          <xs:element name="eventId" type="xs:long"/>
+          <xs:element minOccurs="0" name="eventDate" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="eventSchedules" nillable="true" type="tns:eventSchedule"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="eventSchedule">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="hour" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="availabilities" nillable="true" type="tns:eventAvailability"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="eventAvailability">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="sector" type="xs:string"/>
+          <xs:element name="price" type="xs:double"/>
+          <xs:element name="quantity" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="queryTickets">
+    <wsdl:part element="tns:queryTickets" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="queryTicketsResponse">
+    <wsdl:part element="tns:queryTicketsResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="TicketQueryService">
+    <wsdl:operation name="queryTickets">
+      <wsdl:input message="tns:queryTickets" name="queryTickets"></wsdl:input>
+      <wsdl:output message="tns:queryTicketsResponse" name="queryTicketsResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="TicketQueryServiceImplServiceSoapBinding" type="tns:TicketQueryService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="queryTickets">
+      <soap:operation soapAction="queryTickets" style="document"/>
+      <wsdl:input name="queryTickets">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="queryTicketsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TicketQueryServiceImplService">
+    <wsdl:port binding="tns:TicketQueryServiceImplServiceSoapBinding" name="TicketQueryServicePort">
+      <soap:address location="http://localhost:8080/services/TicketQueryService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/services/TicketQueryService</con:endpoint></con:endpoints><con:operation id="3dad21be-e8b6-4b6d-b8f3-bb221efa246c" isOneWay="false" action="queryTickets" name="queryTickets" bindingOperationName="queryTickets" type="Request-Response" outputName="queryTicketsResponse" inputName="queryTickets" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="0affc00a-c5bf-452d-a348-ea5bcc1000de" name="Request 1" outgoingWss="middleware"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/services/TicketQueryService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tic="http://ticketinco.com/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <tic:queryTickets>\r
+         <!--Optional:-->\r
+         <request>\r
+            <eventID>?</eventID>\r
+            <!--Optional:-->\r
+            <eventDate>?</eventDate>\r
+         </request>\r
+      </tic:queryTickets>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="queryTickets"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer><con:crypto><con:source>C:/desarrollo/facultad/f/TicketInco/config/serviceKeystore.jks</con:source><con:password>password</con:password><con:type>KEYSTORE</con:type></con:crypto><con:outgoing actor="UsernameToken Signature"><con:name>middleware</con:name><con:username>myservicekey</con:username><con:password>password</con:password><con:entry type="Signature" username="myservicekey" password="password"><con:configuration><crypto>serviceKeystore.jks</crypto><keyIdentifierType>2</keyIdentifierType><signatureAlgorithm/><signatureCanonicalization/><useSingleCert>false</useSingleCert><digestAlgorithm/><customTokenValueType/><customTokenId/></con:configuration></con:entry></con:outgoing></con:wssContainer><con:oAuth2ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
