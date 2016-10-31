@@ -22,13 +22,11 @@
     </util:properties>
 
   	<jaxws:endpoint id="ticketQueryServiceEndpoint" implementor="#ticketQueryService" address="/TicketQueryService" >
-  		  <jaxws:properties>
-     		<entry key="ws-security.cache.config.file"  value="/cxf-ehcache2.xml"/>
-   		  </jaxws:properties>
- 		   <jaxws:inInterceptors>
-		      <bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
-		         <constructor-arg>
-		            <map>
+  		  
+<!--  		   <jaxws:inInterceptors> -->
+<!-- 		      <bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor"> -->
+<!-- 		         <constructor-arg> -->
+<!-- 		            <map> -->
 <!-- 		            <entry key="ws-security.cache.config.file"  value="/cxf-ehcache1.xml"/> -->
 <!-- 		               <entry key="action" value="UsernameToken"/> -->
 <!-- 		               <entry key="passwordType" value="PasswordText"/> -->
@@ -37,59 +35,24 @@
 <!-- 		                  <ref bean="myPasswordCallback"/> -->
 <!-- 		               </entry> -->
 
- 						<entry key="action" value="UsernameToken Signature"/>
-                    	<entry key="passwordType" value="PasswordText"/>
-                        <entry key="passwordCallbackRef">
-                            <ref bean="myPasswordCallback"/>
-                        </entry>
-                        <entry key="signaturePropRefId" value="wsCryptoProperties"/>
-                        <entry key="wsCryptoProperties" value-ref="wsCryptoProperties"/>
-		            </map>
-		         </constructor-arg>
-		      </bean>
-		   </jaxws:inInterceptors>
+<!--  						<entry key="action" value="UsernameToken Signature"/> -->
+<!--                     	<entry key="passwordType" value="PasswordText"/> -->
+<!--                         <entry key="passwordCallbackRef"> -->
+<!--                             <ref bean="myPasswordCallback"/> -->
+<!--                         </entry> -->
+<!--                         <entry key="signaturePropRefId" value="wsCryptoProperties"/> -->
+<!--                         <entry key="wsCryptoProperties" value-ref="wsCryptoProperties"/> -->
+<!-- 		            </map> -->
+<!-- 		         </constructor-arg> -->
+<!-- 		      </bean> -->
+<!-- 		   </jaxws:inInterceptors> -->
   	
   	
   	</jaxws:endpoint>
-  	<jaxws:endpoint id="bookConfirmationServiceEndpoint" implementor="#bookConfirmationService" address="/BookConfirmationService" >
-  		<jaxws:inInterceptors>
-		      <bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
-		         <constructor-arg>
-		            <map>
- 						<entry key="action" value="UsernameToken Signature Signature "/>
-                    	<entry key="passwordType" value="PasswordText"/>
-                        <entry key="passwordCallbackRef">
-                            <ref bean="myPasswordCallback"/>
-                        </entry>
-                        <entry key="signaturePropRefId" value="wsCryptoProperties"/>
-                        <entry key="wsCryptoProperties" value-ref="wsCryptoProperties"/>
-                        <entry key="encryptionPropFile" value="config/serviceKeystore.jks"/>
-		            </map>
-		         </constructor-arg>
-		      </bean>
-		   </jaxws:inInterceptors>
-		   <jaxws:outInterceptors>
-		      <bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
-		         <constructor-arg>
-		            <map>
- 						<entry key="action" value="Signature Encrypt"/>
-                    	<entry key="passwordType" value="PasswordText"/>
-                        <entry key="passwordCallbackRef">
-                            <ref bean="myPasswordCallback"/>
-                        </entry>
-                        <entry key="signaturePropRefId" value="wsCryptoProperties"/>
-                        <entry key="wsCryptoProperties" value-ref="wsCryptoProperties"/>
-                        <entry key="encryptionPropFile" value="config/serviceKeystore.jks"/>
-		            </map>
-		         </constructor-arg>
-		      </bean>
-		   </jaxws:outInterceptors>
-  	</jaxws:endpoint>
+<!-- 	<jaxws:endpoint id="bookConfirmationServiceEndpoint" implementor="#bookConfirmationService" address="/BookConfirmationService" /> -->
   	<jaxws:endpoint id="bookQueryServiceEndpoint" implementor="#bookQueryService" address="/BookQueryService" />
-  	<jaxws:endpoint id="ticketBookServiceEndpoint" implementor="#ticketBookService" address="/TicketBookService">
-  		 
-  	</jaxws:endpoint>
-<!--   	<jaxws:endpoint id="bookVoidServiceEndpoint" implementor="#bookVoidService" address="/BookVoidService" /> -->
+  	<jaxws:endpoint id="ticketBookServiceEndpoint" implementor="#ticketBookService" address="/TicketBookService" />
+<!-- 	<jaxws:endpoint id="bookVoidServiceEndpoint" implementor="#bookVoidService" address="/BookVoidService" /> -->
   	
 
 	<bean id="bookConfirmationService" class="middleware.ws.service.BookConfirmationServiceImpl">
@@ -103,6 +66,7 @@
 	</bean>
 	
 	<bean id="ticketBookService" class="middleware.ws.service.TicketBookServiceImpl">
+		<property name="eventManager" ref="eventManager"/>
 	</bean>
 	
 	<bean id="ticketQueryService" class="middleware.ws.service.TicketQueryServiceImpl">
