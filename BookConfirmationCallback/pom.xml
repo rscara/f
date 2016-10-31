@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>fing.middl</groupId>
+    <artifactId>BookConfirmationCallback</artifactId>
+    <version>0.1.0</version>
+	<packaging>war</packaging>
+	
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.4.1.RELEASE</version>
+    </parent>
+
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+
+    <dependencies>
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter</artifactId>
+		</dependency>
+    	<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+       	<dependency>
+        	<groupId>org.springframework.boot</groupId>
+        	<artifactId>spring-boot-starter-tomcat</artifactId>
+        	<scope>provided</scope>
+    	</dependency>
+        <dependency>
+        	<groupId>org.springframework.boot</groupId>
+        	<artifactId>spring-boot-starter-logging</artifactId>
+        	<scope>provided</scope>
+    	</dependency>
+ 		<dependency>
+		    <groupId>org.apache.cxf</groupId>
+		    <artifactId>cxf-spring-boot-starter-jaxws</artifactId>
+		    <version>3.1.7</version>
+		</dependency>
+	 
+		<!-- WSSE Dependencies -->
+		<dependency>
+			<groupId>org.apache.ws.security</groupId>
+			<artifactId>wss4j</artifactId>
+			<version>1.6.14</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.apache.wss4j</groupId>
+		    <artifactId>wss4j-ws-security-common</artifactId>
+		    <version>2.1.7</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-ws-security -->
+		<dependency>
+		    <groupId>org.apache.cxf</groupId>
+		    <artifactId>cxf-rt-ws-security</artifactId>
+		    <version>3.1.7</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.wss4j/wss4j-ws-security-dom -->
+		<dependency>
+		    <groupId>org.apache.wss4j</groupId>
+		    <artifactId>wss4j-ws-security-dom</artifactId>
+		    <version>2.1.7</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.wss4j</groupId>
+		    <artifactId>wss4j-ws-security-dom</artifactId>
+		    <version>2.1.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.santuario</groupId>
+			<artifactId>xmlsec</artifactId>
+			<version>2.0.5</version>
+		</dependency>
+		
+		
+    </dependencies>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                 <configuration>
+		          <jvmArguments>
+		            -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005
+		          </jvmArguments>
+		        </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

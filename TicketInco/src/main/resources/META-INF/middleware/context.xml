@@ -3,8 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:util="http://www.springframework.org/schema/util"
 	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:http="http://cxf.apache.org/transports/http/configuration"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://cxf.apache.org/transports/http/configuration 
+ 			http://cxf.apache.org/schemas/configuration/http-conf.xsd
 			http://www.springframework.org/schema/util
 			http://www.springframework.org/schema/util/spring-util.xsd
 			http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
@@ -49,7 +52,17 @@
   	
   	
   	</jaxws:endpoint>
-<!-- 	<jaxws:endpoint id="bookConfirmationServiceEndpoint" implementor="#bookConfirmationService" address="/BookConfirmationService" /> -->
+ 
+	<http:conduit name="{http://ticketinco.com/}BookConfirmationServicePort.http-conduit">
+		<http:client DecoupledEndpoint="http://localhost:8081/BookConfirmationService"/>
+	</http:conduit>
+		 	
+	<jaxws:endpoint id="bookConfirmationServiceEndpoint" implementor="#bookConfirmationService" address="/BookConfirmationService">
+		<jaxws:features>
+			<wsa:addressing xmlns:wsa="http://cxf.apache.org/ws/addressing"/>
+		</jaxws:features>
+	</jaxws:endpoint>
+  	
   	<jaxws:endpoint id="bookQueryServiceEndpoint" implementor="#bookQueryService" address="/BookQueryService" />
   	<jaxws:endpoint id="ticketBookServiceEndpoint" implementor="#ticketBookService" address="/TicketBookService" />
 <!-- 	<jaxws:endpoint id="bookVoidServiceEndpoint" implementor="#bookVoidService" address="/BookVoidService" /> -->

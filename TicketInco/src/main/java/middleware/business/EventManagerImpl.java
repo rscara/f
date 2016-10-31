@@ -131,6 +131,13 @@ public class EventManagerImpl implements EventManager {
 		logger.debug("Limpiar reservas");	
 		eventTicketsDatasource.removeAllBooks();
 	}
+	
+	@Scheduled(initialDelayString="${log.timer}", fixedDelayString = "${log.timer}")
+	public void logState(){
+		logger.debug("Tickets: " + eventTicketsDatasource.getAllTickets());
+		logger.debug("Books:" + eventTicketsDatasource.getAllBooks());
+		logger.debug("confirmations:" + eventTicketsDatasource.getAllConfirmations());
+	}
 
 	public void setEventDatasource(EventDatasource eventDatasource) {
 		this.eventDatasource = eventDatasource;

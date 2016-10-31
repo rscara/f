@@ -123,6 +123,33 @@ public class MemoryEventTicketDatasource implements EventTicketsDatasource {
 		this.booksByEvent = booksByEvent;
 	}
 
+	@Override
+	public List<EventTicket> getAllTickets() {
+		List<EventTicket> allTickets = new ArrayList<EventTicket>();
+		for (List<EventTicket> eventTicketList : ticketsByEvent.values()) {
+			allTickets.addAll(eventTicketList);
+		}
+		return allTickets;
+	}
+
+	@Override
+	public List<EventBook> getAllBooks() {
+		List<EventBook> allBooks = new ArrayList<EventBook>();
+		for (List<EventBook> eventBookList : booksByEvent.values()) {
+			allBooks.addAll(eventBookList);
+		}
+		return allBooks;
+	}
+
+	@Override
+	public List<EventConfirmation> getAllConfirmations() {
+		List<EventConfirmation> allConfirmations = new ArrayList<EventConfirmation>();
+		for (List<EventConfirmation> eventConfirmationList : confirmationsByEvent.values()) {
+			allConfirmations.addAll(eventConfirmationList);
+		}
+		return allConfirmations;
+	}
+
 
 
 

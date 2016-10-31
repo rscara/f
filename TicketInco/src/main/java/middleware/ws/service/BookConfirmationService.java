@@ -11,6 +11,6 @@ import middleware.ws.BookConfirmationRequest;
 public interface BookConfirmationService {
 	
 	@WebMethod(action = "confirmBook", operationName = "confirmBook")
-	public void confirmBook(@WebParam(name = "request") BookConfirmationRequest bookConfirmationRequest) throws Exception;
+	public String confirmBook(@WebParam(name = "request") BookConfirmationRequest bookConfirmationRequest) throws Exception;
 
 }

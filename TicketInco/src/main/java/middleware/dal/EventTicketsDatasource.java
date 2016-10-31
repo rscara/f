@@ -19,6 +19,12 @@ public interface EventTicketsDatasource {
 	
 	public Book getBookById(long bookId);
 	
+	public List<EventTicket> getAllTickets();
+	
+	public List<EventBook> getAllBooks();
+	
+	public List<EventConfirmation> getAllConfirmations();
+	
 	public void removeAllBooks();
 	
 }

@@ -43,4 +43,9 @@ public class Event {
 		this.eventSchedules = eventSchedules;
 	}
 
+	@Override
+	public String toString() {
+		return "Event [eventId=" + eventId + ", eventDate=" + eventDate + ", eventSchedules=" + eventSchedules + "]";
+	}
+
 }

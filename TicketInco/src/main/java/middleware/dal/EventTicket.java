@@ -59,4 +59,10 @@ public class EventTicket {
 		this.eventDate = eventDate;
 	}
 
+	@Override
+	public String toString() {
+		return "EventTicket [eventId=" + eventId + ", eventDate=" + eventDate + ", hour=" + hour + ", sector=" + sector
+				+ ", price=" + price + ", quantity=" + quantity + "]";
+	}
+
 }

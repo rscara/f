@@ -10,3 +10,4 @@ dispatcher/activemq-data
 mobile-sys/.settings
 mobile-sys/activemq-data-mobilesys
 dispatcher/activemq-data-dispatcher
+/TicketInco/logs/services.log

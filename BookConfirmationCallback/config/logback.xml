@@ -11,15 +11,6 @@
 		</layout>
 	</appender>
 
-	<logger name="middleware.ws" level="debug" additivity="false">
-		<appender-ref ref="FILE" />
-		<appender-ref ref="STDOUT" />
-	</logger>
-	
-	<logger name="middleware.business" level="debug" additivity="false">
-		<appender-ref ref="STDOUT" />
-	</logger>
-
 	<root level="error">
 		<appender-ref ref="STDOUT" />
 	</root>

@@ -8,9 +8,8 @@ import middleware.ws.BookConfirmationRequest;
 public class BookConfirmationServiceImpl implements BookConfirmationService {
 
 	@Override
-	public void confirmBook(BookConfirmationRequest bookConfirmationRequest) throws Exception {
-		// TODO Auto-generated method stub
-
+	public String confirmBook(BookConfirmationRequest bookConfirmationRequest) throws Exception {
+		return "la respuesta";
 	}
 
 }
