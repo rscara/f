@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://ticketinco.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="TicketQueryServiceImplService" targetNamespace="http://ticketinco.com/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://ticketinco.com/" elementFormDefault="unqualified" targetNamespace="http://ticketinco.com/" version="1.0">
+
+  <xs:element name="event" type="tns:event"/>
+
+  <xs:element name="eventAvailability" type="tns:eventAvailability"/>
+
+  <xs:element name="eventSchedule" type="tns:eventSchedule"/>
+
+  <xs:element name="queryTickets" type="tns:queryTickets"/>
+
+  <xs:element name="queryTicketsResponse" type="tns:queryTicketsResponse"/>
+
+  <xs:element name="ticketQueryRequest" type="tns:ticketQueryRequest"/>
+
+  <xs:element name="ticketQueryResponse" type="tns:ticketQueryResponse"/>
+
+  <xs:complexType name="queryTickets">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="request" type="tns:ticketQueryRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ticketQueryRequest">
+    <xs:sequence>
+      <xs:element name="eventID" type="xs:long"/>
+      <xs:element minOccurs="0" name="eventDate" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="queryTicketsResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:ticketQueryResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ticketQueryResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="event" type="tns:event"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="event">
+    <xs:sequence>
+      <xs:element name="eventId" type="xs:long"/>
+      <xs:element minOccurs="0" name="eventDate" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="eventSchedules" nillable="true" type="tns:eventSchedule"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="eventSchedule">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="hour" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="availabilities" nillable="true" type="tns:eventAvailability"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="eventAvailability">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="sector" type="xs:string"/>
+      <xs:element name="price" type="xs:double"/>
+      <xs:element name="quantity" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="queryTickets">
+    <wsdl:part element="tns:queryTickets" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="queryTicketsResponse">
+    <wsdl:part element="tns:queryTicketsResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="TicketQueryService">
+    <wsdl:operation name="queryTickets">
+      <wsdl:input message="tns:queryTickets" name="queryTickets">
+    </wsdl:input>
+      <wsdl:output message="tns:queryTicketsResponse" name="queryTicketsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="TicketQueryServiceImplServiceSoapBinding" type="tns:TicketQueryService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="queryTickets">
+      <soap:operation soapAction="queryTickets" style="document"/>
+      <wsdl:input name="queryTickets">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="queryTicketsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TicketQueryServiceImplService">
+    <wsdl:port binding="tns:TicketQueryServiceImplServiceSoapBinding" name="TicketQueryServicePort">
+      <soap:address location="http://localhost:8081/services/TicketQueryService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

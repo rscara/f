@@ -51,9 +51,44 @@
   	
   	
   	</jaxws:endpoint>
-<!--   	<jaxws:endpoint id="bookConfirmationServiceEndpoint" implementor="#bookConfirmationService" address="/BookConfirmationService" /> -->
+  	<jaxws:endpoint id="bookConfirmationServiceEndpoint" implementor="#bookConfirmationService" address="/BookConfirmationService" >
+  		<jaxws:inInterceptors>
+		      <bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+		         <constructor-arg>
+		            <map>
+ 						<entry key="action" value="UsernameToken Signature Signature "/>
+                    	<entry key="passwordType" value="PasswordText"/>
+                        <entry key="passwordCallbackRef">
+                            <ref bean="myPasswordCallback"/>
+                        </entry>
+                        <entry key="signaturePropRefId" value="wsCryptoProperties"/>
+                        <entry key="wsCryptoProperties" value-ref="wsCryptoProperties"/>
+                        <entry key="encryptionPropFile" value="config/serviceKeystore.jks"/>
+		            </map>
+		         </constructor-arg>
+		      </bean>
+		   </jaxws:inInterceptors>
+		   <jaxws:outInterceptors>
+		      <bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+		         <constructor-arg>
+		            <map>
+ 						<entry key="action" value="Signature Encrypt"/>
+                    	<entry key="passwordType" value="PasswordText"/>
+                        <entry key="passwordCallbackRef">
+                            <ref bean="myPasswordCallback"/>
+                        </entry>
+                        <entry key="signaturePropRefId" value="wsCryptoProperties"/>
+                        <entry key="wsCryptoProperties" value-ref="wsCryptoProperties"/>
+                        <entry key="encryptionPropFile" value="config/serviceKeystore.jks"/>
+		            </map>
+		         </constructor-arg>
+		      </bean>
+		   </jaxws:outInterceptors>
+  	</jaxws:endpoint>
   	<jaxws:endpoint id="bookQueryServiceEndpoint" implementor="#bookQueryService" address="/BookQueryService" />
-  	<jaxws:endpoint id="ticketBookServiceEndpoint" implementor="#ticketBookService" address="/TicketBookService" />
+  	<jaxws:endpoint id="ticketBookServiceEndpoint" implementor="#ticketBookService" address="/TicketBookService">
+  		 
+  	</jaxws:endpoint>
 <!--   	<jaxws:endpoint id="bookVoidServiceEndpoint" implementor="#bookVoidService" address="/BookVoidService" /> -->
   	
 
