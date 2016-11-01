@@ -12,10 +12,14 @@ public class ClientCallbackHandler  implements CallbackHandler {
  
         WSPasswordCallback pc = (WSPasswordCallback) callbacks[0];
  
-        if (pc.getIdentifier().equals("myservicekey")) {
+        if (pc.getIdentifier().equals("user0")) {
             // set the password on the callback. This will be compared to the
             // password which was sent from the client.
-            pc.setPassword("password");
+            pc.setPassword("passw0rd");
+        } else  if (pc.getIdentifier().equals("default")) {
+            // set the password on the callback. This will be compared to the
+            // password which was sent from the client.
+            pc.setPassword("passw0rd");
         }
     }
  

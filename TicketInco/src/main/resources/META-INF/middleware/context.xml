@@ -17,38 +17,16 @@
 	<bean id="myPasswordCallback" class="middleware.ws.security.ServerPasswordCallback"/>
 	
 	
-	 <util:properties id="wsCryptoProperties">
-       <prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
-       <prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>
-       <prop key="org.apache.ws.security.crypto.merlin.keystore.password">password</prop>
-       <prop key="org.apache.ws.security.crypto.merlin.keystore.file">config/serviceKeystore.jks</prop>
-    </util:properties>
+<!-- 	 <util:properties id="wsCryptoProperties"> -->
+<!--        <prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop> -->
+<!--        <prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop> -->
+<!--        <prop key="org.apache.ws.security.crypto.merlin.keystore.password">password</prop> -->
+<!--        <prop key="org.apache.ws.security.crypto.merlin.keystore.file">config/serviceKeystore.jks</prop> -->
+<!--     </util:properties> -->
 
   	<jaxws:endpoint id="ticketQueryServiceEndpoint" implementor="#ticketQueryService" address="/TicketQueryService" >
   		  
-<!--  		   <jaxws:inInterceptors> -->
-<!-- 		      <bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor"> -->
-<!-- 		         <constructor-arg> -->
-<!-- 		            <map> -->
-<!-- 		            <entry key="ws-security.cache.config.file"  value="/cxf-ehcache1.xml"/> -->
-<!-- 		               <entry key="action" value="UsernameToken"/> -->
-<!-- 		               <entry key="passwordType" value="PasswordText"/> -->
-<!-- 		               <entry key="signaturePropFile" value="config/application.properties"/> -->
-<!-- 		               <entry key="passwordCallbackRef"> -->
-<!-- 		                  <ref bean="myPasswordCallback"/> -->
-<!-- 		               </entry> -->
 
-<!--  						<entry key="action" value="UsernameToken Signature"/> -->
-<!--                     	<entry key="passwordType" value="PasswordText"/> -->
-<!--                         <entry key="passwordCallbackRef"> -->
-<!--                             <ref bean="myPasswordCallback"/> -->
-<!--                         </entry> -->
-<!--                         <entry key="signaturePropRefId" value="wsCryptoProperties"/> -->
-<!--                         <entry key="wsCryptoProperties" value-ref="wsCryptoProperties"/> -->
-<!-- 		            </map> -->
-<!-- 		         </constructor-arg> -->
-<!-- 		      </bean> -->
-<!-- 		   </jaxws:inInterceptors> -->
   	
   	
   	</jaxws:endpoint>
@@ -61,6 +39,60 @@
 		<jaxws:features>
 			<wsa:addressing xmlns:wsa="http://cxf.apache.org/ws/addressing"/>
 		</jaxws:features>
+		
+		 	<jaxws:inInterceptors>
+		      <bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+		         <constructor-arg>
+		            <map>
+		            	<entry key="action" value="Signature Encrypt"/>
+				        <entry key="signaturePropFile" value="config/application.properties"/>
+				        <entry key="decryptionPropFile" value="config/application.properties"/>
+				        <entry key="passwordCallbackRef">
+                            <ref bean="myPasswordCallback"/>
+                        </entry>
+<!-- 		               <entry key="action" value="Signature Encrypt"/> -->
+<!--                     	<entry key="passwordType" value="PasswordText"/> -->
+<!--                         <entry key="passwordCallbackRef"> -->
+<!--                             <ref bean="myPasswordCallback"/> -->
+<!--                         </entry> -->
+<!--                         <entry key="signaturePropRefId" value="wsCryptoProperties"/> -->
+<!--                         <entry key="wsCryptoProperties" value-ref="wsCryptoProperties"/> -->
+		            </map>
+		         </constructor-arg>
+		      </bean>
+		   </jaxws:inInterceptors>
+		   
+		   <jaxws:outInterceptors>
+		      <bean class="org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor">
+		         <constructor-arg>
+		            <map>
+		            	<entry key="action" value="Signature Encrypt"/>
+				        <entry key="user" value="default"/>
+				        <entry key="signaturePropFile" value="config/application.properties"/>
+				        <entry key="encryptionPropFile" value="config/application.properties"/>
+				        <entry key="encryptionUser" value="default"/>
+				        <entry key="signatureKeyIdentifier" value="DirectReference"/>
+				        <entry key="passwordCallbackRef">
+                            <ref bean="myPasswordCallback"/>
+                        </entry>
+<!-- 				        <entry key="signatureParts" value="{Element}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd}Timestamp;{Element}{http://schemas.xmlsoap.org/soap/envelope/}Body"/> -->
+<!-- 				        <entry key="encryptionParts" value="{Element}{http://www.w3.org/2000/09/xmldsig#}Signature;{Content}{http://schemas.xmlsoap.org/soap/envelope/}Body"/> -->
+				        <entry key="encryptionKeyTransportAlgorithm" value="http://www.w3.org/2001/04/xmlenc#rsa-1_5"/>
+				        <entry key="encryptionSymAlgorithm" value="http://www.w3.org/2001/04/xmlenc#tripledes-cbc"/>
+		            
+<!-- 		            	<entry key="ws-security.cache.config.file"  value="/cxf-ehcache1.xml"/> -->
+<!-- 		               <entry key="action" value="Signature Encrypt"/> -->
+<!--                     	<entry key="passwordType" value="PasswordText"/> -->
+<!--                         <entry key="passwordCallbackRef"> -->
+<!--                             <ref bean="myPasswordCallback"/> -->
+<!--                         </entry> -->
+<!--                         <entry key="signaturePropRefId" value="wsCryptoProperties"/> -->
+<!--                         <entry key="wsCryptoProperties" value-ref="wsCryptoProperties"/> -->
+		            </map>
+		         </constructor-arg>
+		      </bean>
+		   </jaxws:outInterceptors>
+		
 	</jaxws:endpoint>
   	
   	<jaxws:endpoint id="bookQueryServiceEndpoint" implementor="#bookQueryService" address="/BookQueryService" />
