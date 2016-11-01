@@ -7,7 +7,7 @@ import javax.xml.ws.soap.Addressing;
 
 import middleware.ws.BookConfirmationRequest;
 
-@Addressing(enabled=true, required=true)
+@Addressing
 @WebService(name = "BookConfirmationService", targetNamespace = "http://ticketinco.com/")
 public interface BookConfirmationService {
 	

@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import middleware.business.EventManager;
-import middleware.business.EventManagerImpl;
 import middleware.ws.TicketBookRequest;
 import middleware.ws.TicketBookResponse;
 

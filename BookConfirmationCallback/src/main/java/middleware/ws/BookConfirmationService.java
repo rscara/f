@@ -1,15 +1,13 @@
 package middleware.ws;
 
-import javax.jws.Oneway;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 
-@WebService(name = "BookConfirmationService", targetNamespace = "http://confirmationservice.com/")
+@WebService(name = "BookConfirmationService", targetNamespace = "http://ticketinco.com/")
 public interface BookConfirmationService {
 	
-	@WebMethod(action = "confirmBook", operationName = "confirm")
-	@Oneway
-	public void confirmBook(@WebParam(name = "request") String request);
+	@WebMethod(action = "confirmBookResponse", operationName = "confirmBookResponse")
+	public void confirmBook(@WebParam(name = "return") String request) throws Exception;
 
 }
