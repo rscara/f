@@ -1,5 +1,6 @@
 package middleware.ws;
 
+import javax.jws.Oneway;
 import javax.jws.WebService;
 
 import org.slf4j.Logger;
@@ -11,7 +12,8 @@ public class BookConfirmationServiceImpl implements BookConfirmationService {
 	private static final Logger logger = LoggerFactory.getLogger(BookConfirmationServiceImpl.class);
 
 	@Override
-	public void confirm(String request) {
+	@Oneway
+	public void confirmBook(String request) {
 		logger.debug("Llego request:" + request);
 	}
 

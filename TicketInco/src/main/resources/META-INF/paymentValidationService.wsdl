@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://ticketincoesb.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="PagosYaPaymentAuthorizorService" targetNamespace="http://ticketincoesb.com/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://ticketincoesb.com/" elementFormDefault="unqualified" targetNamespace="http://ticketincoesb.com/" version="1.0">
+
+  <xs:element name="authorizePayment" type="tns:authorizePayment"/>
+
+  <xs:element name="authorizePaymentResponse" type="tns:authorizePaymentResponse"/>
+
+  <xs:element name="pagosYaPaymentRequest" type="tns:pagosYaPaymentRequest"/>
+
+  <xs:element name="pagosYaPaymentResponse" type="tns:pagosYaPaymentResponse"/>
+
+  <xs:element name="pagosYaVoidRequest" type="tns:pagosYaVoidRequest"/>
+
+  <xs:element name="pagosYaVoidResponse" type="tns:pagosYaVoidResponse"/>
+
+  <xs:element name="voidPayment" type="tns:voidPayment"/>
+
+  <xs:element name="voidPaymentResponse" type="tns:voidPaymentResponse"/>
+
+  <xs:complexType name="voidPayment">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:pagosYaVoidRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="pagosYaVoidRequest">
+    <xs:sequence>
+      <xs:element name="confirmationNumber" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="voidPaymentResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:pagosYaVoidResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="pagosYaVoidResponse">
+    <xs:sequence>
+      <xs:element name="ok" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="errorDescription" type="xs:string"/>
+      <xs:element name="confirmationNumber" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="authorizePayment">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:pagosYaPaymentRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="pagosYaPaymentRequest">
+    <xs:sequence>
+      <xs:element name="creditCardNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="expiration" type="xs:string"/>
+      <xs:element name="checkDigit" type="xs:int"/>
+      <xs:element name="amount" type="xs:double"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="authorizePaymentResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:pagosYaPaymentResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="pagosYaPaymentResponse">
+    <xs:sequence>
+      <xs:element name="ok" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="errorDescription" type="xs:string"/>
+      <xs:element name="confirmationNumber" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="authorizePaymentResponse">
+    <wsdl:part element="tns:authorizePaymentResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="authorizePayment">
+    <wsdl:part element="tns:authorizePayment" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="voidPayment">
+    <wsdl:part element="tns:voidPayment" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="voidPaymentResponse">
+    <wsdl:part element="tns:voidPaymentResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="PagosYaPaymentAuthorizor">
+    <wsdl:operation name="voidPayment">
+      <wsdl:input message="tns:voidPayment" name="voidPayment">
+    </wsdl:input>
+      <wsdl:output message="tns:voidPaymentResponse" name="voidPaymentResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="authorizePayment">
+      <wsdl:input message="tns:authorizePayment" name="authorizePayment">
+    </wsdl:input>
+      <wsdl:output message="tns:authorizePaymentResponse" name="authorizePaymentResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PagosYaPaymentAuthorizorServiceSoapBinding" type="tns:PagosYaPaymentAuthorizor">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="voidPayment">
+      <soap:operation soapAction="voidPayment" style="document"/>
+      <wsdl:input name="voidPayment">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="voidPaymentResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="authorizePayment">
+      <soap:operation soapAction="authorizePayment" style="document"/>
+      <wsdl:input name="authorizePayment">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="authorizePaymentResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PagosYaPaymentAuthorizorService">
+    <wsdl:port binding="tns:PagosYaPaymentAuthorizorServiceSoapBinding" name="PagosYaPaymentAuthorizorPort">
+      <soap:address location="http://localhost:8082/paymentValidationService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

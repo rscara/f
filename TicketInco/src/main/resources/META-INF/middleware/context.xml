@@ -52,10 +52,6 @@
   	
   	
   	</jaxws:endpoint>
- 
-	<http:conduit name="{http://ticketinco.com/}BookConfirmationServicePort.http-conduit">
-		<http:client DecoupledEndpoint="http://localhost:8081/BookConfirmationService"/>
-	</http:conduit>
 		 	
 	<jaxws:endpoint id="bookConfirmationServiceEndpoint" implementor="#bookConfirmationService" address="/BookConfirmationService">
 		<jaxws:features>
@@ -69,6 +65,7 @@
   	
 
 	<bean id="bookConfirmationService" class="middleware.ws.service.BookConfirmationServiceImpl">
+		<property name="pagosYaPaymentAuthorizor" ref="paymentValidationService"/>
 	</bean>
 	
 	<bean id="bookQueryService" class="middleware.ws.service.BookQueryServiceImpl">
@@ -90,5 +87,9 @@
 		<property name="eventDatasource" ref="eventDatasource"/>
 		<property name="eventTicketsDatasource" ref="eventTicketsDatasource"/>
 	</bean>
+	
+	<jaxws:client id="paymentValidationService" 
+		serviceClass="wsdlgenerated.PagosYaPaymentAuthorizor" 
+		address="http://localhost:8082/paymentValidationService" />
 
 </beans>
