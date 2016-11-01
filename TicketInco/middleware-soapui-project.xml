@@ -81,16 +81,82 @@
       <soap:address location="http://localhost:8080/services/TicketQueryService"/>
     </wsdl:port>
   </wsdl:service>
-</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/services/TicketQueryService</con:endpoint></con:endpoints><con:operation id="3dad21be-e8b6-4b6d-b8f3-bb221efa246c" isOneWay="false" action="queryTickets" name="queryTickets" bindingOperationName="queryTickets" type="Request-Response" outputName="queryTicketsResponse" inputName="queryTickets" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="0affc00a-c5bf-452d-a348-ea5bcc1000de" name="Request 1" outgoingWss="middleware"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/services/TicketQueryService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tic="http://ticketinco.com/">\r
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/services/TicketQueryService</con:endpoint></con:endpoints><con:operation id="3dad21be-e8b6-4b6d-b8f3-bb221efa246c" isOneWay="false" action="queryTickets" name="queryTickets" bindingOperationName="queryTickets" type="Request-Response" outputName="queryTicketsResponse" inputName="queryTickets" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" id="cfad4af8-3e41-4583-9b14-6d2b7c83e254" wsaVersion="NONE" name="BookConfirmationServiceImplServiceSoapBinding" type="wsdl" bindingName="{http://ticketinco.com/}BookConfirmationServiceImplServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/services/BookConfirmationService?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/services/BookConfirmationService?wsdl"><con:part><con:url>http://localhost:8080/services/BookConfirmationService?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="BookConfirmationServiceImplService" targetNamespace="http://ticketinco.com/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://ticketinco.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http">
+  <wsdl:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://ticketinco.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="bookConfirmationRequest" type="tns:bookConfirmationRequest"/>
+      <xs:element name="confirmBook" type="tns:confirmBook"/>
+      <xs:element name="confirmBookResponse" type="tns:confirmBookResponse"/>
+      <xs:complexType name="confirmBook">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="request" type="tns:bookConfirmationRequest"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="bookConfirmationRequest">
+        <xs:sequence>
+          <xs:element name="bookId" type="xs:long"/>
+          <xs:element name="paymentModeId" type="xs:long"/>
+          <xs:element minOccurs="0" name="creditCardNumber" type="xs:string"/>
+          <xs:element minOccurs="0" name="creditCardExpiration" type="xs:string"/>
+          <xs:element name="creditCardCheckDigit" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="confirmBookResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Exception" type="tns:Exception"/>
+      <xs:complexType name="Exception">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="message" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="confirmBookResponse">
+    <wsdl:part element="tns:confirmBookResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="Exception">
+    <wsdl:part element="tns:Exception" name="Exception"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="confirmBook">
+    <wsdl:part element="tns:confirmBook" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="BookConfirmationService">
+    <wsdl:operation name="confirmBook">
+      <wsdl:input message="tns:confirmBook" name="confirmBook"></wsdl:input>
+      <wsdl:output message="tns:confirmBookResponse" name="confirmBookResponse"></wsdl:output>
+      <wsdl:fault message="tns:Exception" name="Exception"></wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BookConfirmationServiceImplServiceSoapBinding" type="tns:BookConfirmationService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="confirmBook">
+      <soap:operation soapAction="confirmBook" style="document"/>
+      <wsdl:input name="confirmBook">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="confirmBookResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="BookConfirmationServiceImplService">
+    <wsdl:port binding="tns:BookConfirmationServiceImplServiceSoapBinding" name="BookConfirmationServicePort">
+      <soap:address location="http://localhost:8080/services/BookConfirmationService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/services/BookConfirmationService</con:endpoint></con:endpoints><con:operation id="6ca1033e-7c2f-41ef-a947-230a9b71ee67" isOneWay="false" action="confirmBook" name="confirmBook" bindingOperationName="confirmBook" type="Request-Response" outputName="confirmBookResponse" inputName="confirmBook" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="c6117bc0-f81e-4d1f-a39b-5d1f4e680ac4" name="Request 1" outgoingWss="ENCRYPT" incomingWss="ENCRYPT"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/services/BookConfirmationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tic="http://ticketinco.com/">\r
    <soapenv:Header/>\r
    <soapenv:Body>\r
-      <tic:queryTickets>\r
+      <tic:confirmBook>\r
          <!--Optional:-->\r
          <request>\r
-            <eventID>?</eventID>\r
-            <!--Optional:-->\r
-            <eventDate>?</eventDate>\r
          </request>\r
-      </tic:queryTickets>\r
+      </tic:confirmBook>\r
    </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:credentials><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="queryTickets"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer><con:crypto><con:source>C:/desarrollo/facultad/f/TicketInco/config/serviceKeystore.jks</con:source><con:password>password</con:password><con:type>KEYSTORE</con:type></con:crypto><con:outgoing actor="UsernameToken Signature"><con:name>middleware</con:name><con:username>myservicekey</con:username><con:password>password</con:password><con:entry type="Signature" username="myservicekey" password="password"><con:configuration><crypto>serviceKeystore.jks</crypto><keyIdentifierType>2</keyIdentifierType><signatureAlgorithm/><signatureCanonicalization/><useSingleCert>false</useSingleCert><digestAlgorithm/><customTokenValueType/><customTokenId/></con:configuration></con:entry></con:outgoing></con:wssContainer><con:oAuth2ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
+</soapenv:Envelope>]]></con:request><con:credentials><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="confirmBook"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer><con:crypto><con:source>C:/desarrollo/facultad/f/TicketInco/config/serviceKeystore.jks</con:source><con:password>password</con:password><con:type>KEYSTORE</con:type></con:crypto><con:crypto><con:source>C:/desarrollo/facultad/f/TicketInco/config/sec/serverKey.jks</con:source><con:password>passw0rd</con:password><con:type>KEYSTORE</con:type></con:crypto><con:crypto><con:source>C:/desarrollo/facultad/f/TicketInco/config/sec/serverTrust.jks</con:source><con:password>passw0rd</con:password><con:type>TRUSTSTORE</con:type></con:crypto><con:incoming><con:name>ENCRYPT</con:name><con:decryptCrypto>serverKey.jks</con:decryptCrypto><con:signatureCrypto>serverKey.jks</con:signatureCrypto><con:decryptPassword>passw0rd</con:decryptPassword></con:incoming><con:outgoing mustUnderstand="false"><con:name>ENCRYPT</con:name><con:username>default</con:username><con:password>password</con:password><con:entry type="Encryption" password="passw0rd"><con:configuration><crypto>serverKey.jks</crypto><keyIdentifierType>2</keyIdentifierType><symmetricEncAlgorithm/><encKeyTransport/><embeddedKeyName/><embeddedKeyPassword/><encryptionCanonicalization/><encryptSymmetricKey>true</encryptSymmetricKey></con:configuration></con:entry><con:entry type="Signature" password="passw0rd"><con:configuration><crypto>serverKey.jks</crypto><keyIdentifierType>2</keyIdentifierType><signatureAlgorithm/><signatureCanonicalization/><useSingleCert>false</useSingleCert><digestAlgorithm/><customTokenValueType/><customTokenId/></con:configuration></con:entry></con:outgoing><con:outgoing><con:name>SIGNATURE</con:name><con:username>myservicekey</con:username><con:password>passw0rd</con:password><con:entry type="Signature"><con:configuration><crypto>serviceKeystore.jks</crypto><keyIdentifierType>2</keyIdentifierType><signatureAlgorithm/><signatureCanonicalization/><useSingleCert>false</useSingleCert><digestAlgorithm/><customTokenValueType/><customTokenId/></con:configuration></con:entry></con:outgoing></con:wssContainer><con:oAuth2ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
