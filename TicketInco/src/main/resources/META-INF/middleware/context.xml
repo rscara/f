@@ -92,7 +92,43 @@
 	</jaxws:endpoint>
   	
   	<jaxws:endpoint id="bookQueryServiceEndpoint" implementor="#bookQueryService" address="/BookQueryService" />
-  	<jaxws:endpoint id="ticketBookServiceEndpoint" implementor="#ticketBookService" address="/TicketBookService" />
+  	<jaxws:endpoint id="ticketBookServiceEndpoint" implementor="#ticketBookService" address="/TicketBookService" >
+			<jaxws:inInterceptors>
+		      <bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+		         <constructor-arg>
+		            <map>
+		            	<entry key="action" value="Signature"/>
+				        <entry key="signaturePropFile" value="config/application.properties"/>
+				        <entry key="decryptionPropFile" value="config/application.properties"/>
+				        <entry key="passwordCallbackRef">
+                            <ref bean="myPasswordCallback"/>
+                        </entry>
+		            </map>
+		         </constructor-arg>
+		      </bean>
+		   </jaxws:inInterceptors>
+		   
+		   <jaxws:outInterceptors>
+		      <bean class="org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor">
+		         <constructor-arg>
+		            <map>
+		            	<entry key="action" value="Signature"/>
+				        <entry key="user" value="default"/>
+				        <entry key="signaturePropFile" value="config/application.properties"/>
+				        <entry key="encryptionPropFile" value="config/application.properties"/>
+				        <entry key="encryptionUser" value="default"/>
+				        <entry key="signatureKeyIdentifier" value="DirectReference"/>
+				        <entry key="passwordCallbackRef">
+                            <ref bean="myPasswordCallback"/>
+                        </entry>
+				        <entry key="encryptionKeyTransportAlgorithm" value="http://www.w3.org/2001/04/xmlenc#rsa-1_5"/>
+				        <entry key="encryptionSymAlgorithm" value="http://www.w3.org/2001/04/xmlenc#tripledes-cbc"/>
+		            </map>
+		         </constructor-arg>
+		      </bean>
+		   </jaxws:outInterceptors>
+  	
+  	</jaxws:endpoint>
 <!-- 	<jaxws:endpoint id="bookVoidServiceEndpoint" implementor="#bookVoidService" address="/BookVoidService" /> -->
   	
 
