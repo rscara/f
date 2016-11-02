@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="return" type="{http://ticketincoesb.com/}pagosYaPaymentResponse" minOccurs="0"/>
+ *         &lt;element name="return" type="{http://ticketincoesb.com/}localPaymentResponse" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -33,17 +33,17 @@ import javax.xml.bind.annotation.XmlType;
 public class AuthorizePaymentResponse {
 
     @XmlElement(name = "return")
-    protected PagosYaPaymentResponse _return;
+    protected LocalPaymentResponse _return;
 
     /**
      * Obtiene el valor de la propiedad return.
      * 
      * @return
      *     possible object is
-     *     {@link PagosYaPaymentResponse }
+     *     {@link LocalPaymentResponse }
      *     
      */
-    public PagosYaPaymentResponse getReturn() {
+    public LocalPaymentResponse getReturn() {
         return _return;
     }
 
@@ -52,10 +52,10 @@ public class AuthorizePaymentResponse {
      * 
      * @param value
      *     allowed object is
-     *     {@link PagosYaPaymentResponse }
+     *     {@link LocalPaymentResponse }
      *     
      */
-    public void setReturn(PagosYaPaymentResponse value) {
+    public void setReturn(LocalPaymentResponse value) {
         this._return = value;
     }
 

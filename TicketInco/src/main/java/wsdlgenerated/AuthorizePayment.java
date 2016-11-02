@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="arg0" type="{http://ticketincoesb.com/}pagosYaPaymentRequest" minOccurs="0"/>
+ *         &lt;element name="request" type="{http://ticketincoesb.com/}localPaymentRequest" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -27,34 +27,34 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "authorizePayment", propOrder = {
-    "arg0"
+    "request"
 })
 public class AuthorizePayment {
 
-    protected PagosYaPaymentRequest arg0;
+    protected LocalPaymentRequest request;
 
     /**
-     * Obtiene el valor de la propiedad arg0.
+     * Obtiene el valor de la propiedad request.
      * 
      * @return
      *     possible object is
-     *     {@link PagosYaPaymentRequest }
+     *     {@link LocalPaymentRequest }
      *     
      */
-    public PagosYaPaymentRequest getArg0() {
-        return arg0;
+    public LocalPaymentRequest getRequest() {
+        return request;
     }
 
     /**
-     * Define el valor de la propiedad arg0.
+     * Define el valor de la propiedad request.
      * 
      * @param value
      *     allowed object is
-     *     {@link PagosYaPaymentRequest }
+     *     {@link LocalPaymentRequest }
      *     
      */
-    public void setArg0(PagosYaPaymentRequest value) {
-        this.arg0 = value;
+    public void setRequest(LocalPaymentRequest value) {
+        this.request = value;
     }
 
 }

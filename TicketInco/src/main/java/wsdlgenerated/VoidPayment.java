@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="arg0" type="{http://ticketincoesb.com/}pagosYaVoidRequest" minOccurs="0"/>
+ *         &lt;element name="request" type="{http://ticketincoesb.com/}pagosYaVoidRequest" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -27,34 +27,34 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "voidPayment", propOrder = {
-    "arg0"
+    "request"
 })
 public class VoidPayment {
 
-    protected PagosYaVoidRequest arg0;
+    protected PagosYaVoidRequest request;
 
     /**
-     * Obtiene el valor de la propiedad arg0.
+     * Obtiene el valor de la propiedad request.
      * 
      * @return
      *     possible object is
      *     {@link PagosYaVoidRequest }
      *     
      */
-    public PagosYaVoidRequest getArg0() {
-        return arg0;
+    public PagosYaVoidRequest getRequest() {
+        return request;
     }
 
     /**
-     * Define el valor de la propiedad arg0.
+     * Define el valor de la propiedad request.
      * 
      * @param value
      *     allowed object is
      *     {@link PagosYaVoidRequest }
      *     
      */
-    public void setArg0(PagosYaVoidRequest value) {
-        this.arg0 = value;
+    public void setRequest(PagosYaVoidRequest value) {
+        this.request = value;
     }
 
 }

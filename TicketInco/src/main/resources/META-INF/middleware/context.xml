@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:jaxws="http://cxf.apache.org/jaxws"
-	xmlns:http="http://cxf.apache.org/transports/http/configuration"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:http="http://cxf.apache.org/transports/http/configuration"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 			http://www.springframework.org/schema/beans/spring-beans.xsd
 			http://cxf.apache.org/transports/http/configuration 
@@ -11,122 +9,107 @@
 			http://www.springframework.org/schema/util
 			http://www.springframework.org/schema/util/spring-util.xsd
 			http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
-	
-	<import resource="dal.xml"/>
 
-	<bean id="myPasswordCallback" class="middleware.ws.security.ServerPasswordCallback"/>
+	<import resource="dal.xml" />
 
-  	<jaxws:endpoint id="ticketQueryServiceEndpoint" implementor="#ticketQueryService" address="/TicketQueryService" />
-		 	
+	<bean id="myPasswordCallback" class="middleware.ws.security.ServerPasswordCallback" />
+
+	<jaxws:endpoint id="ticketQueryServiceEndpoint" implementor="#ticketQueryService" address="/TicketQueryService" />
+
 	<jaxws:endpoint id="bookConfirmationServiceEndpoint" implementor="#bookConfirmationService" address="/BookConfirmationService">
 		<jaxws:features>
-			<wsa:addressing xmlns:wsa="http://cxf.apache.org/ws/addressing"/>
+			<wsa:addressing xmlns:wsa="http://cxf.apache.org/ws/addressing" />
 		</jaxws:features>
-		
-		 	<jaxws:inInterceptors>
-		      <bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
-		         <constructor-arg>
-		            <map>
-		            	<entry key="action" value="Signature Encrypt"/>
-				        <entry key="signaturePropFile" value="config/application.properties"/>
-				        <entry key="decryptionPropFile" value="config/application.properties"/>
-				        <entry key="passwordCallbackRef">
-                            <ref bean="myPasswordCallback"/>
-                        </entry>
-		            </map>
-		         </constructor-arg>
-		      </bean>
-		   </jaxws:inInterceptors>
-		   
-<!-- 		   <jaxws:outInterceptors> -->
-<!-- 		      <bean class="org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor"> -->
-<!-- 		         <constructor-arg> -->
-<!-- 		            <map> -->
-<!-- 		            	<entry key="action" value="Signature Encrypt"/> -->
-<!-- 				        <entry key="user" value="default"/> -->
-<!-- 				        <entry key="signaturePropFile" value="config/application.properties"/> -->
-<!-- 				        <entry key="encryptionPropFile" value="config/application.properties"/> -->
-<!-- 				        <entry key="encryptionUser" value="default"/> -->
-<!-- 				        <entry key="signatureKeyIdentifier" value="DirectReference"/> -->
-<!-- 				        <entry key="passwordCallbackRef"> -->
-<!--                             <ref bean="myPasswordCallback"/> -->
-<!--                         </entry> -->
-<!-- 				        <entry key="encryptionKeyTransportAlgorithm" value="http://www.w3.org/2001/04/xmlenc#rsa-1_5"/> -->
-<!-- 				        <entry key="encryptionSymAlgorithm" value="http://www.w3.org/2001/04/xmlenc#tripledes-cbc"/> -->
-<!-- 		            </map> -->
-<!-- 		         </constructor-arg> -->
-<!-- 		      </bean> -->
-<!-- 		   </jaxws:outInterceptors> -->
-		
+
+		<jaxws:inInterceptors>
+			<bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+				<constructor-arg>
+					<map>
+						<entry key="action" value="Signature Encrypt" />
+						<entry key="signaturePropFile" value="config/application.properties" />
+						<entry key="decryptionPropFile" value="config/application.properties" />
+						<entry key="passwordCallbackRef">
+							<ref bean="myPasswordCallback" />
+						</entry>
+					</map>
+				</constructor-arg>
+			</bean>
+		</jaxws:inInterceptors>
 	</jaxws:endpoint>
-  	
-  	<jaxws:endpoint id="bookQueryServiceEndpoint" implementor="#bookQueryService" address="/BookQueryService" />
-  	<jaxws:endpoint id="ticketBookServiceEndpoint" implementor="#ticketBookService" address="/TicketBookService" >
-			<jaxws:inInterceptors>
-		      <bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
-		         <constructor-arg>
-		            <map>
-		            	<entry key="action" value="Signature"/>
-				        <entry key="signaturePropFile" value="config/application.properties"/>
-				        <entry key="decryptionPropFile" value="config/application.properties"/>
-				        <entry key="passwordCallbackRef">
-                            <ref bean="myPasswordCallback"/>
-                        </entry>
-		            </map>
-		         </constructor-arg>
-		      </bean>
-		   </jaxws:inInterceptors>
-		   
-		   <jaxws:outInterceptors>
-		      <bean class="org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor">
-		         <constructor-arg>
-		            <map>
-		            	<entry key="action" value="Signature"/>
-				        <entry key="user" value="default"/>
-				        <entry key="signaturePropFile" value="config/application.properties"/>
-				        <entry key="encryptionPropFile" value="config/application.properties"/>
-				        <entry key="encryptionUser" value="default"/>
-				        <entry key="signatureKeyIdentifier" value="DirectReference"/>
-				        <entry key="passwordCallbackRef">
-                            <ref bean="myPasswordCallback"/>
-                        </entry>
-				        <entry key="encryptionKeyTransportAlgorithm" value="http://www.w3.org/2001/04/xmlenc#rsa-1_5"/>
-				        <entry key="encryptionSymAlgorithm" value="http://www.w3.org/2001/04/xmlenc#tripledes-cbc"/>
-		            </map>
-		         </constructor-arg>
-		      </bean>
-		   </jaxws:outInterceptors>
-  	
-  	</jaxws:endpoint>
-<!-- 	<jaxws:endpoint id="bookVoidServiceEndpoint" implementor="#bookVoidService" address="/BookVoidService" /> -->
-  	
+
+	<jaxws:endpoint id="bookQueryServiceEndpoint" implementor="#bookQueryService" address="/BookQueryService" />
+
+	<jaxws:endpoint id="ticketBookServiceEndpoint" implementor="#ticketBookService" address="/TicketBookService">
+		<jaxws:inInterceptors>
+			<bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+				<constructor-arg>
+					<map>
+						<entry key="action" value="Signature" />
+						<entry key="signaturePropFile" value="config/application.properties" />
+						<entry key="decryptionPropFile" value="config/application.properties" />
+						<entry key="passwordCallbackRef">
+							<ref bean="myPasswordCallback" />
+						</entry>
+					</map>
+				</constructor-arg>
+			</bean>
+		</jaxws:inInterceptors>
+
+		<jaxws:outInterceptors>
+			<bean class="org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor">
+				<constructor-arg>
+					<map>
+						<entry key="action" value="Signature" />
+						<entry key="user" value="default" />
+						<entry key="signaturePropFile" value="config/application.properties" />
+						<entry key="encryptionPropFile" value="config/application.properties" />
+						<entry key="encryptionUser" value="default" />
+						<entry key="signatureKeyIdentifier" value="DirectReference" />
+						<entry key="passwordCallbackRef">
+							<ref bean="myPasswordCallback" />
+						</entry>
+						<entry key="encryptionKeyTransportAlgorithm" value="http://www.w3.org/2001/04/xmlenc#rsa-1_5" />
+						<entry key="encryptionSymAlgorithm" value="http://www.w3.org/2001/04/xmlenc#tripledes-cbc" />
+					</map>
+				</constructor-arg>
+			</bean>
+		</jaxws:outInterceptors>
+
+	</jaxws:endpoint>
+	
+	<!-- <jaxws:endpoint id="bookVoidServiceEndpoint" implementor="#bookVoidService" 
+		address="/BookVoidService" /> -->
+
 
 	<bean id="bookConfirmationService" class="middleware.ws.service.BookConfirmationServiceImpl">
-		<property name="pagosYaPaymentAuthorizor" ref="paymentValidationService"/>
+		<property name="pagosYaPaymentAuthorizor" ref="pagosYaPaymentValidationService" />
+		<property name="localPaymentAuthorizor" ref="localPaymentValidationService"/>
 	</bean>
-	
+
 	<bean id="bookQueryService" class="middleware.ws.service.BookQueryServiceImpl">
-		<property name="eventManager" ref="eventManager"/>
+		<property name="eventManager" ref="eventManager" />
 	</bean>
-	
+
 	<bean id="bookVoidService" class="middleware.ws.service.BookVoidServiceImpl">
 	</bean>
-	
+
 	<bean id="ticketBookService" class="middleware.ws.service.TicketBookServiceImpl">
-		<property name="eventManager" ref="eventManager"/>
+		<property name="eventManager" ref="eventManager" />
 	</bean>
-	
+
 	<bean id="ticketQueryService" class="middleware.ws.service.TicketQueryServiceImpl">
-		<property name="eventManager" ref="eventManager"/>
+		<property name="eventManager" ref="eventManager" />
 	</bean>
-	
+
 	<bean id="eventManager" class="middleware.business.EventManagerImpl">
-		<property name="eventDatasource" ref="eventDatasource"/>
-		<property name="eventTicketsDatasource" ref="eventTicketsDatasource"/>
+		<property name="eventDatasource" ref="eventDatasource" />
+		<property name="eventTicketsDatasource" ref="eventTicketsDatasource" />
 	</bean>
-	
-	<jaxws:client id="paymentValidationService" 
-		serviceClass="wsdlgenerated.PagosYaPaymentAuthorizor" 
+
+	<jaxws:client id="pagosYaPaymentValidationService" serviceClass="wsdlgenerated.PagosYaPaymentAuthorizor"
 		address="http://localhost:8082/paymentValidationService" />
+		
+	<jaxws:client id="localPaymentValidationService" serviceClass="wsdlgenerated.LocalPaymentAuthorizor"
+		address="http://localhost:8082/localValidationService" />
 
 </beans>

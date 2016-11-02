@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://ticketincoesb.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="LocalPaymentAuthorizorService" targetNamespace="http://ticketincoesb.com/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://ticketincoesb.com/" elementFormDefault="unqualified" targetNamespace="http://ticketincoesb.com/" version="1.0">
+
+  <xs:element name="authorizePayment" type="tns:authorizePayment"/>
+
+  <xs:element name="authorizePaymentResponse" type="tns:authorizePaymentResponse"/>
+
+  <xs:element name="localPaymentRequest" type="tns:localPaymentRequest"/>
+
+  <xs:element name="localPaymentResponse" type="tns:localPaymentResponse"/>
+
+  <xs:element name="pagosYaVoidRequest" type="tns:pagosYaVoidRequest"/>
+
+  <xs:element name="voidPayment" type="tns:voidPayment"/>
+
+  <xs:element name="voidPaymentResponse" type="tns:voidPaymentResponse"/>
+
+  <xs:complexType name="voidPayment">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="request" type="tns:pagosYaVoidRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="pagosYaVoidRequest">
+    <xs:sequence>
+      <xs:element name="confirmationNumber" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="voidPaymentResponse">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="authorizePayment">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="request" type="tns:localPaymentRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="localPaymentRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="creditCardNumber" type="xs:string"/>
+      <xs:element minOccurs="0" name="expiration" type="xs:string"/>
+      <xs:element minOccurs="0" name="checkDigit" type="xs:string"/>
+      <xs:element minOccurs="0" name="amount" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="authorizePaymentResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:localPaymentResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="localPaymentResponse">
+    <xs:sequence>
+      <xs:element name="ok" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="errorDescription" type="xs:string"/>
+      <xs:element name="confirmationNumber" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="authorizePaymentResponse">
+    <wsdl:part element="tns:authorizePaymentResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="authorizePayment">
+    <wsdl:part element="tns:authorizePayment" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="voidPayment">
+    <wsdl:part element="tns:voidPayment" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="voidPaymentResponse">
+    <wsdl:part element="tns:voidPaymentResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="LocalPaymentAuthorizor">
+    <wsdl:operation name="voidPayment">
+      <wsdl:input message="tns:voidPayment" name="voidPayment">
+    </wsdl:input>
+      <wsdl:output message="tns:voidPaymentResponse" name="voidPaymentResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="authorizePayment">
+      <wsdl:input message="tns:authorizePayment" name="authorizePayment">
+    </wsdl:input>
+      <wsdl:output message="tns:authorizePaymentResponse" name="authorizePaymentResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="LocalPaymentAuthorizorServiceSoapBinding" type="tns:LocalPaymentAuthorizor">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="voidPayment">
+      <soap:operation soapAction="voidPayment" style="document"/>
+      <wsdl:input name="voidPayment">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="voidPaymentResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="authorizePayment">
+      <soap:operation soapAction="authorizePayment" style="document"/>
+      <wsdl:input name="authorizePayment">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="authorizePaymentResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="LocalPaymentAuthorizorService">
+    <wsdl:port binding="tns:LocalPaymentAuthorizorServiceSoapBinding" name="LocalPaymentAuthorizorPort">
+      <soap:address location="http://localhost:8082/localValidationService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -14,6 +14,8 @@ import middleware.DateAdapter;
 public class BookConfirmationRequest {
 
 	public long bookId;
+	// 1 -> pagosYa
+	// 2 -> local
 	public long paymentModeId;
 	public String creditCardNumber;
 	@XmlJavaTypeAdapter(DateAdapter.class)

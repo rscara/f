@@ -118,6 +118,7 @@
 		        <configuration>
 					<wsdlFiles>
 						<wsdlFile>${basedir}/src/main/resources/META-INF/paymentValidationService.wsdl</wsdlFile>
+						<wsdlFile>${basedir}/src/main/resources/META-INF/localValidationService.wsdl</wsdlFile>						
 					</wsdlFiles>
 					<packageName>wsdlgenerated</packageName>
 					<sourceDestDir>${basedir}/src/main/java</sourceDestDir>
