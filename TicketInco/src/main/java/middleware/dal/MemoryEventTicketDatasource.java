@@ -3,6 +3,7 @@ package middleware.dal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -78,7 +79,8 @@ public class MemoryEventTicketDatasource implements EventTicketsDatasource {
 		List<EventBook> eventBooks = new ArrayList<EventBook>();
 		for (EventSchedule schedule : schedules) {
 			for (EventAvailability availability : schedule.getAvailabilities()) {
-				eventBooks.add(new EventBook(eventId, eventDate, schedule.getHour(), availability.getSector(), availability.getQuantity(), bookId));
+				eventBooks.add(new EventBook(eventId, eventDate, schedule.getHour(), availability.getSector(), 
+						availability.getQuantity(), availability.getPrice(), bookId));
 			}
 		}
 		
@@ -112,7 +114,7 @@ public class MemoryEventTicketDatasource implements EventTicketsDatasource {
 				
 			}
 		}
-		new HashMap<Event, List<EventBook>>();
+		booksByEvent = new HashMap<Event, List<EventBook>>();
 	}
 	
 	public void setTicketsByEvent(Map<Event, List<EventTicket>> ticketsByEvent) {
@@ -150,7 +152,48 @@ public class MemoryEventTicketDatasource implements EventTicketsDatasource {
 		return allConfirmations;
 	}
 
+	@Override
+	public List<EventBook> getEventBooksByBookId(long bookId) {
+		List<EventBook> eventBooksForId = new ArrayList<EventBook>();
+		for (List<EventBook> eventBooks : booksByEvent.values()) {
+			for (EventBook eventBook : eventBooks) {
+				if (eventBook.getBookId()==bookId)
+					eventBooksForId.add(eventBook);
+			}
+		}
+		
+		return eventBooksForId;
+	}
 
+	@Override
+	public void addConfirmation(long eventId, Date eventDate, Date eventHour, String sector, int quantity, long bookId, double price) {
+		EventConfirmation confirmation = new EventConfirmation(eventId, eventDate, eventHour, sector, quantity, bookId, price);
+		
+		if (!confirmationsByEvent.containsKey(new Event(eventId, eventDate))) {
+			confirmationsByEvent.put(new Event(eventId, eventDate), new ArrayList<EventConfirmation>());
+		}
+		confirmationsByEvent.get(new Event(eventId, eventDate)).add(confirmation);
+	}
 
+	@Override
+	public void changeBookState(long bookId, int state){
+		for (Book book : books) {
+			if (book.getId()==bookId) {
+				book.setState(state);
+				return;
+			}
+		}
+	}
 
+	@Override
+	public void removeEventBooks(long bookId) {
+		for (Iterator<List<EventBook>> eventBookListIterator = booksByEvent.values().iterator(); eventBookListIterator.hasNext();) {
+			List<EventBook> eventBookList = (List<EventBook>) eventBookListIterator.next();
+			for (Iterator<EventBook> eventBookIterator = eventBookList.iterator(); eventBookIterator.hasNext();) {
+				EventBook eventBook = (EventBook) eventBookIterator.next();
+				if (eventBook.getBookId()==bookId)
+					eventBookIterator.remove();
+			}
+		}
+	}
 }

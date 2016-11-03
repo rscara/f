@@ -14,9 +14,10 @@
 
 	</bean>
 
-	<jaxws:endpoint id="BookConfirmationServiceEndpoint"
-		implementor="#bookConfirmationService" address="/BookConfirmationService">
-
+	<jaxws:endpoint id="BookConfirmationServiceEndpoint" implementor="#bookConfirmationService" address="/BookConfirmationService">
+		<jaxws:properties>
+			<entry key="mtom-enabled" value="true" />
+		</jaxws:properties>
 	</jaxws:endpoint>
 
 </beans>

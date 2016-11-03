@@ -4,12 +4,25 @@ import java.util.Date;
 
 public class EventConfirmation {
 
+
 	public long eventId;
 	public Date eventDate;
 	public Date hour;
 	public String sector;
 	public int quantity;
-	public long confirmationId;
+	public long bookId;
+	public double price;
+
+	public EventConfirmation(long eventId, Date eventDate, Date hour, String sector, int quantity, long bookId, double price) {
+		super();
+		this.eventId = eventId;
+		this.eventDate = eventDate;
+		this.hour = hour;
+		this.sector = sector;
+		this.quantity = quantity;
+		this.bookId = bookId;
+		this.price = price;
+	}
 
 	public long getEventId() {
 		return eventId;
@@ -51,12 +64,26 @@ public class EventConfirmation {
 		this.sector = sector;
 	}
 
-	public long getConfirmationId() {
-		return confirmationId;
+	public long getBookId() {
+		return bookId;
 	}
 
-	public void setConfirmationId(long confirmationId) {
-		this.confirmationId = confirmationId;
+	public void setBookId(long bookId) {
+		this.bookId = bookId;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	@Override
+	public String toString() {
+		return "EventConfirmation [eventId=" + eventId + ", eventDate=" + eventDate + ", hour=" + hour + ", sector="
+				+ sector + ", quantity=" + quantity + ", bookId=" + bookId + ", price=" + price + "]";
 	}
 
 }

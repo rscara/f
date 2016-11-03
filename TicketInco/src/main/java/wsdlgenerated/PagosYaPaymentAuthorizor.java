@@ -25,7 +25,7 @@ public interface PagosYaPaymentAuthorizor {
 
     /**
      * 
-     * @param arg0
+     * @param request
      * @return
      *     returns wsdlgenerated.PagosYaVoidResponse
      */
@@ -34,12 +34,12 @@ public interface PagosYaPaymentAuthorizor {
     @RequestWrapper(localName = "voidPayment", targetNamespace = "http://ticketincoesb.com/", className = "wsdlgenerated.VoidPayment")
     @ResponseWrapper(localName = "voidPaymentResponse", targetNamespace = "http://ticketincoesb.com/", className = "wsdlgenerated.VoidPaymentResponse")
     public PagosYaVoidResponse voidPayment(
-        @WebParam(name = "arg0", targetNamespace = "")
-        PagosYaVoidRequest arg0);
+        @WebParam(name = "request", targetNamespace = "")
+        PagosYaVoidRequest request);
 
     /**
      * 
-     * @param arg0
+     * @param request
      * @return
      *     returns wsdlgenerated.PagosYaPaymentResponse
      */
@@ -48,7 +48,7 @@ public interface PagosYaPaymentAuthorizor {
     @RequestWrapper(localName = "authorizePayment", targetNamespace = "http://ticketincoesb.com/", className = "wsdlgenerated.AuthorizePayment")
     @ResponseWrapper(localName = "authorizePaymentResponse", targetNamespace = "http://ticketincoesb.com/", className = "wsdlgenerated.AuthorizePaymentResponse")
     public PagosYaPaymentResponse authorizePayment(
-        @WebParam(name = "arg0", targetNamespace = "")
-        PagosYaPaymentRequest arg0);
+        @WebParam(name = "request", targetNamespace = "")
+        PagosYaPaymentRequest request);
 
 }

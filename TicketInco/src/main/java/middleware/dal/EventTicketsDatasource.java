@@ -27,4 +27,12 @@ public interface EventTicketsDatasource {
 	
 	public void removeAllBooks();
 	
+	public List<EventBook> getEventBooksByBookId(long bookId);
+	
+	public void addConfirmation(long eventId, Date eventDate, Date eventHour, String sector, int quantity, long bookId, double price);
+	
+	public void changeBookState(long bookId, int state);
+	
+	public void removeEventBooks(long bookId);
+	
 }

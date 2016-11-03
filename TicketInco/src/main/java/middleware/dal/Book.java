@@ -5,6 +5,9 @@ import java.util.Date;
 public class Book {
 
 	private long id;
+	// 0 -> cancelado
+	// 1 -> pendiente
+	// 2 -> confirmado
 	private int state;
 	private long eventId;
 	private Date eventDate;

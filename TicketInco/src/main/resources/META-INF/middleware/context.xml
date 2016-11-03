@@ -35,6 +35,9 @@
 				</constructor-arg>
 			</bean>
 		</jaxws:inInterceptors>
+		<jaxws:properties>
+			<entry key="mtom-enabled" value="true" />
+		</jaxws:properties>
 	</jaxws:endpoint>
 
 	<jaxws:endpoint id="bookQueryServiceEndpoint" implementor="#bookQueryService" address="/BookQueryService" />
@@ -84,6 +87,7 @@
 	<bean id="bookConfirmationService" class="middleware.ws.service.BookConfirmationServiceImpl">
 		<property name="pagosYaPaymentAuthorizor" ref="pagosYaPaymentValidationService" />
 		<property name="localPaymentAuthorizor" ref="localPaymentValidationService"/>
+		<property name="eventManager" ref="eventManager"/>
 	</bean>
 
 	<bean id="bookQueryService" class="middleware.ws.service.BookQueryServiceImpl">
@@ -107,7 +111,7 @@
 	</bean>
 
 	<jaxws:client id="pagosYaPaymentValidationService" serviceClass="wsdlgenerated.PagosYaPaymentAuthorizor"
-		address="http://localhost:8082/paymentValidationService" />
+		address="http://localhost:8082/pagosYaValidationService" />
 		
 	<jaxws:client id="localPaymentValidationService" serviceClass="wsdlgenerated.LocalPaymentAuthorizor"
 		address="http://localhost:8082/localValidationService" />

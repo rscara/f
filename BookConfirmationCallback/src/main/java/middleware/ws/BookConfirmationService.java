@@ -8,6 +8,6 @@ import javax.jws.WebService;
 public interface BookConfirmationService {
 	
 	@WebMethod(action = "confirmBookResponse", operationName = "confirmBookResponse")
-	public void confirmBook(@WebParam(name = "return") String request) throws Exception;
+	public void confirmBook(@WebParam(name = "return") BookConfirmationResponse request) throws Exception;
 
 }

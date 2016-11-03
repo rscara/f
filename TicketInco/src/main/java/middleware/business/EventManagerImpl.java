@@ -53,9 +53,23 @@ public class EventManagerImpl implements EventManager {
 			
 			List<EventAvailability> eventAvailabilities = new ArrayList<EventAvailability>();
 			for (EventTicket eventTicket : ticketsByHour.get(hour)) {
+				
+				List<EventBook> books = eventTicketsDatasource.getBooksForEventHourAndSector(
+						eventTicket.getEventId(), eventTicket.getEventDate(), eventTicket.getHour(), eventTicket.getSector());
+				int bookQuantity = 0;
+				for (EventBook eventBook : books) {
+					bookQuantity += eventBook.getQuantity();
+				}
+				
+				int confirmationQuantity = 0;
+				List<EventConfirmation> confirmations = eventTicketsDatasource.getConfirmationsForEventHourAndSector(
+						eventTicket.getEventId(), eventTicket.getEventDate(), eventTicket.getHour(), eventTicket.getSector());
+				for (EventConfirmation eventConfirmation : confirmations) {
+					confirmationQuantity += eventConfirmation.getQuantity();
+				}
 				EventAvailability availability = new EventAvailability();
 				availability.setSector(eventTicket.getSector());
-				availability.setQuantity(eventTicket.getQuantity());
+				availability.setQuantity(eventTicket.getQuantity() - bookQuantity - confirmationQuantity);
 				availability.setPrice(eventTicket.getPrice());
 				
 				eventAvailabilities.add(availability);
@@ -139,6 +153,22 @@ public class EventManagerImpl implements EventManager {
 		logger.debug("confirmations:" + eventTicketsDatasource.getAllConfirmations());
 	}
 
+	@Override
+	public List<EventBook> getBooksByBookId(long bookId) {
+		return eventTicketsDatasource.getEventBooksByBookId(bookId);
+	}
+
+	@Override
+	public void confirmBooks(List<EventBook> eventBooks) {
+		for (EventBook eventBook : eventBooks) {
+			eventTicketsDatasource.addConfirmation(eventBook.getEventId(), eventBook.getEventDate(), eventBook.getHour(), eventBook.getSector(), 
+					eventBook.getQuantity(), eventBook.getBookId(), eventBook.getPrice());
+			eventTicketsDatasource.changeBookState(eventBook.getBookId(), 2);
+			eventTicketsDatasource.removeEventBooks(eventBook.getBookId());
+		}
+		
+	}
+
 	public void setEventDatasource(EventDatasource eventDatasource) {
 		this.eventDatasource = eventDatasource;
 	}
@@ -146,4 +176,6 @@ public class EventManagerImpl implements EventManager {
 	public void setEventTicketsDatasource(EventTicketsDatasource eventTicketsDatasource) {
 		this.eventTicketsDatasource = eventTicketsDatasource;
 	}
+
+
 }

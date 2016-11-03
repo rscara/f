@@ -20,7 +20,7 @@
 
   <xs:complexType name="voidPayment">
     <xs:sequence>
-      <xs:element minOccurs="0" name="arg0" type="tns:pagosYaVoidRequest"/>
+      <xs:element minOccurs="0" name="request" type="tns:pagosYaVoidRequest"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -46,7 +46,7 @@
 
   <xs:complexType name="authorizePayment">
     <xs:sequence>
-      <xs:element minOccurs="0" name="arg0" type="tns:pagosYaPaymentRequest"/>
+      <xs:element minOccurs="0" name="request" type="tns:pagosYaPaymentRequest"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -128,7 +128,7 @@
   </wsdl:binding>
   <wsdl:service name="PagosYaPaymentAuthorizorService">
     <wsdl:port binding="tns:PagosYaPaymentAuthorizorServiceSoapBinding" name="PagosYaPaymentAuthorizorPort">
-      <soap:address location="http://localhost:8082/paymentValidationService"/>
+      <soap:address location="http://localhost:8082/pagosYaValidationService"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

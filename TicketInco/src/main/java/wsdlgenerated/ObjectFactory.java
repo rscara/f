@@ -24,27 +24,20 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _LocalPaymentResponse_QNAME = new QName("http://ticketincoesb.com/", "localPaymentResponse");
     private final static QName _AuthorizePaymentResponse_QNAME = new QName("http://ticketincoesb.com/", "authorizePaymentResponse");
-    private final static QName _LocalPaymentRequest_QNAME = new QName("http://ticketincoesb.com/", "localPaymentRequest");
+    private final static QName _PagosYaPaymentRequest_QNAME = new QName("http://ticketincoesb.com/", "pagosYaPaymentRequest");
     private final static QName _AuthorizePayment_QNAME = new QName("http://ticketincoesb.com/", "authorizePayment");
     private final static QName _VoidPayment_QNAME = new QName("http://ticketincoesb.com/", "voidPayment");
     private final static QName _PagosYaVoidRequest_QNAME = new QName("http://ticketincoesb.com/", "pagosYaVoidRequest");
+    private final static QName _PagosYaVoidResponse_QNAME = new QName("http://ticketincoesb.com/", "pagosYaVoidResponse");
     private final static QName _VoidPaymentResponse_QNAME = new QName("http://ticketincoesb.com/", "voidPaymentResponse");
+    private final static QName _PagosYaPaymentResponse_QNAME = new QName("http://ticketincoesb.com/", "pagosYaPaymentResponse");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: wsdlgenerated
      * 
      */
     public ObjectFactory() {
-    }
-
-    /**
-     * Create an instance of {@link LocalPaymentRequest }
-     * 
-     */
-    public LocalPaymentRequest createLocalPaymentRequest() {
-        return new LocalPaymentRequest();
     }
 
     /**
@@ -56,11 +49,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link LocalPaymentResponse }
+     * Create an instance of {@link PagosYaPaymentRequest }
      * 
      */
-    public LocalPaymentResponse createLocalPaymentResponse() {
-        return new LocalPaymentResponse();
+    public PagosYaPaymentRequest createPagosYaPaymentRequest() {
+        return new PagosYaPaymentRequest();
     }
 
     /**
@@ -69,6 +62,22 @@ public class ObjectFactory {
      */
     public VoidPaymentResponse createVoidPaymentResponse() {
         return new VoidPaymentResponse();
+    }
+
+    /**
+     * Create an instance of {@link PagosYaVoidResponse }
+     * 
+     */
+    public PagosYaVoidResponse createPagosYaVoidResponse() {
+        return new PagosYaVoidResponse();
+    }
+
+    /**
+     * Create an instance of {@link PagosYaPaymentResponse }
+     * 
+     */
+    public PagosYaPaymentResponse createPagosYaPaymentResponse() {
+        return new PagosYaPaymentResponse();
     }
 
     /**
@@ -96,15 +105,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link LocalPaymentResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://ticketincoesb.com/", name = "localPaymentResponse")
-    public JAXBElement<LocalPaymentResponse> createLocalPaymentResponse(LocalPaymentResponse value) {
-        return new JAXBElement<LocalPaymentResponse>(_LocalPaymentResponse_QNAME, LocalPaymentResponse.class, null, value);
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link AuthorizePaymentResponse }{@code >}}
      * 
      */
@@ -114,12 +114,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link LocalPaymentRequest }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link PagosYaPaymentRequest }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://ticketincoesb.com/", name = "localPaymentRequest")
-    public JAXBElement<LocalPaymentRequest> createLocalPaymentRequest(LocalPaymentRequest value) {
-        return new JAXBElement<LocalPaymentRequest>(_LocalPaymentRequest_QNAME, LocalPaymentRequest.class, null, value);
+    @XmlElementDecl(namespace = "http://ticketincoesb.com/", name = "pagosYaPaymentRequest")
+    public JAXBElement<PagosYaPaymentRequest> createPagosYaPaymentRequest(PagosYaPaymentRequest value) {
+        return new JAXBElement<PagosYaPaymentRequest>(_PagosYaPaymentRequest_QNAME, PagosYaPaymentRequest.class, null, value);
     }
 
     /**
@@ -150,12 +150,30 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link PagosYaVoidResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ticketincoesb.com/", name = "pagosYaVoidResponse")
+    public JAXBElement<PagosYaVoidResponse> createPagosYaVoidResponse(PagosYaVoidResponse value) {
+        return new JAXBElement<PagosYaVoidResponse>(_PagosYaVoidResponse_QNAME, PagosYaVoidResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VoidPaymentResponse }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://ticketincoesb.com/", name = "voidPaymentResponse")
     public JAXBElement<VoidPaymentResponse> createVoidPaymentResponse(VoidPaymentResponse value) {
         return new JAXBElement<VoidPaymentResponse>(_VoidPaymentResponse_QNAME, VoidPaymentResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link PagosYaPaymentResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ticketincoesb.com/", name = "pagosYaPaymentResponse")
+    public JAXBElement<PagosYaPaymentResponse> createPagosYaPaymentResponse(PagosYaPaymentResponse value) {
+        return new JAXBElement<PagosYaPaymentResponse>(_PagosYaPaymentResponse_QNAME, PagosYaPaymentResponse.class, null, value);
     }
 
 }

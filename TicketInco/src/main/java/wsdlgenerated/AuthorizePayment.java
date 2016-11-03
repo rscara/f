@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="request" type="{http://ticketincoesb.com/}localPaymentRequest" minOccurs="0"/>
+ *         &lt;element name="request" type="{http://ticketincoesb.com/}pagosYaPaymentRequest" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -31,17 +31,17 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class AuthorizePayment {
 
-    protected LocalPaymentRequest request;
+    protected PagosYaPaymentRequest request;
 
     /**
      * Obtiene el valor de la propiedad request.
      * 
      * @return
      *     possible object is
-     *     {@link LocalPaymentRequest }
+     *     {@link PagosYaPaymentRequest }
      *     
      */
-    public LocalPaymentRequest getRequest() {
+    public PagosYaPaymentRequest getRequest() {
         return request;
     }
 
@@ -50,10 +50,10 @@ public class AuthorizePayment {
      * 
      * @param value
      *     allowed object is
-     *     {@link LocalPaymentRequest }
+     *     {@link PagosYaPaymentRequest }
      *     
      */
-    public void setRequest(LocalPaymentRequest value) {
+    public void setRequest(PagosYaPaymentRequest value) {
         this.request = value;
     }
 

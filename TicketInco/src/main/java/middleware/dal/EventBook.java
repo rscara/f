@@ -9,6 +9,7 @@ public class EventBook {
 	public Date hour;
 	public String sector;
 	public int quantity;
+	public double price;
 	public long bookId;
 	
 	public EventBook() {
@@ -17,13 +18,14 @@ public class EventBook {
 	
 	
 
-	public EventBook(long eventId, Date eventDate, Date hour, String sector, int quantity, long bookId) {
+	public EventBook(long eventId, Date eventDate, Date hour, String sector, int quantity, double price, long bookId) {
 		this.eventId = eventId;
 		this.eventDate = eventDate;
 		this.hour = hour;
 		this.sector = sector;
 		this.quantity = quantity;
 		this.bookId = bookId;
+		this.price = price;
 	}
 
 
@@ -74,6 +76,18 @@ public class EventBook {
 
 	public void setBookId(long bookId) {
 		this.bookId = bookId;
+	}
+
+
+
+	public double getPrice() {
+		return price;
+	}
+
+
+
+	public void setPrice(double price) {
+		this.price = price;
 	}
 
 }
