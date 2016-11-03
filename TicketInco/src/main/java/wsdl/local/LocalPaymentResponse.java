@@ -1,5 +1,5 @@
 
-package wsdlgenerated;
+package wsdl.local;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -7,12 +7,12 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para pagosYaPaymentResponse complex type.
+ * <p>Clase Java para localPaymentResponse complex type.
  * 
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
- * &lt;complexType name="pagosYaPaymentResponse">
+ * &lt;complexType name="localPaymentResponse">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
@@ -28,12 +28,12 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "pagosYaPaymentResponse", propOrder = {
+@XmlType(name = "localPaymentResponse", propOrder = {
     "ok",
     "errorDescription",
     "confirmationNumber"
 })
-public class PagosYaPaymentResponse {
+public class LocalPaymentResponse {
 
     protected boolean ok;
     protected String errorDescription;

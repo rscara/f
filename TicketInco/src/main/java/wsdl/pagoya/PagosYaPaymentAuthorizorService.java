@@ -1,5 +1,5 @@
 
-package wsdlgenerated;
+package wsdl.pagoya;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "PagosYaPaymentAuthorizorService", targetNamespace = "http://ticketincoesb.com/", wsdlLocation = "file:/home/jhagopian/git/f/TicketInco/src/main/resources/META-INF/pagosYaValidationService.wsdl")
+@WebServiceClient(name = "PagosYaPaymentAuthorizorService", targetNamespace = "http://ticketincoesb.com/", wsdlLocation = "file:/home/jhagopian/git/f/TicketInco/src/main/resources/META-INF/wsdl/pagosYaValidationService.wsdl")
 public class PagosYaPaymentAuthorizorService
     extends Service
 {
@@ -30,7 +30,7 @@ public class PagosYaPaymentAuthorizorService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("file:/home/jhagopian/git/f/TicketInco/src/main/resources/META-INF/pagosYaValidationService.wsdl");
+            url = new URL("file:/home/jhagopian/git/f/TicketInco/src/main/resources/META-INF/wsdl/pagosYaValidationService.wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

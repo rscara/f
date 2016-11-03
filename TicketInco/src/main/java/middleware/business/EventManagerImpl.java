@@ -55,7 +55,7 @@ public class EventManagerImpl implements EventManager {
 			for (EventTicket eventTicket : ticketsByHour.get(hour)) {
 				
 				List<EventBook> books = eventTicketsDatasource.getBooksForEventHourAndSector(
-						eventTicket.getEventId(), eventTicket.getEventDate(), eventTicket.getHour(), eventTicket.getSector());
+						event.getId(), event.getDate(), eventTicket.getHour(), eventTicket.getSector());
 				int bookQuantity = 0;
 				for (EventBook eventBook : books) {
 					bookQuantity += eventBook.getQuantity();
@@ -63,7 +63,7 @@ public class EventManagerImpl implements EventManager {
 				
 				int confirmationQuantity = 0;
 				List<EventConfirmation> confirmations = eventTicketsDatasource.getConfirmationsForEventHourAndSector(
-						eventTicket.getEventId(), eventTicket.getEventDate(), eventTicket.getHour(), eventTicket.getSector());
+						event.getId(), event.getDate(), eventTicket.getHour(), eventTicket.getSector());
 				for (EventConfirmation eventConfirmation : confirmations) {
 					confirmationQuantity += eventConfirmation.getQuantity();
 				}

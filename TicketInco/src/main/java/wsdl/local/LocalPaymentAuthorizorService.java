@@ -1,5 +1,5 @@
 
-package wsdlgenerated;
+package wsdl.local;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "LocalPaymentAuthorizorService", targetNamespace = "http://ticketincoesb.com/", wsdlLocation = "file:/home/jhagopian/git/f/TicketInco/src/main/resources/META-INF/localValidationService.wsdl")
+@WebServiceClient(name = "LocalPaymentAuthorizorService", targetNamespace = "http://ticketincoesb.com/", wsdlLocation = "file:/home/jhagopian/git/f/TicketInco/src/main/resources/META-INF/wsdl/localValidationService.wsdl")
 public class LocalPaymentAuthorizorService
     extends Service
 {
@@ -30,7 +30,7 @@ public class LocalPaymentAuthorizorService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("file:/home/jhagopian/git/f/TicketInco/src/main/resources/META-INF/localValidationService.wsdl");
+            url = new URL("file:/home/jhagopian/git/f/TicketInco/src/main/resources/META-INF/wsdl/localValidationService.wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

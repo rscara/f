@@ -110,10 +110,10 @@
 		<property name="eventTicketsDatasource" ref="eventTicketsDatasource" />
 	</bean>
 
-	<jaxws:client id="pagosYaPaymentValidationService" serviceClass="wsdlgenerated.PagosYaPaymentAuthorizor"
+	<jaxws:client id="pagosYaPaymentValidationService" serviceClass="wsdl.pagoya.PagosYaPaymentAuthorizor"
 		address="http://localhost:8082/pagosYaValidationService" />
 		
-	<jaxws:client id="localPaymentValidationService" serviceClass="wsdlgenerated.LocalPaymentAuthorizor"
+	<jaxws:client id="localPaymentValidationService" serviceClass="wsdl.local.LocalPaymentAuthorizor"
 		address="http://localhost:8082/localValidationService" />
 
 </beans>

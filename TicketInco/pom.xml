@@ -1,130 +1,143 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-    <groupId>fing.middl</groupId>
-    <artifactId>TicketInco</artifactId>
-    <version>0.1.0</version>
+	<groupId>fing.middl</groupId>
+	<artifactId>TicketInco</artifactId>
+	<version>0.1.0</version>
 	<packaging>war</packaging>
-	
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.4.1.RELEASE</version>
-    </parent>
+	</parent>
 
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
 
-    <dependencies>
+	<dependencies>
 		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter</artifactId>
-		</dependency>
-    	<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-       	<dependency>
-        	<groupId>org.springframework.boot</groupId>
-        	<artifactId>spring-boot-starter-tomcat</artifactId>
-        	<scope>provided</scope>
-    	</dependency>
-        <dependency>
-        	<groupId>org.springframework.boot</groupId>
-        	<artifactId>spring-boot-starter-logging</artifactId>
-        	<scope>provided</scope>
-    	</dependency>
- 		<dependency>
-		    <groupId>org.apache.cxf</groupId>
-		    <artifactId>cxf-spring-boot-starter-jaxws</artifactId>
-		    <version>3.1.7</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
 		<dependency>
-		    <groupId>org.postgresql</groupId>
-		    <artifactId>postgresql</artifactId>
-		    <version>9.4.1211.jre7</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
-		    <groupId>commons-dbcp</groupId>
-		    <artifactId>commons-dbcp</artifactId>
-		    <version>1.4</version>
-		</dependency>	
-	 
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-logging</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-spring-boot-starter-jaxws</artifactId>
+			<version>3.1.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.4.1211.jre7</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.4</version>
+		</dependency>
+
 		<!-- WSSE Dependencies -->
 		<dependency>
 			<groupId>org.apache.ws.security</groupId>
 			<artifactId>wss4j</artifactId>
 			<version>1.6.14</version>
 		</dependency>
-		
+
 		<dependency>
-		    <groupId>org.apache.wss4j</groupId>
-		    <artifactId>wss4j-ws-security-common</artifactId>
-		    <version>2.1.7</version>
+			<groupId>org.apache.wss4j</groupId>
+			<artifactId>wss4j-ws-security-common</artifactId>
+			<version>2.1.7</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-ws-security -->
 		<dependency>
-		    <groupId>org.apache.cxf</groupId>
-		    <artifactId>cxf-rt-ws-security</artifactId>
-		    <version>3.1.7</version>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-ws-security</artifactId>
+			<version>3.1.7</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.wss4j/wss4j-ws-security-dom -->
 		<dependency>
-		    <groupId>org.apache.wss4j</groupId>
-		    <artifactId>wss4j-ws-security-dom</artifactId>
-		    <version>2.1.7</version>
+			<groupId>org.apache.wss4j</groupId>
+			<artifactId>wss4j-ws-security-dom</artifactId>
+			<version>2.1.7</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.apache.wss4j</groupId>
-		    <artifactId>wss4j-ws-security-dom</artifactId>
-		    <version>2.1.7</version>
+			<groupId>org.apache.wss4j</groupId>
+			<artifactId>wss4j-ws-security-dom</artifactId>
+			<version>2.1.7</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.santuario</groupId>
 			<artifactId>xmlsec</artifactId>
 			<version>2.0.5</version>
 		</dependency>
-		
-		
-    </dependencies>
 
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                 <configuration>
-		          <jvmArguments>
-		            -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005
-		          </jvmArguments>
-		        </configuration>
-            </plugin>
+	</dependencies>
+
+
+	<build>
+		<plugins>
 			<plugin>
-		        <groupId>org.jvnet.jax-ws-commons</groupId>
-		        <artifactId>jaxws-maven-plugin</artifactId>
-		        <version>2.3</version>
-		        <executions>
-		          <execution>
-		            <goals>
-		              <goal>wsimport</goal>
-		            </goals>
-		          </execution>
-		        </executions>
-		        <configuration>
-					<wsdlFiles>
-						<wsdlFile>${basedir}/src/main/resources/META-INF/pagosYaValidationService.wsdl</wsdlFile>
-						<wsdlFile>${basedir}/src/main/resources/META-INF/localValidationService.wsdl</wsdlFile>						
-					</wsdlFiles>
-					<packageName>wsdlgenerated</packageName>
-					<sourceDestDir>${basedir}/src/main/java</sourceDestDir>
-		        </configuration>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<jvmArguments>
+						-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005
+					</jvmArguments>
+				</configuration>
 			</plugin>
-       </plugins>
-    </build>
+			<plugin>
+				<groupId>org.jvnet.jax-ws-commons</groupId>
+				<artifactId>jaxws-maven-plugin</artifactId>
+				<version>2.3</version>
+				<executions>
+					<execution>
+						<id>pagoyawsdl</id>
+						<goals>
+							<goal>wsimport</goal>
+						</goals>
+						<configuration>
+							<wsdlFiles>
+								<wsdlFile>${basedir}/src/main/resources/META-INF/wsdl/pagosYaValidationService.wsdl</wsdlFile>
+							</wsdlFiles>
+							<packageName>wsdl.pagoya</packageName>
+							<sourceDestDir>${basedir}/src/main/java</sourceDestDir>
+						</configuration>
+					</execution>
+					<execution>
+						<id>localwsdl</id>
+						<goals>
+							<goal>wsimport</goal>
+						</goals>
+						<configuration>
+							<wsdlFiles>
+								<wsdlFile>${basedir}/src/main/resources/META-INF/wsdl/localValidationService.wsdl</wsdlFile>
+							</wsdlFiles>
+							<packageName>wsdl.local</packageName>
+							<sourceDestDir>${basedir}/src/main/java</sourceDestDir>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>

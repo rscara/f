@@ -7,8 +7,11 @@ public class LocalPaymentAuthorizorImpl implements LocalPaymentAuthorizor {
 
 	@Override
 	public LocalPaymentResponse authorizePayment(LocalPaymentRequest request) {
-		// TODO Auto-generated method stub
-		return null;
+		LocalPaymentResponse response = new LocalPaymentResponse();
+		response.setOk(true);
+		response.setConfirmationNumber(1234);
+		
+		return response;	
 	}
 
 	@Override

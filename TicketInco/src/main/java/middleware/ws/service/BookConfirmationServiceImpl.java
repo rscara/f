@@ -25,12 +25,12 @@ import middleware.business.EventManager;
 import middleware.dal.EventBook;
 import middleware.ws.BookConfirmationRequest;
 import middleware.ws.BookConfirmationResponse;
-import wsdlgenerated.LocalPaymentAuthorizor;
-import wsdlgenerated.LocalPaymentRequest;
-import wsdlgenerated.LocalPaymentResponse;
-import wsdlgenerated.PagosYaPaymentAuthorizor;
-import wsdlgenerated.PagosYaPaymentRequest;
-import wsdlgenerated.PagosYaPaymentResponse;
+import wsdl.local.LocalPaymentAuthorizor;
+import wsdl.local.LocalPaymentRequest;
+import wsdl.local.LocalPaymentResponse;
+import wsdl.pagoya.PagosYaPaymentAuthorizor;
+import wsdl.pagoya.PagosYaPaymentRequest;
+import wsdl.pagoya.PagosYaPaymentResponse;
 
 @Addressing
 @WebService(endpointInterface = "middleware.ws.service.BookConfirmationService", name = "BookConfirmationService", targetNamespace = "http://ticketinco.com/")
@@ -135,11 +135,10 @@ public class BookConfirmationServiceImpl implements BookConfirmationService {
 							bookConfirmationRequest.getCreditCardNumber(), 40, 210);
 				}
 				else {
-					g.drawString("Autorizado por TicketINCO, #Tarjeta:" + 
-							bookConfirmationRequest.getCreditCardNumber(), 40, 210);
+					g.drawString("Autorizado por TicketINCO", 40, 210);
 				}
-				g.drawString("Cod. Aut.:" + confirmationNumber, 40, 240);
-				g.drawString("TOTAL $ " + df.format(eventBook.getPrice()), 40, 270);
+				g.drawString("#Tarjeta:" + bookConfirmationRequest.getCreditCardNumber(), 40, 240);
+				g.drawString("TOTAL $ " + df.format(eventBook.getPrice()) + " Cod. Aut.:" + confirmationNumber, 40, 270);
 				g.dispose();
 				
 				ByteArrayOutputStream baos = new ByteArrayOutputStream();

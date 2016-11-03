@@ -1,5 +1,5 @@
 
-package wsdlgenerated;
+package wsdl.local;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -28,8 +28,8 @@ public interface LocalPaymentAuthorizor {
      * @param request
      */
     @WebMethod(action = "voidPayment")
-    @RequestWrapper(localName = "voidPayment", targetNamespace = "http://ticketincoesb.com/", className = "wsdlgenerated.VoidPayment")
-    @ResponseWrapper(localName = "voidPaymentResponse", targetNamespace = "http://ticketincoesb.com/", className = "wsdlgenerated.VoidPaymentResponse")
+    @RequestWrapper(localName = "voidPayment", targetNamespace = "http://ticketincoesb.com/", className = "wsdl.local.VoidPayment")
+    @ResponseWrapper(localName = "voidPaymentResponse", targetNamespace = "http://ticketincoesb.com/", className = "wsdl.local.VoidPaymentResponse")
     public void voidPayment(
         @WebParam(name = "request", targetNamespace = "")
         PagosYaVoidRequest request);
@@ -38,12 +38,12 @@ public interface LocalPaymentAuthorizor {
      * 
      * @param request
      * @return
-     *     returns wsdlgenerated.LocalPaymentResponse
+     *     returns wsdl.local.LocalPaymentResponse
      */
     @WebMethod(action = "authorizePayment")
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "authorizePayment", targetNamespace = "http://ticketincoesb.com/", className = "wsdlgenerated.AuthorizePayment")
-    @ResponseWrapper(localName = "authorizePaymentResponse", targetNamespace = "http://ticketincoesb.com/", className = "wsdlgenerated.AuthorizePaymentResponse")
+    @RequestWrapper(localName = "authorizePayment", targetNamespace = "http://ticketincoesb.com/", className = "wsdl.local.AuthorizePayment")
+    @ResponseWrapper(localName = "authorizePaymentResponse", targetNamespace = "http://ticketincoesb.com/", className = "wsdl.local.AuthorizePaymentResponse")
     public LocalPaymentResponse authorizePayment(
         @WebParam(name = "request", targetNamespace = "")
         LocalPaymentRequest request);

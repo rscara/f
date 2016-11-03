@@ -1,5 +1,5 @@
 
-package wsdlgenerated;
+package wsdl.local;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -7,16 +7,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para authorizePayment complex type.
+ * <p>Clase Java para voidPayment complex type.
  * 
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
- * &lt;complexType name="authorizePayment">
+ * &lt;complexType name="voidPayment">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="request" type="{http://ticketincoesb.com/}pagosYaPaymentRequest" minOccurs="0"/>
+ *         &lt;element name="request" type="{http://ticketincoesb.com/}pagosYaVoidRequest" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -26,22 +26,22 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "authorizePayment", propOrder = {
+@XmlType(name = "voidPayment", propOrder = {
     "request"
 })
-public class AuthorizePayment {
+public class VoidPayment {
 
-    protected PagosYaPaymentRequest request;
+    protected PagosYaVoidRequest request;
 
     /**
      * Obtiene el valor de la propiedad request.
      * 
      * @return
      *     possible object is
-     *     {@link PagosYaPaymentRequest }
+     *     {@link PagosYaVoidRequest }
      *     
      */
-    public PagosYaPaymentRequest getRequest() {
+    public PagosYaVoidRequest getRequest() {
         return request;
     }
 
@@ -50,10 +50,10 @@ public class AuthorizePayment {
      * 
      * @param value
      *     allowed object is
-     *     {@link PagosYaPaymentRequest }
+     *     {@link PagosYaVoidRequest }
      *     
      */
-    public void setRequest(PagosYaPaymentRequest value) {
+    public void setRequest(PagosYaVoidRequest value) {
         this.request = value;
     }
 

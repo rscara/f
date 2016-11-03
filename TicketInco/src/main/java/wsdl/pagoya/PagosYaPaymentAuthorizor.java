@@ -1,5 +1,5 @@
 
-package wsdlgenerated;
+package wsdl.pagoya;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -27,12 +27,12 @@ public interface PagosYaPaymentAuthorizor {
      * 
      * @param request
      * @return
-     *     returns wsdlgenerated.PagosYaVoidResponse
+     *     returns wsdl.pagoya.PagosYaVoidResponse
      */
     @WebMethod(action = "voidPayment")
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "voidPayment", targetNamespace = "http://ticketincoesb.com/", className = "wsdlgenerated.VoidPayment")
-    @ResponseWrapper(localName = "voidPaymentResponse", targetNamespace = "http://ticketincoesb.com/", className = "wsdlgenerated.VoidPaymentResponse")
+    @RequestWrapper(localName = "voidPayment", targetNamespace = "http://ticketincoesb.com/", className = "wsdl.pagoya.VoidPayment")
+    @ResponseWrapper(localName = "voidPaymentResponse", targetNamespace = "http://ticketincoesb.com/", className = "wsdl.pagoya.VoidPaymentResponse")
     public PagosYaVoidResponse voidPayment(
         @WebParam(name = "request", targetNamespace = "")
         PagosYaVoidRequest request);
@@ -41,12 +41,12 @@ public interface PagosYaPaymentAuthorizor {
      * 
      * @param request
      * @return
-     *     returns wsdlgenerated.PagosYaPaymentResponse
+     *     returns wsdl.pagoya.PagosYaPaymentResponse
      */
     @WebMethod(action = "authorizePayment")
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "authorizePayment", targetNamespace = "http://ticketincoesb.com/", className = "wsdlgenerated.AuthorizePayment")
-    @ResponseWrapper(localName = "authorizePaymentResponse", targetNamespace = "http://ticketincoesb.com/", className = "wsdlgenerated.AuthorizePaymentResponse")
+    @RequestWrapper(localName = "authorizePayment", targetNamespace = "http://ticketincoesb.com/", className = "wsdl.pagoya.AuthorizePayment")
+    @ResponseWrapper(localName = "authorizePaymentResponse", targetNamespace = "http://ticketincoesb.com/", className = "wsdl.pagoya.AuthorizePaymentResponse")
     public PagosYaPaymentResponse authorizePayment(
         @WebParam(name = "request", targetNamespace = "")
         PagosYaPaymentRequest request);
