@@ -101,9 +101,17 @@ public class EventManagerImpl implements EventManager {
 				for (EventConfirmation eventConfirmation : confirmations) {
 					confirmationQuantity += eventConfirmation.getQuantity();
 				}
+				
+				int voidsQuantity = 0;
+				List<EventBookVoid> voids = eventTicketsDatasource.getVoidsForEventHourAndSector(
+						event.getId(), event.getDate(), eventTicket.getHour(), eventTicket.getSector());
+				for (EventBookVoid eventBookVoid : voids) {
+					voidsQuantity += eventBookVoid.getQuantity();
+				}
+				
 				EventAvailability availability = new EventAvailability();
 				availability.setSector(eventTicket.getSector());
-				availability.setQuantity(eventTicket.getQuantity() - bookQuantity - confirmationQuantity);
+				availability.setQuantity(eventTicket.getQuantity() - bookQuantity - confirmationQuantity + voidsQuantity);
 				availability.setPrice(eventTicket.getPrice());
 				
 				eventAvailabilities.add(availability);
