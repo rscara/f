@@ -18,4 +18,9 @@ public class TicketBookResponse {
 		this.bookId = bookId;
 	}
 
+	@Override
+	public String toString() {
+		return "TicketBookResponse [bookId=" + bookId + "]";
+	}
+
 }

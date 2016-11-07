@@ -1,13 +1,17 @@
 package middleware;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class LocalPaymentRequest {
+public class LocalPaymentRequest implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	private String creditCardNumber;
 	private String expiration;
 	private String checkDigit;

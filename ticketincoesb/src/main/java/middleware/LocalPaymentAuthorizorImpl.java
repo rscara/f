@@ -9,14 +9,16 @@ public class LocalPaymentAuthorizorImpl implements LocalPaymentAuthorizor {
 	public LocalPaymentResponse authorizePayment(LocalPaymentRequest request) {
 		LocalPaymentResponse response = new LocalPaymentResponse();
 		response.setOk(true);
-		response.setConfirmationNumber(1234);
 		
 		return response;	
 	}
 
 	@Override
-	public void voidPayment(PagosYaVoidRequest request) {
-
+	public LocalVoidResponse voidPayment(LocalVoidRequest request) {
+		LocalVoidResponse response = new LocalVoidResponse();
+		response.setOk(true);
+		
+		return response;
 	}
 
 }

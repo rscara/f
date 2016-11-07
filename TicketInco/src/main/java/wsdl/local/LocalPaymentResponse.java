@@ -18,7 +18,6 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element name="ok" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *         &lt;element name="errorDescription" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="confirmationNumber" type="{http://www.w3.org/2001/XMLSchema}long"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -30,14 +29,12 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "localPaymentResponse", propOrder = {
     "ok",
-    "errorDescription",
-    "confirmationNumber"
+    "errorDescription"
 })
 public class LocalPaymentResponse {
 
     protected boolean ok;
     protected String errorDescription;
-    protected long confirmationNumber;
 
     /**
      * Obtiene el valor de la propiedad ok.
@@ -77,22 +74,6 @@ public class LocalPaymentResponse {
      */
     public void setErrorDescription(String value) {
         this.errorDescription = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad confirmationNumber.
-     * 
-     */
-    public long getConfirmationNumber() {
-        return confirmationNumber;
-    }
-
-    /**
-     * Define el valor de la propiedad confirmationNumber.
-     * 
-     */
-    public void setConfirmationNumber(long value) {
-        this.confirmationNumber = value;
     }
 
 }

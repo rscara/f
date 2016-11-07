@@ -62,4 +62,11 @@ public class BookConfirmationRequest {
 		this.creditCardCheckDigit = creditCardCheckDigit;
 	}
 
+	@Override
+	public String toString() {
+		return "BookConfirmationRequest [bookId=" + bookId + ", paymentModeId=" + paymentModeId + ", creditCardNumber="
+				+ creditCardNumber + ", creditCardExpiration=" + creditCardExpiration + ", creditCardCheckDigit="
+				+ creditCardCheckDigit + "]";
+	}
+
 }

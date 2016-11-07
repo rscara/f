@@ -77,24 +77,26 @@
 				</constructor-arg>
 			</bean>
 		</jaxws:outInterceptors>
-
 	</jaxws:endpoint>
 	
-	<!-- <jaxws:endpoint id="bookVoidServiceEndpoint" implementor="#bookVoidService" 
-		address="/BookVoidService" /> -->
+	<jaxws:endpoint id="bookVoidServiceEndpoint" implementor="#bookVoidService"	address="/BookVoidService" />
 
+	<jaxws:endpoint id="logSystemServiceEndpoint" implementor="#logSystemService" address="/LogSystemService" />
+	
+	<bean id="bookVoidService" class="middleware.ws.service.BookVoidServiceImpl">
+		<property name="eventManager" ref="eventManager"/>
+	</bean>
+
+	<bean id="logSystemService" class="middleware.ws.service.LogSystemServiceImpl">
+		<property name="eventTicketsDatasource" ref="eventTicketsDatasource"/>
+	</bean>
 
 	<bean id="bookConfirmationService" class="middleware.ws.service.BookConfirmationServiceImpl">
-		<property name="pagosYaPaymentAuthorizor" ref="pagosYaPaymentValidationService" />
-		<property name="localPaymentAuthorizor" ref="localPaymentValidationService"/>
 		<property name="eventManager" ref="eventManager"/>
 	</bean>
 
 	<bean id="bookQueryService" class="middleware.ws.service.BookQueryServiceImpl">
 		<property name="eventManager" ref="eventManager" />
-	</bean>
-
-	<bean id="bookVoidService" class="middleware.ws.service.BookVoidServiceImpl">
 	</bean>
 
 	<bean id="ticketBookService" class="middleware.ws.service.TicketBookServiceImpl">
@@ -108,12 +110,14 @@
 	<bean id="eventManager" class="middleware.business.EventManagerImpl">
 		<property name="eventDatasource" ref="eventDatasource" />
 		<property name="eventTicketsDatasource" ref="eventTicketsDatasource" />
+		<property name="localPaymentAuthorizor" ref="localPaymentValidationService"/>
+		<property name="pagosYaPaymentAuthorizor" ref="pagosYaPaymentValidationService"/>
 	</bean>
 
 	<jaxws:client id="pagosYaPaymentValidationService" serviceClass="wsdl.pagoya.PagosYaPaymentAuthorizor"
-		address="http://localhost:8082/pagosYaValidationService" />
+		address="${ws.pagosya.url}" />
 		
 	<jaxws:client id="localPaymentValidationService" serviceClass="wsdl.local.LocalPaymentAuthorizor"
-		address="http://localhost:8082/localValidationService" />
+		address="${ws.local.url}" />
 
 </beans>

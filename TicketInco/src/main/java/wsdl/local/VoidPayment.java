@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="request" type="{http://ticketincoesb.com/}pagosYaVoidRequest" minOccurs="0"/>
+ *         &lt;element name="request" type="{http://ticketincoesb.com/}localVoidRequest" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -31,17 +31,17 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class VoidPayment {
 
-    protected PagosYaVoidRequest request;
+    protected LocalVoidRequest request;
 
     /**
      * Obtiene el valor de la propiedad request.
      * 
      * @return
      *     possible object is
-     *     {@link PagosYaVoidRequest }
+     *     {@link LocalVoidRequest }
      *     
      */
-    public PagosYaVoidRequest getRequest() {
+    public LocalVoidRequest getRequest() {
         return request;
     }
 
@@ -50,10 +50,10 @@ public class VoidPayment {
      * 
      * @param value
      *     allowed object is
-     *     {@link PagosYaVoidRequest }
+     *     {@link LocalVoidRequest }
      *     
      */
-    public void setRequest(PagosYaVoidRequest value) {
+    public void setRequest(LocalVoidRequest value) {
         this.request = value;
     }
 

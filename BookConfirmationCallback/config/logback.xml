@@ -11,6 +11,14 @@
 		</layout>
 	</appender>
 	
+	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+		<file>logs/services.log</file>
+		<append>true</append>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+	
 	<logger name="middleware.ws" level="debug" additivity="false">
 		<appender-ref ref="STDOUT" />
 	</logger>

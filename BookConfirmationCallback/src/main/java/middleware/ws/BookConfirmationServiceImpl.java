@@ -24,7 +24,7 @@ public class BookConfirmationServiceImpl implements BookConfirmationService {
 		for (DataHandler imageHandler : request.getImages()) {
 			InputStream is = imageHandler.getInputStream();
 
-		    File file = new File("Entrada-" + request.getBookId() + "-" + imageIndex++ + ".png");
+		    File file = new File("entradas/Entrada-" + request.getBookId() + "-" + imageIndex++ + ".png");
 		    FileOutputStream fos = new FileOutputStream(file);
 		    BufferedOutputStream dest = new BufferedOutputStream(fos, 2048);
 

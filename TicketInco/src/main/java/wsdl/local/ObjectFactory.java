@@ -29,8 +29,9 @@ public class ObjectFactory {
     private final static QName _LocalPaymentRequest_QNAME = new QName("http://ticketincoesb.com/", "localPaymentRequest");
     private final static QName _AuthorizePayment_QNAME = new QName("http://ticketincoesb.com/", "authorizePayment");
     private final static QName _VoidPayment_QNAME = new QName("http://ticketincoesb.com/", "voidPayment");
-    private final static QName _PagosYaVoidRequest_QNAME = new QName("http://ticketincoesb.com/", "pagosYaVoidRequest");
+    private final static QName _LocalVoidResponse_QNAME = new QName("http://ticketincoesb.com/", "localVoidResponse");
     private final static QName _VoidPaymentResponse_QNAME = new QName("http://ticketincoesb.com/", "voidPaymentResponse");
+    private final static QName _LocalVoidRequest_QNAME = new QName("http://ticketincoesb.com/", "localVoidRequest");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: wsdl.local
@@ -64,11 +65,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link LocalVoidRequest }
+     * 
+     */
+    public LocalVoidRequest createLocalVoidRequest() {
+        return new LocalVoidRequest();
+    }
+
+    /**
      * Create an instance of {@link VoidPaymentResponse }
      * 
      */
     public VoidPaymentResponse createVoidPaymentResponse() {
         return new VoidPaymentResponse();
+    }
+
+    /**
+     * Create an instance of {@link LocalVoidResponse }
+     * 
+     */
+    public LocalVoidResponse createLocalVoidResponse() {
+        return new LocalVoidResponse();
     }
 
     /**
@@ -85,14 +102,6 @@ public class ObjectFactory {
      */
     public AuthorizePayment createAuthorizePayment() {
         return new AuthorizePayment();
-    }
-
-    /**
-     * Create an instance of {@link PagosYaVoidRequest }
-     * 
-     */
-    public PagosYaVoidRequest createPagosYaVoidRequest() {
-        return new PagosYaVoidRequest();
     }
 
     /**
@@ -141,12 +150,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link PagosYaVoidRequest }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link LocalVoidResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://ticketincoesb.com/", name = "pagosYaVoidRequest")
-    public JAXBElement<PagosYaVoidRequest> createPagosYaVoidRequest(PagosYaVoidRequest value) {
-        return new JAXBElement<PagosYaVoidRequest>(_PagosYaVoidRequest_QNAME, PagosYaVoidRequest.class, null, value);
+    @XmlElementDecl(namespace = "http://ticketincoesb.com/", name = "localVoidResponse")
+    public JAXBElement<LocalVoidResponse> createLocalVoidResponse(LocalVoidResponse value) {
+        return new JAXBElement<LocalVoidResponse>(_LocalVoidResponse_QNAME, LocalVoidResponse.class, null, value);
     }
 
     /**
@@ -156,6 +165,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://ticketincoesb.com/", name = "voidPaymentResponse")
     public JAXBElement<VoidPaymentResponse> createVoidPaymentResponse(VoidPaymentResponse value) {
         return new JAXBElement<VoidPaymentResponse>(_VoidPaymentResponse_QNAME, VoidPaymentResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link LocalVoidRequest }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ticketincoesb.com/", name = "localVoidRequest")
+    public JAXBElement<LocalVoidRequest> createLocalVoidRequest(LocalVoidRequest value) {
+        return new JAXBElement<LocalVoidRequest>(_LocalVoidRequest_QNAME, LocalVoidRequest.class, null, value);
     }
 
 }

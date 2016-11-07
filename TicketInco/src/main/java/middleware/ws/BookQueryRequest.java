@@ -17,4 +17,9 @@ public class BookQueryRequest {
 	public void setBookId(long bookId) {
 		this.bookId = bookId;
 	}
+
+	@Override
+	public String toString() {
+		return "BookQueryRequest [bookId=" + bookId + "]";
+	}
 }

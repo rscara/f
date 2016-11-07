@@ -11,6 +11,6 @@ public interface LocalPaymentAuthorizor {
 	public LocalPaymentResponse authorizePayment(@WebParam(name = "request") LocalPaymentRequest request);
 	
 	@WebMethod(action = "voidPayment", operationName = "voidPayment")
-	public void voidPayment(@WebParam(name = "request") PagosYaVoidRequest request);
+	public LocalVoidResponse voidPayment(@WebParam(name = "request") LocalVoidRequest request);
 
 }

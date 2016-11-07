@@ -10,7 +10,6 @@ public class LocalPaymentResponse {
 
 	public boolean ok;
 	public String errorDescription;
-	public long confirmationNumber;
 
 	public boolean isOk() {
 		return ok;
@@ -18,14 +17,6 @@ public class LocalPaymentResponse {
 
 	public void setOk(boolean ok) {
 		this.ok = ok;
-	}
-
-	public long getConfirmationNumber() {
-		return confirmationNumber;
-	}
-
-	public void setConfirmationNumber(long confirmationNumber) {
-		this.confirmationNumber = confirmationNumber;
 	}
 
 	public String getErrorDescription() {

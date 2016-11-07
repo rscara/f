@@ -26,13 +26,16 @@ public interface LocalPaymentAuthorizor {
     /**
      * 
      * @param request
+     * @return
+     *     returns wsdl.local.LocalVoidResponse
      */
     @WebMethod(action = "voidPayment")
+    @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "voidPayment", targetNamespace = "http://ticketincoesb.com/", className = "wsdl.local.VoidPayment")
     @ResponseWrapper(localName = "voidPaymentResponse", targetNamespace = "http://ticketincoesb.com/", className = "wsdl.local.VoidPaymentResponse")
-    public void voidPayment(
+    public LocalVoidResponse voidPayment(
         @WebParam(name = "request", targetNamespace = "")
-        PagosYaVoidRequest request);
+        LocalVoidRequest request);
 
     /**
      * 

@@ -2,18 +2,32 @@ package middleware.dal;
 
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import middleware.DateAdapter;
+
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class EventConfirmation {
 
 
-	public long eventId;
-	public Date eventDate;
-	public Date hour;
-	public String sector;
-	public int quantity;
-	public long bookId;
-	public double price;
+	private long eventId;
+	@XmlJavaTypeAdapter(DateAdapter.class)
+	private Date eventDate;
+	@XmlJavaTypeAdapter(DateAdapter.class)
+	private Date hour;
+	private String sector;
+	private int quantity;
+	private long bookId;
+	private double price;
+	private long paymentConfirmationId;
+	private long paymentMode;
 
-	public EventConfirmation(long eventId, Date eventDate, Date hour, String sector, int quantity, long bookId, double price) {
+	public EventConfirmation(long eventId, Date eventDate, Date hour, String sector, int quantity, long bookId, double price, 
+			long paymentConfirmationId, long paymentMode) {
 		super();
 		this.eventId = eventId;
 		this.eventDate = eventDate;
@@ -22,6 +36,12 @@ public class EventConfirmation {
 		this.quantity = quantity;
 		this.bookId = bookId;
 		this.price = price;
+		this.paymentConfirmationId = paymentConfirmationId;
+		this.paymentMode = paymentMode;
+	}
+	
+	public EventConfirmation() {
+
 	}
 
 	public long getEventId() {
@@ -80,10 +100,27 @@ public class EventConfirmation {
 		this.price = price;
 	}
 
+	public long getPaymentConfirmationId() {
+		return paymentConfirmationId;
+	}
+
+	public void setPaymentConfirmationId(long paymentConfirmationId) {
+		this.paymentConfirmationId = paymentConfirmationId;
+	}
+
+	public long getPaymentMode() {
+		return paymentMode;
+	}
+
+	public void setPaymentMode(long paymentMode) {
+		this.paymentMode = paymentMode;
+	}
+
 	@Override
 	public String toString() {
 		return "EventConfirmation [eventId=" + eventId + ", eventDate=" + eventDate + ", hour=" + hour + ", sector="
-				+ sector + ", quantity=" + quantity + ", bookId=" + bookId + ", price=" + price + "]";
+				+ sector + ", quantity=" + quantity + ", bookId=" + bookId + ", price=" + price
+				+ ", paymentConfirmationId=" + paymentConfirmationId + ", paymentMode=" + paymentMode + "]";
 	}
 
 }

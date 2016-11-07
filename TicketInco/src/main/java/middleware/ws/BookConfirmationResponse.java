@@ -32,4 +32,9 @@ public class BookConfirmationResponse {
 		this.images = images;
 	}
 
+	@Override
+	public String toString() {
+		return "BookConfirmationResponse [bookId=" + bookId + ", images=" + images + "]";
+	}
+
 }

@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element name="ok" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *         &lt;element name="errorDescription" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="confirmationNumber" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="confirmationNumber" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -37,7 +37,7 @@ public class PagosYaVoidResponse {
 
     protected boolean ok;
     protected String errorDescription;
-    protected long confirmationNumber;
+    protected int confirmationNumber;
 
     /**
      * Obtiene el valor de la propiedad ok.
@@ -83,7 +83,7 @@ public class PagosYaVoidResponse {
      * Obtiene el valor de la propiedad confirmationNumber.
      * 
      */
-    public long getConfirmationNumber() {
+    public int getConfirmationNumber() {
         return confirmationNumber;
     }
 
@@ -91,7 +91,7 @@ public class PagosYaVoidResponse {
      * Define el valor de la propiedad confirmationNumber.
      * 
      */
-    public void setConfirmationNumber(long value) {
+    public void setConfirmationNumber(int value) {
         this.confirmationNumber = value;
     }
 

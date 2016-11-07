@@ -10,7 +10,7 @@ public class PagosYaVoidResponse {
 
 	private boolean ok;
 	private String errorDescription;
-	private long confirmationNumber;
+	private int confirmationNumber;
 
 	public boolean isOk() {
 		return ok;
@@ -20,20 +20,20 @@ public class PagosYaVoidResponse {
 		this.ok = ok;
 	}
 
-	public long getConfirmationNumber() {
-		return confirmationNumber;
-	}
-
-	public void setConfirmationNumber(long confirmationNumber) {
-		this.confirmationNumber = confirmationNumber;
-	}
-
 	public String getErrorDescription() {
 		return errorDescription;
 	}
 
 	public void setErrorDescription(String errorDescription) {
 		this.errorDescription = errorDescription;
+	}
+
+	public int getConfirmationNumber() {
+		return confirmationNumber;
+	}
+
+	public void setConfirmationNumber(int confirmationNumber) {
+		this.confirmationNumber = confirmationNumber;
 	}
 
 }

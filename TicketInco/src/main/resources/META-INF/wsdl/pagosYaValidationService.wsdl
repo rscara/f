@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://ticketincoesb.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="PagosYaPaymentAuthorizorService" targetNamespace="http://ticketincoesb.com/">
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://ticketincoesb.com/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="PagosYaPaymentAuthorizorService" targetNamespace="http://ticketincoesb.com/">
   <wsdl:types>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://ticketincoesb.com/" elementFormDefault="unqualified" targetNamespace="http://ticketincoesb.com/" version="1.0">
 
@@ -40,7 +40,7 @@
     <xs:sequence>
       <xs:element name="ok" type="xs:boolean"/>
       <xs:element minOccurs="0" name="errorDescription" type="xs:string"/>
-      <xs:element name="confirmationNumber" type="xs:long"/>
+      <xs:element name="confirmationNumber" type="xs:int"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -106,29 +106,29 @@
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="PagosYaPaymentAuthorizorServiceSoapBinding" type="tns:PagosYaPaymentAuthorizor">
-    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsdl:operation name="voidPayment">
-      <soap:operation soapAction="voidPayment" style="document"/>
+      <soap12:operation soapAction="voidPayment" style="document"/>
       <wsdl:input name="voidPayment">
-        <soap:body use="literal"/>
+        <soap12:body use="literal"/>
       </wsdl:input>
       <wsdl:output name="voidPaymentResponse">
-        <soap:body use="literal"/>
+        <soap12:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="authorizePayment">
-      <soap:operation soapAction="authorizePayment" style="document"/>
+      <soap12:operation soapAction="authorizePayment" style="document"/>
       <wsdl:input name="authorizePayment">
-        <soap:body use="literal"/>
+        <soap12:body use="literal"/>
       </wsdl:input>
       <wsdl:output name="authorizePaymentResponse">
-        <soap:body use="literal"/>
+        <soap12:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="PagosYaPaymentAuthorizorService">
     <wsdl:port binding="tns:PagosYaPaymentAuthorizorServiceSoapBinding" name="PagosYaPaymentAuthorizorPort">
-      <soap:address location="http://localhost:8082/pagosYaValidationService"/>
+      <soap12:address location="http://localhost:8082/pagosYaValidationService"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

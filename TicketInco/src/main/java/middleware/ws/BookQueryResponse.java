@@ -20,4 +20,9 @@ public class BookQueryResponse {
 	public void setBookState(int bookState) {
 		this.bookState = bookState;
 	}
+
+	@Override
+	public String toString() {
+		return "BookQueryResponse [bookState=" + bookState + "]";
+	}
 }

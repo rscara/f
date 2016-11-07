@@ -44,4 +44,10 @@ public class TicketBookRequest {
 		this.eventSchedules = eventSchedules;
 	}
 
+	@Override
+	public String toString() {
+		return "TicketBookRequest [eventId=" + eventId + ", eventDate=" + eventDate + ", eventSchedules="
+				+ eventSchedules + "]";
+	}
+
 }
