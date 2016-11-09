@@ -15,6 +15,9 @@ public class BookConfirmationResponse {
 	private long bookId;
 	@XmlMimeType("application/octet-stream")
 	private List<DataHandler> images;
+	
+	private boolean error;
+	private String errorDescription;
 
 	public long getBookId() {
 		return bookId;
@@ -32,9 +35,20 @@ public class BookConfirmationResponse {
 		this.images = images;
 	}
 
-	@Override
-	public String toString() {
-		return "BookConfirmationResponse [bookId=" + bookId + ", images=" + images + "]";
+	public boolean isError() {
+		return error;
+	}
+
+	public void setError(boolean error) {
+		this.error = error;
+	}
+
+	public String getErrorDescription() {
+		return errorDescription;
+	}
+
+	public void setErrorDescription(String errorDescription) {
+		this.errorDescription = errorDescription;
 	}
 
 }

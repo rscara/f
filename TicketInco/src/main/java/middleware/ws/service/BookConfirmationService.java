@@ -8,11 +8,11 @@ import javax.xml.ws.soap.Addressing;
 import middleware.ws.BookConfirmationRequest;
 import middleware.ws.BookConfirmationResponse;
 
-@Addressing
+@Addressing(required=true)
 @WebService(name = "BookConfirmationService", targetNamespace = "http://ticketinco.com/")
 public interface BookConfirmationService {
 	
 	@WebMethod(action = "confirmBook", operationName = "confirmBook")
-	public BookConfirmationResponse confirmBook(@WebParam(name = "request") BookConfirmationRequest bookConfirmationRequest) throws Exception;
+	public BookConfirmationResponse confirmBook(@WebParam(name = "request") BookConfirmationRequest bookConfirmationRequest);
 
 }

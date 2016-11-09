@@ -203,15 +203,17 @@ public class EventManagerImpl implements EventManager {
 	@Override
 	public List<DataHandler> confirmBooks(long bookId, long paymentModeId, String creditCardNumber, int creditCardCheckDigit, 
 			Date creditCardExpiration) throws Exception {
+		int bookstate = 0;
 		try {
-			int bookstate = getBookState(bookId);
-			if (bookstate!=1) {
-				logger.error("Estado de reserva invalido: book=" + bookId + " estado=" + bookstate);
-				throw new Exception("Estado de reserva invalido: book=" + bookId + " estado=" + bookstate);
-			}
+			bookstate = getBookState(bookId);
 		} catch (Exception e) {
-			logger.error("Error consultando books:" + bookId, e);
-			throw new Exception("Error consultando books:" + bookId, e);
+			logger.error("No existe la reserva:" + bookId, e);
+			throw new Exception("No existe la reserva:" + bookId, e);
+		}
+		
+		if (bookstate!=1) {
+			logger.error("Estado de reserva invalido: book=" + bookId + " estado=" + bookstate);
+			throw new Exception("Estado de reserva invalido: book=" + bookId + " estado=" + bookstate);
 		}
 		
 		List<EventBook> eventBooks = eventTicketsDatasource.getEventBooksByBookId(bookId);

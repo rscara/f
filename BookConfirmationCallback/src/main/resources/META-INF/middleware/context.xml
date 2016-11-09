@@ -15,9 +15,13 @@
 	</bean>
 
 	<jaxws:endpoint id="BookConfirmationServiceEndpoint" implementor="#bookConfirmationService" address="/BookConfirmationService">
+		<jaxws:features>
+			<wsa:addressing xmlns:wsa="http://cxf.apache.org/ws/addressing" />
+		</jaxws:features>
 		<jaxws:properties>
 			<entry key="mtom-enabled" value="true" />
 		</jaxws:properties>
 	</jaxws:endpoint>
+	
 
 </beans>
