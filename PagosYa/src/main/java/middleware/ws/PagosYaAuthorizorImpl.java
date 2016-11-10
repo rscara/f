@@ -10,7 +10,7 @@ public class PagosYaAuthorizorImpl implements PagosYaAuthorizor {
 	private static final Logger logger = LoggerFactory.getLogger(PagosYaAuthorizorImpl.class);
 	
 	private long confirmationId = 0;
-	private long voidId = 0;
+	private int voidId = 0;
 	
 	private XStream xstream = new XStream();
 
@@ -21,12 +21,13 @@ public class PagosYaAuthorizorImpl implements PagosYaAuthorizor {
 		
 		PagosYaAuthorizeResponse response = new PagosYaAuthorizeResponse();
 		if (request.getCheckDigit()>5){
-			response.setError(true);
+			response.setOk(false);
 			response.setErrorDescription("No autorizado pago por PagosYa");
 		}
 		else {
 			response.setErrorDescription("OK");
-			response.setConfirmationId(confirmationId++);
+			response.setOk(true);
+			response.setConfirmationNumber(confirmationId++);
 		}
 		
 		logger.info("Response:");
@@ -40,13 +41,14 @@ public class PagosYaAuthorizorImpl implements PagosYaAuthorizor {
 		logger.info(xstream.toXML(request));
 		
 		PagosYaVoidResponse response = new PagosYaVoidResponse();
-		if (request.getConfirmationId()%2==0) {
-			response.setError(true);
+		if (request.getConfirmationNumber()%2==0) {
+			response.setOk(false);
 			response.setErrorDescription("Error autorizando anulacion por PagosYa");
 		}
 		else {
+			response.setOk(true);
 			response.setErrorDescription("OK");
-			response.setVoidConfirmationId(voidId++);
+			response.setConfirmationNumber(voidId++);
 		}
 		
 		logger.info("Response:");

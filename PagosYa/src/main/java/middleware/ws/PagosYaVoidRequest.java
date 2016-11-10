@@ -2,14 +2,14 @@ package middleware.ws;
 
 public class PagosYaVoidRequest {
 	
-	private long confirmationId;
+	private long confirmationNumber;
 
-	public long getConfirmationId() {
-		return confirmationId;
+	public long getConfirmationNumber() {
+		return confirmationNumber;
 	}
 
-	public void setConfirmationId(long confirmationId) {
-		this.confirmationId = confirmationId;
+	public void setConfirmationNumber(long confirmationNumber) {
+		this.confirmationNumber = confirmationNumber;
 	}
 
 }

@@ -18,4 +18,9 @@ public class PagosYaVoidRequest {
 		this.confirmationNumber = confirmationNumber;
 	}
 
+	@Override
+	public String toString() {
+		return "PagosYaVoidRequest [confirmationNumber=" + confirmationNumber + "]";
+	}
+
 }

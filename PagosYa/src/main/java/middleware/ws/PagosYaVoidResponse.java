@@ -2,24 +2,16 @@ package middleware.ws;
 
 public class PagosYaVoidResponse {
 
-	private long voidConfirmationId;
-	private boolean error;
+	private boolean ok;
 	private String errorDescription;
+	private int confirmationNumber;
 
-	public long getVoidConfirmationId() {
-		return voidConfirmationId;
+	public boolean isOk() {
+		return ok;
 	}
 
-	public void setVoidConfirmationId(long voidConfirmationId) {
-		this.voidConfirmationId = voidConfirmationId;
-	}
-
-	public boolean isError() {
-		return error;
-	}
-
-	public void setError(boolean error) {
-		this.error = error;
+	public void setOk(boolean ok) {
+		this.ok = ok;
 	}
 
 	public String getErrorDescription() {
@@ -28,6 +20,14 @@ public class PagosYaVoidResponse {
 
 	public void setErrorDescription(String errorDescription) {
 		this.errorDescription = errorDescription;
+	}
+
+	public int getConfirmationNumber() {
+		return confirmationNumber;
+	}
+
+	public void setConfirmationNumber(int confirmationNumber) {
+		this.confirmationNumber = confirmationNumber;
 	}
 
 }

@@ -48,4 +48,10 @@ public class PagosYaPaymentRequest {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
+
+	@Override
+	public String toString() {
+		return "PagosYaPaymentRequest [creditCardNumber=" + creditCardNumber + ", expiration=" + expiration
+				+ ", checkDigit=" + checkDigit + ", amount=" + amount + "]";
+	}
 }

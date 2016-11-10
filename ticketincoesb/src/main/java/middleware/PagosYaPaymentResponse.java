@@ -36,4 +36,10 @@ public class PagosYaPaymentResponse {
 		this.errorDescription = errorDescription;
 	}
 
+	@Override
+	public String toString() {
+		return "PagosYaPaymentResponse [ok=" + ok + ", errorDescription=" + errorDescription + ", confirmationNumber="
+				+ confirmationNumber + "]";
+	}
+
 }

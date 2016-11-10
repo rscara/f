@@ -1,31 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:mulexml="http://www.mulesoft.org/schema/mule/xml" xmlns:jms="http://www.mulesoft.org/schema/mule/jms" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+<mule xmlns:tls="http://www.mulesoft.org/schema/mule/tls" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:core="http://www.mulesoft.org/schema/mule/core" xmlns:mulexml="http://www.mulesoft.org/schema/mule/xml" xmlns:jms="http://www.mulesoft.org/schema/mule/jms" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:spring="http://www.springframework.org/schema/beans" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
-http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/cxf http://www.mulesoft.org/schema/mule/cxf/current/mule-cxf.xsd
 http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
 http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd
-http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd">
+http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd">
     
     <http:listener-config name="listener-config" host="localhost" port="8082" doc:name="HTTP Listener Configuration"/>
-    <jms:activemq-connector name="Active_MQ" brokerURL="tcp://localhost:61616" validateConnections="true" doc:name="Active MQ"/>
+    <jms:activemq-connector name="Active_MQ" brokerURL="tcp://localhost:61616" validateConnections="true" doc:name="Active MQ">
+	    <reconnect-forever />
+    </jms:activemq-connector>
     <jms:object-to-jmsmessage-transformer  name="Object_to_JMSMessage" doc:name="Object to JMSMessage"/>
     <mulexml:object-to-xml-transformer name="Object_to_XML" doc:name="Object to XML"/>
+    <http:request-config name="HTTP_Request_Configuration" protocol="HTTPS" host="localhost" port="8083" basePath="/" doc:name="HTTP Request Configuration" responseTimeout="10000000" tlsContext-ref="TLS_Context">
+        <http:basic-authentication username="user" password="password" preemptive="true"/>
+    </http:request-config>
+    <tls:context name="TLS_Context" doc:name="TLS Context">
+        <tls:trust-store insecure="true"/>
+    </tls:context>
     
     <flow name="PagosYaValidationService">
         <http:listener config-ref="listener-config" path="/pagosYaValidationService" doc:name="HTTP"/>
         <cxf:jaxws-service doc:name="CXF" serviceClass="middleware.PagosYaPaymentAuthorizor" soapVersion="1.2"/>
-        <component class="middleware.PagosYaPayentAuthorizorImpl" doc:name="Java"/>
+        <response>
+            <logger message="Response: #[payload]" level="INFO" doc:name="Logger"/>
+        </response>
+        <logger message="Request: #[payload]" level="INFO" doc:name="Logger"/>
+        <set-variable variableName="action" value="#[message.inboundProperties.'soapaction']" doc:name="Variable"/>
+        <choice doc:name="Choice">
+            <when expression="#[flowVars.action == '&quot;authorizePayment&quot;']">
+                <json:object-to-json-transformer mimeType="application/json" doc:name="Object to JSON"/>
+                <http:request config-ref="HTTP_Request_Configuration" path="/pagosya/authorizePayment" method="POST" doc:name="HTTP"/>
+                <json:json-to-object-transformer returnClass="middleware.PagosYaPaymentResponse" doc:name="JSON to Object"/>
+            </when>
+            <when expression="#[flowVars.action == '&quot;voidPayment&quot;']">
+                <json:object-to-json-transformer doc:name="Object to JSON"/>
+                <http:request config-ref="HTTP_Request_Configuration" path="/pagosya/voidPayment" method="POST" doc:name="HTTP"/>
+                <json:json-to-object-transformer returnClass="middleware.PagosYaVoidResponse" doc:name="JSON to Object"/>
+            </when>
+        </choice>
     </flow>
     <flow name="LocalValidationService">
         <http:listener config-ref="listener-config" path="/localValidationService" doc:name="HTTP"/>
         <cxf:jaxws-service serviceClass="middleware.LocalPaymentAuthorizor" doc:name="CXF" soapVersion="1.2"/>
-        <jms:outbound-endpoint queue="TicketIncoLocalPayment" connector-ref="Active_MQ" doc:name="JMS" transformer-refs="Object_to_XML">
-        </jms:outbound-endpoint>
+        <jms:outbound-endpoint queue="TicketIncoLocalPayment" connector-ref="Active_MQ" doc:name="JMS" transformer-refs="Object_to_XML"/>
         <component class="middleware.LocalPaymentAuthorizorImpl" doc:name="Java"/>
     </flow>
 </mule>

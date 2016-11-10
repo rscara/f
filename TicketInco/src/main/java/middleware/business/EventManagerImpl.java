@@ -52,7 +52,7 @@ public class EventManagerImpl implements EventManager {
 	private PagosYaPaymentAuthorizor pagosYaPaymentAuthorizor;
 	private LocalPaymentAuthorizor localPaymentAuthorizor;
 	
-	private SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	private DecimalFormat df = new DecimalFormat("###.##");
 	private SimpleDateFormat onlydateformat = new SimpleDateFormat("dd-MM-yyyy");
 	private SimpleDateFormat onlyhourformat = new SimpleDateFormat("HH:mm");
